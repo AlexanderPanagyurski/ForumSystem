@@ -11,5 +11,7 @@
         public string Url => $"/c/{this.Name.Replace(' ', '-')}";
 
         public string ImageUrl { get; set; }
+
+        public int PostsCount { get; set; }
     }
 }

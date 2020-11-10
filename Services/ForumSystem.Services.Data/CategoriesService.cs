@@ -25,6 +25,7 @@
                 Title = x.Title,
                 Description = x.Description,
                 ImageUrl = x.ImageUrl,
+                PostsCount = x.Posts.Count,
             })
                 .ToArray();
 
