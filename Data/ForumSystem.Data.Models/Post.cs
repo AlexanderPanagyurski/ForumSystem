@@ -1,11 +1,17 @@
 ﻿namespace ForumSystem.Data.Models
 {
+    using System;
     using System.Collections.Generic;
 
     using ForumSystem.Data.Common.Models;
 
     public class Post : BaseDeletableModel<string>
     {
+        public Post()
+        {
+            this.Id = Guid.NewGuid().ToString();
+        }
+
         public string Title { get; set; }
 
         public string Content { get; set; }

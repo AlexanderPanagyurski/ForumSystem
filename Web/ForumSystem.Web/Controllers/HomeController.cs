@@ -2,15 +2,27 @@
 {
     using System.Diagnostics;
 
+    using ForumSystem.Services.Data;
     using ForumSystem.Web.ViewModels;
-
+    using ForumSystem.Web.ViewModels.Home;
     using Microsoft.AspNetCore.Mvc;
 
     public class HomeController : BaseController
     {
+        private readonly ICategoriesService categoriesService;
+
+        public HomeController(ICategoriesService categoriesService)
+        {
+            this.categoriesService = categoriesService;
+        }
+
         public IActionResult Index()
         {
-            return this.View();
+            var viewModel = new IndexViewModel
+            {
+                Categories = this.categoriesService.GetAll(),
+            };
+            return this.View(viewModel);
         }
 
         public IActionResult Privacy()
