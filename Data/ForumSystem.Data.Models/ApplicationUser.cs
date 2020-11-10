@@ -33,5 +33,9 @@ namespace ForumSystem.Data.Models
         public virtual ICollection<IdentityUserClaim<string>> Claims { get; set; }
 
         public virtual ICollection<IdentityUserLogin<string>> Logins { get; set; }
+
+        public virtual ICollection<Post> Posts { get; set; } = new HashSet<Post>();
+
+        public virtual ICollection<Comment> Comments { get; set; } = new HashSet<Comment>();
     }
 }
