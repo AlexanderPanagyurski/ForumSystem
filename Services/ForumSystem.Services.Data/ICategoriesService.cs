@@ -6,5 +6,7 @@
     public interface ICategoriesService
     {
         IEnumerable<IndexCategoryViewModel> GetAll(int? count = null);
+
+        T GetByName<T>(string name);
     }
 }
