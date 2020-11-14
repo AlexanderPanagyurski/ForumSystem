@@ -1,0 +1,12 @@
+﻿@model ForumSystem.Web.ViewModels.Posts.PostCreateInputModel
+@{
+    this.ViewData["Title"] = "Create your new Post";
+}
+
+<h1>@this.ViewData["Title"]</h1>
+<form method="post" asp-action="Create">
+    <input asp-for="Title" />
+    <input asp-for="Content" />
+    <input asp-for="CategoryId" />
+    <input type="submit" class="btn btn-primary" />
+</form>
