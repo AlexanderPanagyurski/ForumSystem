@@ -4,23 +4,27 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
-
+    using ForumSystem.Data.Models;
     using ForumSystem.Services.Data;
     using ForumSystem.Web.ViewModels.Posts;
     using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
 
     public class PostsController : Controller
     {
         private readonly IPostsService postsService;
         private readonly ICategoriesService categoriesService;
+        private readonly UserManager<ApplicationUser> userManager;
 
         public PostsController(
             IPostsService postsService,
-            ICategoriesService categoriesService)
+            ICategoriesService categoriesService,
+             UserManager<ApplicationUser> userManager)
         {
             this.postsService = postsService;
             this.categoriesService = categoriesService;
+            this.userManager = userManager;
         }
 
         [Authorize]
@@ -34,7 +38,7 @@
             return this.View(viewModel);
         }
 
-     /*   [HttpPost]
+        [HttpPost]
         [Authorize]
         public async Task<IActionResult> Create(PostCreateInputModel input)
         {
@@ -46,7 +50,7 @@
 
             var postId = await this.postsService.CreateAsync(input.Title, input.Content, input.CategoryId, user.Id);
             this.TempData["InfoMessage"] = "Forum post created!";
-            return this.RedirectToAction(nameof(this.ById), new { id = postId });
-        } */
+            return this.Redirect("/");
+        }
     }
 }
