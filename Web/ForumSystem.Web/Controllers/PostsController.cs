@@ -7,31 +7,46 @@
 
     using ForumSystem.Services.Data;
     using ForumSystem.Web.ViewModels.Posts;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
     public class PostsController : Controller
     {
         private readonly IPostsService postsService;
+        private readonly ICategoriesService categoriesService;
 
-        public PostsController(IPostsService postsService)
+        public PostsController(
+            IPostsService postsService,
+            ICategoriesService categoriesService)
         {
             this.postsService = postsService;
+            this.categoriesService = categoriesService;
         }
 
+        [Authorize]
         public IActionResult Create()
         {
-            return this.View();
+            var categories = this.categoriesService.GetAll<CategoryDropDownViewModel>();
+            var viewModel = new PostCreateInputModel
+            {
+                Categories = categories,
+            };
+            return this.View(viewModel);
         }
 
-        [HttpPost]
+     /*   [HttpPost]
+        [Authorize]
         public async Task<IActionResult> Create(PostCreateInputModel input)
         {
+            var user = await this.userManager.GetUserAsync(this.User);
             if (!this.ModelState.IsValid)
             {
                 return this.View(input);
             }
 
-            return null;
-        }
+            var postId = await this.postsService.CreateAsync(input.Title, input.Content, input.CategoryId, user.Id);
+            this.TempData["InfoMessage"] = "Forum post created!";
+            return this.RedirectToAction(nameof(this.ById), new { id = postId });
+        } */
     }
 }

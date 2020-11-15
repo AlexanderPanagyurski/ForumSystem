@@ -1,5 +1,6 @@
 ﻿namespace ForumSystem.Web.ViewModels.Posts
 {
+    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
     using ForumSystem.Data.Models;
@@ -13,10 +14,9 @@
         [Required]
         public string Content { get; set; }
 
-        [Required]
         [Display(Name = "Category")]
-        public string CategoryId { get; set; }
+        public int CategoryId { get; set; }
 
-        // public IEnumerable<CategoryDropDownViewModel> Categories { get; set; }
+        public IEnumerable<CategoryDropDownViewModel> Categories { get; set; }
     }
 }

@@ -6,7 +6,6 @@
     using ForumSystem.Data.Common.Repositories;
     using ForumSystem.Data.Models;
     using ForumSystem.Services.Mapping;
-    using ForumSystem.Web.ViewModels.Home;
 
     public class CategoriesService : ICategoriesService
     {
@@ -17,26 +16,23 @@
             this.categoriesRepository = categoriesRepository;
         }
 
-        public IEnumerable<IndexCategoryViewModel> GetAll(int? count = null)
+        public IEnumerable<T> GetAll<T>(int? count = null)
         {
-            var categories = this.categoriesRepository.All().Select(x => new IndexCategoryViewModel
+            IQueryable<Category> query =
+                this.categoriesRepository.All().OrderBy(x => x.Name);
+            if (count.HasValue)
             {
-                Name = x.Name,
-                Title = x.Title,
-                Description = x.Description,
-                ImageUrl = x.ImageUrl,
-                PostsCount = x.Posts.Count,
-            })
-                .ToArray();
+                query = query.Take(count.Value);
+            }
 
-            return categories;
+            return query.To<T>().ToList();
         }
 
         public T GetByName<T>(string name)
         {
-            var category = this.categoriesRepository.All().Where(x => x.Name == name)
-                 .To<T>().FirstOrDefault();
-
+            var category = this.categoriesRepository.All()
+                .Where(x => x.Name.Replace(" ", "-") == name.Replace(" ", "-"))
+                .To<T>().FirstOrDefault();
             return category;
         }
     }
