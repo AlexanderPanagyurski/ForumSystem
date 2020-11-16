@@ -3,11 +3,14 @@
     using System;
     using System.Net;
     using System.Text.RegularExpressions;
+
     using ForumSystem.Data.Models;
     using ForumSystem.Services.Mapping;
 
     public class PostInCategoryViewModel : IMapFrom<Post>
     {
+        public string Id { get; set; }
+
         public string Title { get; set; }
 
         public string UserUserName { get; set; }

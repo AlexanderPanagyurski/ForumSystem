@@ -1,7 +1,7 @@
 ﻿.img-image {
     transition: transform .3s;
-    width:160px; 
-    height:80px;
+    width: 160px;
+    height: 80px;
 }
 
     .img-image:hover {
@@ -11,4 +11,20 @@
 
 .img:hover {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.fa-thumbs-down {
+    transform: scale(1.5,1.5);
+    color: grey;
+}
+    .fa-thumbs-down:hover {
+        color: red;
+    }
+
+.fa-thumbs-up {
+    transform: scale(1.5,1.5);
+    color: grey;
+}
+.fa-thumbs-up:hover {
+    color:lightgreen;
 }

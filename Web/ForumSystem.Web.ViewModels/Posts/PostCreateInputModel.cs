@@ -8,6 +8,8 @@
 
     public class PostCreateInputModel : IMapTo<Post>
     {
+        public string Id { get; set; }
+
         [Required]
         public string Title { get; set; }
 

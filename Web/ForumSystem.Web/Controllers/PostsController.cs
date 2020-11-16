@@ -38,6 +38,18 @@
             return this.View(viewModel);
         }
 
+        public IActionResult ById(string id)
+        {
+            var postViewModel = this.postsService.GetById<PostViewModel>(id);
+            if (postViewModel == null)
+            {
+                return this.NotFound();
+            }
+
+            return this.View(postViewModel);
+        }
+
+
         [HttpPost]
         [Authorize]
         public async Task<IActionResult> Create(PostCreateInputModel input)

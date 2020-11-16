@@ -3,7 +3,7 @@
     using ForumSystem.Data.Models;
     using ForumSystem.Services.Mapping;
 
-    public class IndexCategoryViewModel :IMapFrom<Category>
+    public class IndexCategoryViewModel : IMapFrom<Category>
     {
         public string Title { get; set; }
 
