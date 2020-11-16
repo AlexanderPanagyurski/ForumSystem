@@ -1,0 +1,14 @@
+﻿.img-image {
+    transition: transform .3s;
+    width:160px; 
+    height:80px;
+}
+
+    .img-image:hover {
+        z-index: 1;
+        transform: scale(1.4);
+    }
+
+.img:hover {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
