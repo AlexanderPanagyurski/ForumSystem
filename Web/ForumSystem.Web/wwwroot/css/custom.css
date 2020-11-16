@@ -17,6 +17,7 @@
     transform: scale(1.5,1.5);
     color: grey;
 }
+
     .fa-thumbs-down:hover {
         color: red;
     }
@@ -25,6 +26,7 @@
     transform: scale(1.5,1.5);
     color: grey;
 }
-.fa-thumbs-up:hover {
-    color:lightgreen;
-}
+
+    .fa-thumbs-up:hover {
+        color: green;
+    }

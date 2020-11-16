@@ -11,6 +11,8 @@
     {
         public string Id { get; set; }
 
+        public string UserProfileImage { get; set; }
+
         public DateTime CreatedOn { get; set; }
 
         public string Title { get; set; }
