@@ -14,7 +14,7 @@
 }
 
 .fa-thumbs-down {
-    transform: scale(1.5,1.5);
+    transform: scale(1.6,1.6);
     color: grey;
 }
 
@@ -23,10 +23,32 @@
     }
 
 .fa-thumbs-up {
-    transform: scale(1.5,1.5);
+    transform: scale(1.6,1.6);
     color: grey;
 }
 
     .fa-thumbs-up:hover {
-        color: green;
+        color: rgb(15, 226, 43);
     }
+#votesCount{
+    font-size:20px;
+}
+.fa-heart {
+    transform: scale(2,2);
+    color:lightgrey;
+}
+.fa-heart:hover {
+    color: red;
+}
+.fa-eye {
+    transform: scale(2,2);
+    color: lightgrey;
+}
+
+.datetime {
+    font-size: 15px;
+}
+
+.views{
+    font-size:18px;
+}

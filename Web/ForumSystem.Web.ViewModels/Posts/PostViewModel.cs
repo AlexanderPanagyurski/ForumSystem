@@ -1,7 +1,7 @@
 ﻿namespace ForumSystem.Web.ViewModels.Posts
 {
     using System;
-
+    using System.Linq;
     using AutoMapper;
     using ForumSystem.Data.Models;
     using ForumSystem.Services.Mapping;
@@ -29,11 +29,11 @@
 
         public void CreateMappings(IProfileExpression configuration)
         {
-            // configuration.CreateMap<Post, PostViewModel>()
-            //    .ForMember(x => x.VotesCount, options =>
-            //    {
-            //        options.MapFrom(p => p.Votes.Sum(v => (int)v.Type));
-            //    });
+            configuration.CreateMap<Post, PostViewModel>()
+               .ForMember(x => x.VotesCount, options =>
+               {
+                   options.MapFrom(p => p.Votes.Sum(v => (int)v.VoteType));
+               });
         }
     }
 }

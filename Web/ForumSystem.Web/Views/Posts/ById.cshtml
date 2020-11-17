@@ -58,7 +58,6 @@
         @this.TempData["InfoMessage"]
     </div>
 }
-
 <h1>@Model.Title</h1>
 <div class="container-fluid mt-100">
     <div class="row">
@@ -71,23 +70,27 @@
                         </div>
                         <div class="media-body ml-3">
                             @Model.UserUserName
-                            <div class="text-muted small">
-                                <time datetime="@Model.CreatedOn.ToString("O")"></time>
+                            <div class="datetime text-muted small">
+                                @Model.CreatedOn.ToString("f")
                             </div>
                         </div>
                         <div class="text-muted small ml-3">
-                            <form id="votesForm" method="post"></form>
-                            <div>
-                                <a href="#" onclick="sendVote(@Model.Id, true)">
-                                    <i class="fa fa-thumbs-up"></i>
-                                </a>
-                            </div>
-                            <div id="votesCount">@Model.VotesCount</div>
-                            <div>
-                                <a href="#" onclick="sendVote(@Model.Id, false)">
-                                    <i class="fa fa-thumbs-down"></i>
-                                </a>
-                            </div>
+                            @{
+                                var postId = $"\"{Model.Id}\"";
+                                <form id="votesForm" method="post"></form>
+                                <div>
+                                    <a href="#" onclick="sendVote(@postId, true)">
+                                        <i class="fa fa-thumbs-up"></i>
+                                    </a>
+                                </div>
+                                <div id="votesCount">@Model.VotesCount</div>
+                                <div>
+                                    <a href="#" onclick="sendVote(@postId, false)">
+                                        <i class="fa fa-thumbs-down"></i>
+                                    </a>
+                                </div>
+                            }
+
                         </div>
                     </div>
                 </div>
@@ -96,9 +99,22 @@
                         @Html.Raw(Model.SanitizedContent)
                     </article>
 
+                </div>
+                <div class="card-footer d-flex flex-wrap justify-content-between align-items-center px-0 pt-0 pb-3">
                     @if (this.User.Identity.IsAuthenticated)
                     {
-                        <div class="px-4 pt-3"> <button type="button" class="btn btn-primary float-right" onclick="showAddCommentForm(0)"><i class="fa fa-plus"></i>&nbsp; Comment</button> </div>
+                    <div class="row offset-sm-0">
+                        <div class="col-md px-4 pt-3">
+                            <a href="#"> <i class="fa fa-heart"></i></a>
+                        </div>
+                        <div class="col-md px-4 pt-3">
+                            <i class="fa fa-eye"></i>
+                        </div>
+                        <div class="views col-md px-2 pt-3">0</div>
+                    </div>
+                        <div class="row offset-sm-8">
+                            <div class="px-4 pt-3"> <button type="button" class="btn btn-primary float-right" onclick="showAddCommentForm(0)"><i class="fa fa-plus"></i>&nbsp; Comment</button> </div>
+                        </div>
                         <div class="clearfix"></div>
                     }
                     @*@{ DisplayComments(null); }*@
@@ -142,6 +158,7 @@
         function sendVote(postId, isUpVote) {
             var token = $("#votesForm input[name=__RequestVerificationToken]").val();
             var json = { postId: postId, isUpVote: isUpVote };
+            console.log(JSON.stringify(json));
             $.ajax({
                 url: "/api/votes",
                 type: "POST",
@@ -152,6 +169,7 @@
                 success: function (data) {
                     $("#votesCount").html(data.votesCount);
                 }
+
             });
         }
     </script>
