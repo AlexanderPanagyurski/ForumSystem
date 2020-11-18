@@ -1,12 +1,11 @@
 ﻿@model ForumSystem.Web.ViewModels.Categories.CategoryViewModel
-@{
-    this.ViewData["Title"] = Model.Title; 
-}
+@{ this.ViewData["Title"] = Model.Title; }
+
+
 <h1 class="display-2">@Model.Title</h1>
 <div class="alert alert-info">
     @Model.Description
 </div>
-
 @foreach (var post in Model.Posts)
 {
 <div class="media-body">
@@ -28,5 +27,4 @@
             <span class="glyphicon glyphicon-star-empty"></span>
         </li>
     </ul>
-</div>
-}
+</div>}

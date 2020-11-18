@@ -24,6 +24,7 @@
 
         [Authorize]
         [HttpPost]
+        [IgnoreAntiforgeryToken]
         public async Task<ActionResult<VoteResponseModel>> Post(VoteInputModel input)
         {
             var user = await this.userManager.GetUserAsync(this.User);

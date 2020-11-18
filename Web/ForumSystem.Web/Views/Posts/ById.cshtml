@@ -103,18 +103,10 @@
                 <div class="card-footer d-flex flex-wrap justify-content-between align-items-center px-0 pt-0 pb-3">
                     @if (this.User.Identity.IsAuthenticated)
                     {
-                    <div class="row offset-sm-0">
-                        <div class="col-md px-4 pt-3">
+                        <div class="col-md px-5 pt-3">
                             <a href="#"> <i class="fa fa-heart"></i></a>
                         </div>
-                        <div class="col-md px-4 pt-3">
-                            <i class="fa fa-eye"></i>
-                        </div>
-                        <div class="views col-md px-2 pt-3">0</div>
-                    </div>
-                        <div class="row offset-sm-8">
-                            <div class="px-4 pt-3"> <button type="button" class="btn btn-primary float-right" onclick="showAddCommentForm(0)"><i class="fa fa-plus"></i>&nbsp; Comment</button> </div>
-                        </div>
+                        <div class="col-md px-5 pt-3"> <button type="button" class="btn btn-primary float-right" onclick="showAddCommentForm(0)"><i class="fa fa-plus"></i>&nbsp; Comment</button> </div>
                         <div class="clearfix"></div>
                     }
                     @*@{ DisplayComments(null); }*@
@@ -158,7 +150,6 @@
         function sendVote(postId, isUpVote) {
             var token = $("#votesForm input[name=__RequestVerificationToken]").val();
             var json = { postId: postId, isUpVote: isUpVote };
-            console.log(JSON.stringify(json));
             $.ajax({
                 url: "/api/votes",
                 type: "POST",
@@ -169,7 +160,6 @@
                 success: function (data) {
                     $("#votesCount").html(data.votesCount);
                 }
-
             });
         }
     </script>
