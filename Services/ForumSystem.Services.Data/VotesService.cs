@@ -21,18 +21,15 @@
 
         public int GetVotes(string postId)
         {
-            return this.votesRepository
-                .All()
-                .Where(x => x.PostId == postId)
-                .Sum(x => (int)x.VoteType);
+            var votes = this.votesRepository.All()
+                .Where(x => x.PostId == postId).Sum(x => (int)x.VoteType);
+            return votes;
         }
 
         public async Task VoteAsync(string postId, string userId, bool isUpVote)
         {
-            var vote = this.votesRepository
-                .All()
+            var vote = this.votesRepository.All()
                 .FirstOrDefault(x => x.PostId == postId && x.UserId == userId);
-
             if (vote != null)
             {
                 vote.VoteType = isUpVote ? VoteType.UpVote : VoteType.DownVote;
@@ -45,6 +42,7 @@
                     UserId = userId,
                     VoteType = isUpVote ? VoteType.UpVote : VoteType.DownVote,
                 };
+
                 await this.votesRepository.AddAsync(vote);
             }
 
