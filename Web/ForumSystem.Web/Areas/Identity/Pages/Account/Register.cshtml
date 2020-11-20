@@ -6,7 +6,7 @@
 
 <h1 class="text-center">@ViewData["Title"]</h1>
 
-<form method="post" asp-action="Register">
+<form asp-route-returnUrl="@Model.ReturnUrl" method="post">
     <hr />
     <div class="row">
         <div class="col-sm-6">
