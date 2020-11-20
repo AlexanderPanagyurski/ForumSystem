@@ -20,6 +20,8 @@ namespace ForumSystem.Data.Models
 
         public string ProfileImage { get; set; }
 
+        public DateTime DateOfBirth { get; set; }
+
         // Audit info
         public DateTime CreatedOn { get; set; }
 
