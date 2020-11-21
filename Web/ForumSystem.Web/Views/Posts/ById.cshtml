@@ -1,56 +1,51 @@
 ﻿@model ForumSystem.Web.ViewModels.Posts.PostViewModel
-
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link href="~/css/custom.css" rel="stylesheet" asp-append-version="true" />
-</head>
-@*@{
-        this.ViewData["Title"] = Model.Title;
-        void DisplayComments(int? parentId)
+@{
+    this.ViewData["Title"] = Model.Title;
+    void DisplayComments(string parentId)
+    {
+        var comments = this.Model.Comments.Where(x => x.ParentId == parentId);
+        if (!comments.Any())
         {
-            //var comments = this.Model.Comments.Where(x => x.ParentId == parentId);
-            //if (!comments.Any())
-            //{
-            //    return;
-            //}
-
-            @foreach (var comment in comments)
-            {
-                <div class="container-fluid mt-100">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="card mb-4">
-                                <div class="card-header">
-                                    <div class="media flex-wrap w-100 align-items-center">
-                                        <img src="https://res.cloudinary.com/dxfq3iotg/image/upload/v1574583246/AAA/2.jpg" class="d-block ui-w-40 rounded-circle" alt="">
-                                        <div class="media-body ml-3">
-                                            @comment.UserUserName
-                                            <div class="text-muted small">
-                                                <time datetime="@comment.CreatedOn.ToString("O")"></time>
-                                            </div>
-                                        </div>
-                                        <div class="text-muted small ml-3">
-                                            @if (this.User.Identity.IsAuthenticated)
-                                            {
-                                                <div class="px-4 pt-3"> <button type="button" class="btn btn-secondary" onclick="showAddCommentForm(@comment.Id)"><i class="fa fa-plus"></i>&nbsp; Answer</button> </div>
-                                            }
+            return;
+        }
+        <br />
+        @foreach (var comment in comments)
+        {
+            <div class="container-fluid mt-100">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <div class="media flex-wrap w-100 align-items-center">
+                                    <img src="@comment.UserProfileImage" style="width:80px; height:80px;" class="d-block ui-w-40 rounded-circle" alt="">
+                                    <div class="media-body ml-3">
+                                        @Model.UserUserName
+                                        <div class="datetime text-muted small">
+                                            @Model.CreatedOn.ToString("f")
                                         </div>
                                     </div>
+                                    <div class="text-muted small ml-3">
+                                        @if (this.User.Identity.IsAuthenticated)
+                                        {
+                                            var commentId = $"\"{@comment.Id}\"";
+                                            <div class="px-4 pt-3"> <button type="button" class="btn btn-secondary" onclick="showAddCommentForm(@commentId)"><i class="fa fa-comment-dots"></i>&nbsp; Answer</button> </div>
+                                        }
+                                    </div>
                                 </div>
-                                <div class="card-body">
-                                    <article>
-                                        @Html.Raw(comment.SanitizedContent)
-                                    </article>
-                                    @{ DisplayComments(comment.Id); }
-                                </div>
+                            </div>
+                            <div class="card-body">
+                                <article>
+                                    @Html.Raw(comment.SanitizedContent)
+                                </article>
+                                @{ DisplayComments(comment.Id); }
                             </div>
                         </div>
                     </div>
                 </div>
-            }
+            </div>
         }
-    }*@
+    }
+}
 
 @if (this.TempData["InfoMessage"] != null)
 {
@@ -58,6 +53,7 @@
         @this.TempData["InfoMessage"]
     </div>
 }
+
 <h1>@Model.Title</h1>
 <div class="container-fluid mt-100">
     <div class="row">
@@ -65,9 +61,7 @@
             <div class="card mb-4">
                 <div class="card-header">
                     <div class="media flex-wrap w-100 align-items-center">
-                        <div class="profile-image">
-                            <img src="@Model.UserProfileImage" style="width:80px; height:80px;" class="d-block ui-w-40 rounded-circle" alt="@Model.Title">
-                        </div>
+                        <img src="@this.Model.UserProfileImage" style="width:80px; height:80px;" class="d-block ui-w-40 rounded-circle" alt="">
                         <div class="media-body ml-3">
                             @Model.UserUserName
                             <div class="datetime text-muted small">
@@ -99,17 +93,17 @@
                         @Html.Raw(Model.SanitizedContent)
                     </article>
 
-                </div>
-                <div class="card-footer d-flex flex-wrap justify-content-between align-items-center px-0 pt-0 pb-3">
                     @if (this.User.Identity.IsAuthenticated)
                     {
-                        <div class="col-md px-5 pt-3">
-                            <a href="#"> <i class="fa fa-heart"></i></a>
+                        <div class="row">
+                            <div class="col float-left pt-2 px-5">
+                                <a href="#"> <i class="fa fa-heart"></i></a>
+                            </div>
+                            <div class="col float-right px-5"> <button type="button" class="btn btn-primary float-right" onclick="showAddCommentForm(0)"><i class="fa fa-comment-dots" ></i>&nbsp; Comment</button> </div>
                         </div>
-                        <div class="col-md px-5 pt-3"> <button type="button" class="btn btn-primary float-right" onclick="showAddCommentForm(0)"><i class="fa fa-plus"></i>&nbsp; Comment</button> </div>
                         <div class="clearfix"></div>
                     }
-                    @*@{ DisplayComments(null); }*@
+                    @{ DisplayComments(null); }
                 </div>
             </div>
         </div>

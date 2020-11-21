@@ -1,12 +1,13 @@
 ﻿namespace ForumSystem.Web.Controllers
 {
+    using System;
+
     using ForumSystem.Data.Common.Repositories;
     using ForumSystem.Data.Models;
     using ForumSystem.Services.Data;
     using ForumSystem.Web.ViewModels.Categories;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Logging;
-    using System;
 
     public class CategoriesController : Controller
     {
@@ -21,9 +22,8 @@
             this.postsService = postsService;
         }
 
-        public IActionResult ByName(string name, int page=1)
+        public IActionResult ByName(string name, int page = 1)
         {
-
             var viewModel = this.categoriesService.GetByName<CategoryViewModel>(name);
             viewModel.ForumPosts = this.postsService.GetByCategoryId<PostInCategoryViewModel>(viewModel.Id, ItemsPerPage, (page - 1) * ItemsPerPage);
             var count = this.postsService.GetCountByCategoryId(viewModel.Id);
