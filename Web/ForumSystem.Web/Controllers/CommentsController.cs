@@ -24,15 +24,6 @@
         [HttpPost]
         public async Task<IActionResult> Create(CreateCommentInputModel input)
         {
-
-            if (input.ParentId != null)
-            {
-                if (!this.commentsService.IsInPostId(input.ParentId, input.PostId))
-                {
-                    return this.BadRequest();
-                }
-            }
-
             var userId = this.userManager.GetUserId(this.User);
             await this.commentsService.Create(input.PostId, userId, input.Content);
 

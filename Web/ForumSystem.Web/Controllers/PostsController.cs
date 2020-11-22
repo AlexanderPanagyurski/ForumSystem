@@ -20,7 +20,7 @@
         public PostsController(
             IPostsService postsService,
             ICategoriesService categoriesService,
-             UserManager<ApplicationUser> userManager)
+            UserManager<ApplicationUser> userManager)
         {
             this.postsService = postsService;
             this.categoriesService = categoriesService;

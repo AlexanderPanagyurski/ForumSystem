@@ -30,16 +30,20 @@
     .fa-thumbs-up:hover {
         color: rgb(15, 226, 43);
     }
-#votesCount{
-    font-size:20px;
+
+#votesCount {
+    font-size: 20px;
 }
+
 .fa-heart {
     transform: scale(2,2);
-    color:lightgrey;
+    color: lightgrey;
 }
-.fa-heart:hover {
-    color: red;
-}
+
+    .fa-heart:hover {
+        color: red;
+    }
+
 .fa-eye {
     transform: scale(2,2);
     color: lightgrey;
@@ -49,10 +53,32 @@
     font-size: 15px;
 }
 
-.views{
-    font-size:18px;
+.views {
+    font-size: 18px;
 }
 
 .fa-edit {
     transform: scale(1.5,1.5);
+}
+
+@media (min-width: 768px) {
+    .carousel-multi-item-2 .col-md-3 {
+        float: left;
+        width: 25%;
+        max-width: 100%;
+    }
+}
+
+.carousel-multi-item-2 .card img {
+    border-radius: 2px;
+}
+.post-galley {
+    transition: transform .3s;
+}
+.post-galley:hover {
+    transform: scale(1.1);
+}
+
+#gallery{
+    display:none;
 }
