@@ -27,9 +27,9 @@
 
         public int VotesCount { get; set; }
 
-        public IEnumerable<PostCommentViewModel> Comments { get; set; }
+        public IEnumerable<string> ImageUrls { get; set; }
 
-        // public IEnumerable<PostCommentViewModel> Comments { get; set; }
+        public IEnumerable<PostCommentViewModel> Comments { get; set; }
 
         public void CreateMappings(IProfileExpression configuration)
         {

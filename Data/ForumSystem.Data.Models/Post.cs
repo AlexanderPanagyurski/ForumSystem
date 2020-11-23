@@ -29,5 +29,7 @@
         public virtual ICollection<Comment> Comments { get; set; } = new HashSet<Comment>();
 
         public virtual ICollection<Vote> Votes { get; set; } = new HashSet<Vote>();
+
+        public virtual ICollection<Image> Images { get; set; } = new HashSet<Image>();
     }
 }

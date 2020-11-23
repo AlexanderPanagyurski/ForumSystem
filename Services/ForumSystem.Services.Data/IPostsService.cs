@@ -3,9 +3,11 @@
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
+    using ForumSystem.Web.ViewModels.Posts;
+
     public interface IPostsService
     {
-        Task<string> CreateAsync(string title, string content, string categoryId, string userId);
+        Task<string> CreateAsync(PostCreateInputModel input, string userId, string imagePath);
 
         T GetById<T>(string id);
 

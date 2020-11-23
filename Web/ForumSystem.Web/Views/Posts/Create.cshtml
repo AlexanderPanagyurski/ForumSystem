@@ -1,8 +1,6 @@
 ﻿@model ForumSystem.Web.ViewModels.Posts.PostCreateInputModel
-@{
-    this.ViewData["Title"] = "New blog post";
-    var categories = Model.Categories.Select(x => new SelectListItem(x.Name, x.Id));
-}
+@{ this.ViewData["Title"] = "New blog post";
+                var categories = Model.Categories.Select(x => new SelectListItem(x.Name, x.Id)); }
 
 <h1 class="text-center">@this.ViewData["Title"]</h1>
 
@@ -17,8 +15,8 @@
     });
 </script>
 
-<form method="post" asp-action="Create">
-
+<form method="post" asp-action="Create"
+      enctype="multipart/form-data">
     <div class="row">
         <div class="col-sm-6">
             <label asp-for="Title"></label>
@@ -29,6 +27,11 @@
             <label asp-for="CategoryId"></label>
             <select asp-for="CategoryId" asp-items="categories" class="form-control"></select>
             <span asp-validation-for="CategoryId" class="text-danger"></span>
+        </div>
+        <div class="col-sm-6 form-group">
+            <label asp-for="Images"></label>
+            <input asp-for="Images" class="form-control" />
+            <span asp-validation-for="Images" class="text-danger"></span>
         </div>
     </div>
     <div>
