@@ -55,16 +55,16 @@
     </div>
 }
 <div class="row">
-    <h1 class="col">@Model.Title</h1>
-    <div class="col float-right px-5 mb-0"><button type="button" class="btn btn-primary float-right" onclick="myFunction()">Show Gallery</button></div>
+    <h1 class="col-lg-9">@Model.Title</h1>
+    <div class="col-lg-3 float-right px-5 mb-0"><button type="button" class="btn btn-primary float-right" onclick="myFunction()">Show Gallery</button></div>
     <div id="gallery">
         <div class="row">
             @*@foreach (var url in this.Model.ImageUrls)
-            {
-                <div class="post-galley col-lg-4 col-md-12 mb-4">
-                    <img class="img-fluid z-depth-1" src="@url" />
-                </div>
-            }*@
+                {
+                    <div class="post-galley col-lg-4 col-md-12 mb-4">
+                        <img class="img-fluid z-depth-1" src="@url" />
+                    </div>
+                }*@
             <div class="post-galley col-lg-4 col-md-12 mb-4">
                 <img class="img-fluid z-depth-1" src="https://cdn.gamer-network.net/2019/usgamer/Doom-Eternal_E3-2019-Preview_PathToGateway.jpg/EG11/thumbnail/1920x1080/format/jpg/quality/65/doom-eternal-hands-on-how-some-new-tricks-impact-dooms-famous-glory-kill-loop.jpg" />
             </div>
@@ -129,7 +129,9 @@
                         var id = $"\"{this.Model.Id}\"";
                         <div class="row">
                             <div class="col float-left pt-2 px-5">
-                                <a href="#"> <i class="fa fa-heart"></i></a>
+                                <form id="favoritesForm" method="post"></form>
+                                <a href="#" onclick="addToFavorites(@postId)"><i class="fa fa-heart"></i></a>
+                                <div id="favoritesCount">@Model.FavoritesCount</div>
                             </div>
                             <div class="col float-right px-5"> <button type="button" class="btn btn-primary float-right" onclick="showAddCommentForm(@id)"><i class="fa fa-comment-dots"></i>&nbsp; Comment</button> </div>
                         </div>
@@ -186,6 +188,23 @@
                     headers: { 'X-CSRF-TOKEN': token },
                     success: function (data) {
                         $("#votesCount").html(data.votesCount);
+                    }
+                });
+            }
+        </script>
+        <script>
+            function addToFavorites(postId) {
+                var token = $("#favoritesForm input[name=__RequestVerificationToken]").val();
+                var json = { postId: postId };
+                $.ajax({
+                    url: "/api/favorites",
+                    type: "POST",
+                    data: JSON.stringify(json),
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    headers: { 'X-CSRF-TOKEN': token },
+                    success: function (data) {
+                        $("#favoritesCount").html(data.favoritesCount);
                     }
                 });
             }

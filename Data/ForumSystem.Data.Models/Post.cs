@@ -31,5 +31,7 @@
         public virtual ICollection<Vote> Votes { get; set; } = new HashSet<Vote>();
 
         public virtual ICollection<Image> Images { get; set; } = new HashSet<Image>();
+
+        public virtual ICollection<FavoritePost> FavoritePosts { get; set; }
     }
 }

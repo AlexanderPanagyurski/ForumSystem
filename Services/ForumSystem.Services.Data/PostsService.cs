@@ -13,7 +13,7 @@
 
     public class PostsService : IPostsService
     {
-        private readonly string[] allowedExtensions = new[] { "jpg", "png", "gif" };
+        private readonly string[] allowedExtensions = new[] { "jpg", "png", "gif", "jpeg" };
 
         private readonly IDeletableEntityRepository<Post> postsRepository;
 

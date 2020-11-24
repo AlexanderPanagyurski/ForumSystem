@@ -4,7 +4,9 @@
     using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
+
     using AutoMapper;
+
     using ForumSystem.Data.Models;
     using ForumSystem.Services.Mapping;
     using Ganss.XSS;
@@ -27,7 +29,7 @@
 
         public int VotesCount { get; set; }
 
-        public IEnumerable<string> ImageUrls { get; set; }
+        public int FavoritesCount { get; set; }
 
         public IEnumerable<PostCommentViewModel> Comments { get; set; }
 
@@ -38,6 +40,12 @@
                {
                    options.MapFrom(p => p.Votes.Sum(v => (int)v.VoteType));
                });
+
+            configuration.CreateMap<Post, PostViewModel>()
+                .ForMember(x => x.FavoritesCount, options =>
+                {
+                    options.MapFrom(p => p.FavoritePosts.Count());
+                });
         }
     }
 }
