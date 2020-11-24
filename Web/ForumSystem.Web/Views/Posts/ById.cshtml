@@ -54,6 +54,7 @@
         @this.TempData["InfoMessage"]
     </div>
 }
+<a href="#" id="toTopBtn" class="cd-top text-replace js-cd-top cd-top--is-visible cd-top--fade-out" data-abc="true"></a>
 <div class="row">
     <h1 class="col-lg-9">@Model.Title</h1>
     <div class="col-lg-3 float-right px-5 mb-0"><button type="button" class="btn btn-primary float-right" onclick="myFunction()">Show Gallery</button></div>
@@ -86,7 +87,7 @@
         </div>
     </div>
 </div>
-<div class="container-fluid mt-100">
+<div class="colcontainer-fluid mt-100">
     <div class="row">
         <div class="col-md-12">
             <div class="card mb-4">
@@ -139,11 +140,10 @@
                     }
                     @{ DisplayComments(null); }
                 </div>
-
             </div>
         </div>
-
     </div>
+
 
     <script src="/lib/tinymce/tinymce.min.js" type="text/javascript"></script>
     <script type="text/javascript">
@@ -218,5 +218,24 @@
                     x.style.display = "block";
                 }
             }
+        </script>
+
+        <script>
+            $(document).ready(function () {
+                $(window).scroll(function () {
+                    if ($(this).scrollTop() > 20) {
+                        $('#toTopBtn').fadeIn();
+                    } else {
+                        $('#toTopBtn').fadeOut();
+                    }
+                });
+
+                $('#toTopBtn').click(function () {
+                    $("html, body").animate({
+                        scrollTop: 0
+                    }, 1000);
+                    return false;
+                });
+            });
         </script>
     }
