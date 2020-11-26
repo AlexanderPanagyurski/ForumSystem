@@ -60,13 +60,13 @@
     <div class="col-lg-3 float-right px-5 mb-0"><button type="button" class="btn btn-primary float-right" onclick="myFunction()">Show Gallery</button></div>
     <div id="gallery">
         <div class="row">
-            @*@foreach (var url in this.Model.ImageUrls)
+            @foreach (var url in this.Model.Images)
                 {
                     <div class="post-galley col-lg-4 col-md-12 mb-4">
-                        <img class="img-fluid z-depth-1" src="@url" />
+                        <img class="img-fluid z-depth-1" src="@url.ImageUrl" />
                     </div>
-                }*@
-            <div class="post-galley col-lg-4 col-md-12 mb-4">
+                }
+            @*<div class="post-galley col-lg-4 col-md-12 mb-4">
                 <img class="img-fluid z-depth-1" src="https://cdn.gamer-network.net/2019/usgamer/Doom-Eternal_E3-2019-Preview_PathToGateway.jpg/EG11/thumbnail/1920x1080/format/jpg/quality/65/doom-eternal-hands-on-how-some-new-tricks-impact-dooms-famous-glory-kill-loop.jpg" />
             </div>
             <div class="post-galley col-lg-4 col-md-6 mb-4">
@@ -83,7 +83,7 @@
             </div>
             <div class="post-galley col-lg-4 col-md-6 mb-4">
                 <img class="img-fluid z-depth-1" src="https://image-cdn.essentiallysports.com/wp-content/uploads/20200330173340/eiRJ35hxB7onuwGq8Sg5a4-scaled.jpg" alt="Doom Eternal Breaks Franchise Record Within Days of Release -  EssentiallySports" />
-            </div>
+            </div>*@
         </div>
     </div>
 </div>
@@ -131,7 +131,7 @@
                         <div class="row">
                             <div class="col float-left pt-2 px-5">
                                 <form id="favoritesForm" method="post"></form>
-                                <a href="#" onclick="addToFavorites(@postId)"><i class="fa fa-heart"></i></a>
+                                <a href="#" onclick="addToFavorites(@postId); return false"><i class="fa fa-heart"></i></a>
                                 <div id="favoritesCount">@Model.FavoritesCount</div>
                             </div>
                             <div class="col float-right px-5"> <button type="button" class="btn btn-primary float-right" onclick="showAddCommentForm(@id)"><i class="fa fa-comment-dots"></i>&nbsp; Comment</button> </div>
@@ -219,7 +219,6 @@
                 }
             }
         </script>
-
         <script>
             $(document).ready(function () {
                 $(window).scroll(function () {

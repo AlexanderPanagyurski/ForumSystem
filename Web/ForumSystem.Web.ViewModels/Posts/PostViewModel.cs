@@ -33,6 +33,8 @@
 
         public IEnumerable<PostCommentViewModel> Comments { get; set; }
 
+        public IEnumerable<ImagesViewModel> Images { get; set; }
+
         public void CreateMappings(IProfileExpression configuration)
         {
             configuration.CreateMap<Post, PostViewModel>()
@@ -46,6 +48,17 @@
                 {
                     options.MapFrom(p => p.FavoritePosts.Count());
                 });
+
+            configuration.CreateMap<Post, PostViewModel>()
+                .ForMember(x => x.Images, options =>
+                {
+                    options.MapFrom(x => x.Images
+                    .Select(x => new ImagesViewModel
+                    {
+                        ImageUrl = "/images/posts/" + x.Id + "." + x.Extension,
+                    }));
+                });
+            ;
         }
     }
 }
