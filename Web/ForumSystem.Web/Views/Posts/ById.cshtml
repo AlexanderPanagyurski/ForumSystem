@@ -29,7 +29,7 @@
                                         @if (this.User.Identity.IsAuthenticated)
                                         {
                                             var commentId = $"\"{comment.Id}\"";
-                                            <div class="px-4 pt-3"> <button type="button" class="btn btn-secondary" onclick="showAddCommentForm(@commentId)"><i class="fa fa-comment-dots"></i>&nbsp; Answer</button> </div>
+                                            <div class="px-4 pt-3"> <button type="button" class="btn btn-secondary" onclick="showAddCommentForm(@commentId)"><i class="fa fa-reply"></i>&nbsp; Reply</button> </div>
                                         }
                                     </div>
                                 </div>
@@ -63,7 +63,7 @@
             @foreach (var url in this.Model.Images)
                 {
                     <div class="post-galley col-lg-4 col-md-12 mb-4">
-                        <img class="img-fluid z-depth-1" src="@url.ImageUrl" />
+                        <img class="img-fluid z-depth-1" src="@url.ImageUrl"/>
                     </div>
                 }
             @*<div class="post-galley col-lg-4 col-md-12 mb-4">
@@ -134,7 +134,7 @@
                                 <a href="#" onclick="addToFavorites(@postId); return false"><i class="fa fa-heart"></i></a>
                                 <div id="favoritesCount">@Model.FavoritesCount</div>
                             </div>
-                            <div class="col float-right px-5"> <button type="button" class="btn btn-primary float-right" onclick="showAddCommentForm(@id)"><i class="fa fa-comment-dots"></i>&nbsp; Comment</button> </div>
+                            <div class="col float-right px-5"> <button type="button" class="btn btn-primary float-right" onclick="showAddCommentForm(null)"><i class="fa fa-comment-dots"></i>&nbsp; Comment</button> </div>
                         </div>
                         <div class="clearfix"></div>
                     }

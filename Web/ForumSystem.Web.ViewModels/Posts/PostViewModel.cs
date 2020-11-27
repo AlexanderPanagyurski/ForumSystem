@@ -41,24 +41,19 @@
                .ForMember(x => x.VotesCount, options =>
                {
                    options.MapFrom(p => p.Votes.Sum(v => (int)v.VoteType));
+               })
+               .ForMember(x => x.FavoritesCount, options =>
+               {
+                   options.MapFrom(p => p.FavoritePosts.Count());
+               })
+               .ForMember(x => x.Images, options =>
+               {
+                   options.MapFrom(x => x.Images
+                   .Select(x => new ImagesViewModel
+                   {
+                       ImageUrl = "/images/posts/" + x.Id + "." + x.Extension,
+                   }));
                });
-
-            configuration.CreateMap<Post, PostViewModel>()
-                .ForMember(x => x.FavoritesCount, options =>
-                {
-                    options.MapFrom(p => p.FavoritePosts.Count());
-                });
-
-            configuration.CreateMap<Post, PostViewModel>()
-                .ForMember(x => x.Images, options =>
-                {
-                    options.MapFrom(x => x.Images
-                    .Select(x => new ImagesViewModel
-                    {
-                        ImageUrl = "/images/posts/" + x.Id + "." + x.Extension,
-                    }));
-                });
-            ;
         }
     }
 }
