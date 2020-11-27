@@ -22,7 +22,7 @@
                                     <div class="media-body ml-3">
                                         @Model.UserUserName
                                         <div class="datetime text-muted small">
-                                            @comment.CreatedOn.ToString("f")
+                                            <time datetime="@comment.CreatedOn.ToString("o")"></time>
                                         </div>
                                     </div>
                                     <div class="text-muted small ml-3">
@@ -97,7 +97,7 @@
                         <div class="media-body ml-3">
                             @Model.UserUserName
                             <div class="datetime text-muted small">
-                                @Model.CreatedOn.ToString("f")
+                                <time datetime="@Model.CreatedOn.ToString("o")"></time>
                             </div>
                         </div>
                         <div class="text-muted small ml-3">
