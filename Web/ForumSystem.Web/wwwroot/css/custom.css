@@ -127,3 +127,11 @@
 .height {
     height: 3000px
 }
+
+#empty-gallery {
+    width: 1140px;
+    padding: 50px 0;
+    text-align: center;
+    background-color: white;
+    margin-top: 20px;
+}

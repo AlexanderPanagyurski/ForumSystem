@@ -28,6 +28,22 @@
                                     <div class="text-muted small ml-3">
                                         @if (this.User.Identity.IsAuthenticated)
                                         {
+                                            <div>
+                                                <a href="#" onclick="sendVote(null, true)">
+                                                    <i class="fa fa-thumbs-up"></i>
+                                                </a>
+                                            </div>
+                                            <div id="votesCount">0</div>
+                                            <div>
+                                                <a href="#" onclick="sendVote(null, false)">
+                                                    <i class="fa fa-thumbs-down"></i>
+                                                </a>
+                                            </div>
+                                        }
+                                    </div>
+                                    <div class="text-muted small ml-3">
+                                        @if (this.User.Identity.IsAuthenticated)
+                                        {
                                             var commentId = $"\"{comment.Id}\"";
                                             <div class="px-4 pt-3"> <button type="button" class="btn btn-secondary" onclick="showAddCommentForm(@commentId)"><i class="fa fa-reply"></i>&nbsp; Reply</button> </div>
                                         }
@@ -57,35 +73,27 @@
 <a href="#" id="toTopBtn" class="cd-top text-replace js-cd-top cd-top--is-visible cd-top--fade-out" data-abc="true"></a>
 <div class="row">
     <h1 class="col-lg-9">@Model.Title</h1>
-    <div class="col-lg-3 float-right px-5 mb-0"><button type="button" class="btn btn-primary float-right" onclick="myFunction()">Show Gallery</button></div>
-    <div id="gallery">
-        <div class="row">
-            @foreach (var url in this.Model.Images)
+    @if (this.Model.Images.Count() == 0)
+    {
+        <div class="col-lg-3 float-right px-5 mb-0">
+            <button type="button" disabled class="btn btn-primary float-right" onclick="myFunction()"><div id="show-hide">Show Gallery</div></button>
+        </div>
+    }
+    else
+    {
+
+        <div class="col-lg-3 float-right px-5 mb-0"><button type="button" class="btn btn-primary float-right" onclick="myFunction()"><div id="show-hide">Show Gallery</div></button></div>
+        <div id="gallery">
+            <div class="row">
+                @foreach (var url in this.Model.Images)
                 {
                     <div class="post-galley col-lg-4 col-md-12 mb-4">
-                        <img class="img-fluid z-depth-1" src="@url.ImageUrl"/>
+                        <img class="img-fluid z-depth-1" src="@url.ImageUrl" />
                     </div>
                 }
-            @*<div class="post-galley col-lg-4 col-md-12 mb-4">
-                <img class="img-fluid z-depth-1" src="https://cdn.gamer-network.net/2019/usgamer/Doom-Eternal_E3-2019-Preview_PathToGateway.jpg/EG11/thumbnail/1920x1080/format/jpg/quality/65/doom-eternal-hands-on-how-some-new-tricks-impact-dooms-famous-glory-kill-loop.jpg" />
             </div>
-            <div class="post-galley col-lg-4 col-md-6 mb-4">
-                <img class="img-fluid z-depth-1" src="https://media.playstation.com/is/image/SCEA/doom-eternal-gateway-arena-screen-01-ps4-us-15jul19?$native_nt$" alt="DOOM Eternal Game | PS4 - PlayStation" />
-            </div>
-            <div class="post-galley col-lg-4 col-md-6 mb-4">
-                <img class="img-fluid z-depth-1" src="https://sm.ign.com/t/ign_in/review/d/doom-etern/doom-eternal-multiplayer-review_5gp6.1200.jpg" alt="Doom Eternal Multiplayer Review" />
-            </div>
-            <div class="post-galley col-lg-4 col-md-12 mb-4">
-                <img class="img-fluid z-depth-1" src="https://img.redbull.com/images/q_auto,f_auto/redbullcom/2020/1/21/pjltwsxhnnwuihvf0xjh/doom-eternal-cacodemons" alt="DOOM Eternal: Release date, trailer, tips &amp; more" />
-            </div>
-            <div class="post-galley col-lg-4 col-md-6 mb-4">
-                <img class="img-fluid z-depth-1" src="//images.ctfassets.net/rporu91m20dc/2OJbYNR1jGuKc0akweMGQK/5ec7e4aaddb887a9478d5c412296f659/DOOM-Eternal_KeyArt_3_1920x1080.jpg" />
-            </div>
-            <div class="post-galley col-lg-4 col-md-6 mb-4">
-                <img class="img-fluid z-depth-1" src="https://image-cdn.essentiallysports.com/wp-content/uploads/20200330173340/eiRJ35hxB7onuwGq8Sg5a4-scaled.jpg" alt="Doom Eternal Breaks Franchise Record Within Days of Release -  EssentiallySports" />
-            </div>*@
         </div>
-    </div>
+    }
 </div>
 <div class="colcontainer-fluid mt-100">
     <div class="row">
@@ -212,10 +220,13 @@
         <script>
             function myFunction() {
                 var x = document.getElementById("gallery");
+                var y = document.getElementById("show-hide");
                 if (x.style.display === "block") {
                     x.style.display = "none";
+                    y.textContent = "Show Gallery";
                 } else {
                     x.style.display = "block";
+                    y.textContent = "Hide Gallery";
                 }
             }
         </script>

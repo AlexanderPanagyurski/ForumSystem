@@ -1,9 +1,11 @@
 ﻿namespace ForumSystem.Services.Data
 {
-    using ForumSystem.Data;
-    using ForumSystem.Data.Common.Repositories;
     using System.Linq;
     using System.Threading.Tasks;
+
+    using ForumSystem.Data;
+    using ForumSystem.Data.Common.Repositories;
+    
 
     public class FavoritesService : IFavoritesService
     {
