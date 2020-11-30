@@ -11,33 +11,21 @@
         @Model.Description
     </div>
 </div>
-<form>
+<form asp-controller="Categories" asp-action="ByName" method="post">
     <div class="form-row">
         <div class="form-group col-md-3">
-            <label for="inputCity">Order by Name:</label>
-            <select id="inputState" class="form-control">
-                <option value="Empty" selected>Choose...</option>
-                <option value="Ascending">Ascending</option>
-                <option value="Descending">Descending</option>
+            <label for="orderBy">Order by:</label>
+            <select name="orderBy" id="order" class="form-control">
+                <option value="default" selected>Choose...</option>
+                <option value="tileAscending">Title Ascending</option>
+                <option value="tileDescending">Title Descending</option>
+                <option value="datetimeAscending">oldest</option>
+                <option value="datetimeDescending">newest</option>
+                <option value="commentsAscending">Comments' count Ascending</option>
+                <option value="commentsDescending">Comments' count Descending</option>
             </select>
         </div>
-        <div class="form-group col-md-3">
-            <label for="inputState">Order by Datetime:</label>
-            <select id="inputState" class="form-control">
-                <option value="Empty" selected>Choose...</option>
-                <option value="Ascending">Ascending</option>
-                <option value="Descending">Descending</option>
-            </select>
-        </div>
-        <div class="form-group col-md-3">
-            <label for="inputZip">Order by Comment's count:</label>
-            <select id="inputState" class="form-control">
-                <option value="Empty" selected>Choose...</option>
-                <option value="Ascending">Ascending</option>
-                <option value="Descending">Descending</option>
-            </select>
-        </div>
-        <div class="form-group col-md-3">
+        <div class="form-group col-md-2">
             <label for="filter">Apply filters</label>
             <button type="submit" class="form-control btn btn-primary">Apply Filters</button>
         </div>

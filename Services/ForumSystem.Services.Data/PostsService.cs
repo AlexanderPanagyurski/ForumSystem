@@ -18,8 +18,7 @@
         private readonly IDeletableEntityRepository<Post> postsRepository;
 
         public PostsService(
-            IDeletableEntityRepository<Post> postsRepository
-            )
+            IDeletableEntityRepository<Post> postsRepository)
         {
             this.postsRepository = postsRepository;
         }
@@ -63,11 +62,53 @@
             return post.Id;
         }
 
-        public IEnumerable<T> GetByCategoryId<T>(string categoryId, int? take = null, int skip = 0)
+        public IEnumerable<T> GetByCategoryId<T>(string categoryId, int? take = null, int skip = 0, string orderBy = "default")
         {
-            var query = this.postsRepository.All()
+            IQueryable<Post> query = null;
+
+            if (orderBy == "default")
+            {
+                query = this.postsRepository.All()
                 .OrderByDescending(x => x.CreatedOn)
                 .Where(x => x.CategoryId == categoryId).Skip(skip);
+            }
+            else if (orderBy == "tileAscending")
+            {
+                query = this.postsRepository.All()
+                .OrderBy(x => x.Title)
+                .Where(x => x.CategoryId == categoryId).Skip(skip);
+            }
+            else if (orderBy == "tileDescending")
+            {
+                query = this.postsRepository.All()
+                .OrderByDescending(x => x.Title)
+                .Where(x => x.CategoryId == categoryId).Skip(skip);
+            }
+            else if (orderBy == "datetimeAscending")
+            {
+                query = this.postsRepository.All()
+                .OrderBy(x => x.CreatedOn)
+                .Where(x => x.CategoryId == categoryId).Skip(skip);
+            }
+            else if (orderBy == "datetimeDescending")
+            {
+                query = this.postsRepository.All()
+                .OrderByDescending(x => x.CreatedOn)
+                .Where(x => x.CategoryId == categoryId).Skip(skip);
+            }
+            else if (orderBy == "commentsAscending")
+            {
+                query = this.postsRepository.All()
+                .OrderBy(x => x.Comments.Count())
+                .Where(x => x.CategoryId == categoryId).Skip(skip);
+            }
+            else if (orderBy == "commentsDescending")
+            {
+                query = this.postsRepository.All()
+                .OrderByDescending(x => x.Comments.Count())
+                .Where(x => x.CategoryId == categoryId).Skip(skip);
+            }
+
             if (take.HasValue)
             {
                 query = query.Take(take.Value);

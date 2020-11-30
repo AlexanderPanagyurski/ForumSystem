@@ -11,7 +11,7 @@
 
         T GetById<T>(string id);
 
-        IEnumerable<T> GetByCategoryId<T>(string categoryId, int? take = null, int skip = 0);
+        IEnumerable<T> GetByCategoryId<T>(string categoryId, int? take = null, int skip = 0, string orderBy = "default");
 
         int GetCountByCategoryId(string categoryId);
     }

@@ -22,10 +22,10 @@
             this.postsService = postsService;
         }
 
-        public IActionResult ByName(string name, int page = 1)
+        public IActionResult ByName(string name, int page = 1, string orderBy = "default")
         {
             var viewModel = this.categoriesService.GetByName<CategoryViewModel>(name);
-            viewModel.ForumPosts = this.postsService.GetByCategoryId<PostInCategoryViewModel>(viewModel.Id, ItemsPerPage, (page - 1) * ItemsPerPage);
+            viewModel.ForumPosts = this.postsService.GetByCategoryId<PostInCategoryViewModel>(viewModel.Id, ItemsPerPage, (page - 1) * ItemsPerPage, orderBy);
             var count = this.postsService.GetCountByCategoryId(viewModel.Id);
 
             viewModel.PagesCount = (int)Math.Ceiling((double)count / ItemsPerPage);
