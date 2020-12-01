@@ -3,6 +3,7 @@
 @using Microsoft.AspNetCore.Identity
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
+
 <ul class="navbar-nav">
     @if (this.SignInManager.IsSignedIn(this.User))
     {
@@ -20,8 +21,8 @@
         <img src="https://icon-library.com/images/default-profile-icon/default-profile-icon-16.jpg" width="40" height="40" class="rounded-circle">
     </a>
     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-        <a class="dropdown-item" href="#">My posts</a>
-        <a class="dropdown-item" href="#">Favourite posts</a>
+        <a class="dropdown-item" asp-controller="Posts" asp-action="GetMyPosts">My posts</a>
+        <a class="dropdown-item" asp-controller="Posts" asp-action="GetFavoritesPosts">Favourite posts</a>
         <a class="dropdown-item" href="#">Edit Profile</a>
         <form class="dropdown-item" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@(this.Url.Action("Index", "Home", new { area = string.Empty }))">
             <button type="submit" class="nav-link btn btn-link text-dark">Logout</button>

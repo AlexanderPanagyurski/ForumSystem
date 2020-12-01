@@ -9,6 +9,7 @@
     using ForumSystem.Data.Common.Repositories;
     using ForumSystem.Data.Models;
     using ForumSystem.Services.Mapping;
+    using ForumSystem.Web.ViewModels.Categories;
     using ForumSystem.Web.ViewModels.Posts;
 
     public class PostsService : IPostsService
@@ -127,6 +128,123 @@
         public int GetCountByCategoryId(string categoryId)
         {
             return this.postsRepository.All().Count(x => x.CategoryId == categoryId);
+        }
+
+        public int GetCountByUserFavoritePosts(string userId)
+        {
+            return this.postsRepository.All().Where(x => x.FavoritePosts.Any(x => x.UserId == userId)).Count();
+        }
+
+        public int GetCountByUserPosts(string userId)
+        {
+            return this.postsRepository.All().Where(x => x.UserId == userId).Count();
+        }
+
+        public IEnumerable<T> GetFavoritesPosts<T>(string userId)
+        {
+            var favoritePosts = this.postsRepository.All()
+                .Where(x => x.FavoritePosts.Any(x => x.UserId == userId));
+
+            return favoritePosts.To<T>().ToArray();
+        }
+
+        public UserFavoritesPostsViewModel GetFavoritesPosts(string userId, int? take = null, int skip = 0)
+        {
+            UserFavoritesPostsViewModel userFavoritesPosts = null;
+
+            if (take.HasValue)
+            {
+                userFavoritesPosts = new UserFavoritesPostsViewModel
+                {
+                    PagesCount = this.postsRepository.All().Where(x => x.FavoritePosts.Any(x => x.UserId == userId)).Count(),
+                    FavoritePosts = this.postsRepository.All()
+                  .Where(x => x.FavoritePosts.Any(x => x.UserId == userId))
+                  .OrderByDescending(x => x.CreatedOn)
+                  .Select(x => new PostInCategoryViewModel
+                  {
+                      Id = x.Id,
+                      Content = x.Content,
+                      CategoryName = x.Category.Name,
+                      CreatedOn = x.CreatedOn,
+                      UserUserName = x.User.UserName,
+                      Title = x.Title,
+                      CommentsCount = x.Comments.Count(),
+                  })
+                  .Skip(skip)
+                  .Take(take.Value),
+                };
+            }
+            else
+            {
+                userFavoritesPosts = new UserFavoritesPostsViewModel
+                {
+                    FavoritePosts = this.postsRepository.All()
+                 .Where(x => x.FavoritePosts.Any(x => x.UserId == userId))
+                 .OrderByDescending(x => x.CreatedOn)
+                 .Select(x => new PostInCategoryViewModel
+                 {
+                     Id = x.Id,
+                     Content = x.Content,
+                     CategoryName = x.Category.Name,
+                     CreatedOn = x.CreatedOn,
+                     UserUserName = x.User.UserName,
+                     Title = x.Title,
+                     CommentsCount = x.Comments.Count(),
+                 }),
+                };
+            }
+
+            return userFavoritesPosts;
+        }
+
+        public UserPostsViewModel GetUserPosts(string userId, int? take = null, int skip = 0)
+        {
+            UserPostsViewModel userPosts = null;
+
+            if (take.HasValue)
+            {
+                userPosts = new UserPostsViewModel
+                {
+                    PagesCount = this.postsRepository.All().Where(x => x.FavoritePosts.Any(x => x.UserId == userId)).Count(),
+                    FavoritePosts = this.postsRepository.All()
+                  .Where(x => x.UserId == userId)
+                  .OrderByDescending(x => x.CreatedOn)
+                  .Select(x => new PostInCategoryViewModel
+                  {
+                      Id = x.Id,
+                      Content = x.Content,
+                      CategoryName = x.Category.Name,
+                      CreatedOn = x.CreatedOn,
+                      UserUserName = x.User.UserName,
+                      Title = x.Title,
+                      CommentsCount = x.Comments.Count(),
+                  })
+                  .Skip(skip)
+                  .Take(take.Value),
+                };
+            }
+            else
+            {
+                userPosts = new UserPostsViewModel
+                {
+                    PagesCount = this.postsRepository.All().Where(x => x.FavoritePosts.Any(x => x.UserId == userId)).Count(),
+                    FavoritePosts = this.postsRepository.All()
+                    .Where(x => x.UserId == userId)
+                    .OrderByDescending(x => x.CreatedOn)
+                    .Select(x => new PostInCategoryViewModel
+                    {
+                        Id = x.Id,
+                        Content = x.Content,
+                        CategoryName = x.Category.Name,
+                        CreatedOn = x.CreatedOn,
+                        UserUserName = x.User.UserName,
+                        Title = x.Title,
+                        CommentsCount = x.Comments.Count(),
+                    }),
+                };
+            }
+
+            return userPosts;
         }
     }
 }
