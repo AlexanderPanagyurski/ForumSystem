@@ -53,8 +53,8 @@
 else
 {
 <li class="page-item">
-    <a class="page-link" asp-route="forumUserFavoritePosts"
-       asp-route-name="GetUserPosts" asp-route-page="@(Model.CurrentPage-1)" name="page">Previous</a>
+    <a class="page-link" asp-route="forumUserPosts"
+       asp-route-name="GetMyPosts" asp-route-page="@(Model.CurrentPage-1)" name="page">Previous</a>
 </li>
 }
         @for (int i = Model.CurrentPage - 4; i < Model.CurrentPage; i++)
@@ -62,8 +62,8 @@ else
             if (i > 0)
             {
 <li class="page-item">
-    <a class="page-link" asp-route="forumUserFavoritePosts"
-       asp-route-name="GetUserPosts" asp-route-page="@i" name="page">@i</a>
+    <a class="page-link" asp-route="forumUserPosts"
+       asp-route-name="GetMyPosts" asp-route-page="@i" name="page">@i</a>
 </li>
 }
 }
@@ -86,8 +86,8 @@ else
             if (i <= Model.PagesCount)
             {
 <li class="page-item">
-    <a class="page-link" asp-route="forumUserFavoritePosts"
-       asp-route-name="GetUserPosts" asp-route-page="@i" name="page">@i</a>
+    <a class="page-link" asp-route="forumUserPosts"
+       asp-route-name="GetMyPosts" asp-route-page="@i" name="page">@i</a>
 </li>
 }
 }
@@ -100,8 +100,8 @@ else
 else
 {
 <li class="page-item">
-    <a class="page-link" asp-route="forumUserFavoritePosts"
-       asp-route-name="GetUserPosts" asp-route-page="@(Model.CurrentPage+1)" name="page">Next</a>
+    <a class="page-link" asp-route="forumUserPosts"
+       asp-route-name="GetMyPosts" asp-route-page="@(Model.CurrentPage+1)" name="page">Next</a>
 </li>
 }
     </ul>

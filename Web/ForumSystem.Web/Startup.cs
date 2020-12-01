@@ -108,6 +108,10 @@
                 endpoints =>
                     {
                         endpoints.MapControllerRoute(
+                          "forumUserPosts",
+                          "userPosts/{name:minLength(3)}",
+                          new { controller = "Posts", action = "GetMyPosts" });
+                        endpoints.MapControllerRoute(
                            "forumUserFavoritePosts",
                            "favoritePosts/{name:minLength(3)}",
                            new { controller = "Posts", action = "GetFavoritesPosts" });
