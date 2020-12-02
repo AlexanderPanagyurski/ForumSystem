@@ -211,7 +211,8 @@
                 {
                     PopularPosts = this.postsRepository.All()
                      .OrderByDescending(x => x.Votes.Sum(v => (int)v.VoteType))
-                     .ThenBy(x => x.Comments.Count())
+                     .ThenByDescending(x => x.Comments.Count())
+                     .ThenBy(x => x.CreatedOn)
                      .Select(x => new PostInCategoryViewModel
                      {
                          Id = x.Id,
@@ -232,7 +233,8 @@
                 {
                     PopularPosts = this.postsRepository.All()
                      .OrderByDescending(x => x.Votes.Sum(v => (int)v.VoteType))
-                     .ThenBy(x => x.Comments.Count())
+                     .ThenByDescending(x => x.Comments.Count())
+                     .ThenBy(x => x.CreatedOn)
                      .Select(x => new PostInCategoryViewModel
                      {
                          Id = x.Id,
