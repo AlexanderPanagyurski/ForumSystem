@@ -99,5 +99,16 @@
 
             return this.View(viewModel);
         }
+
+        public async Task<IActionResult> GetPopularPosts(int page = 1)
+        {
+            var user = await this.userManager.GetUserAsync(this.User);
+            var viewModel = this.postsService.GetPopularPosts(ItemsPerPage, (page - 1) * ItemsPerPage);
+            var count = 10;
+            viewModel.PagesCount = (int)Math.Ceiling((double)count / ItemsPerPage);
+            viewModel.CurrentPage = page;
+
+            return this.View(viewModel);
+        }
     }
 }

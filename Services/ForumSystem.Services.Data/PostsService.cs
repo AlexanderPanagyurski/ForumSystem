@@ -129,6 +129,11 @@
             return this.postsRepository.All().Count(x => x.CategoryId == categoryId);
         }
 
+        public int GetCountByPopularPosts()
+        {
+            throw new NotImplementedException();
+        }
+
         public int GetCountByUserFavoritePosts(string userId)
         {
             return this.postsRepository.All().Where(x => x.FavoritePosts.Any(x => x.UserId == userId)).Count();
@@ -196,6 +201,54 @@
             return userFavoritesPosts;
         }
 
+        public PopularPostsViewModel GetPopularPosts(int? take = null, int skip = 0)
+        {
+            PopularPostsViewModel viewModel = null;
+
+            if (take.HasValue)
+            {
+                viewModel = new PopularPostsViewModel
+                {
+                    PopularPosts = this.postsRepository.All()
+                     .OrderByDescending(x => x.Votes.Sum(v => (int)v.VoteType))
+                     .ThenBy(x => x.Comments.Count())
+                     .Select(x => new PostInCategoryViewModel
+                     {
+                         Id = x.Id,
+                         CategoryName = x.Category.Name,
+                         CommentsCount = x.Comments.Count(),
+                         Content = x.Content,
+                         Title = x.Title,
+                         UserUserName = x.User.UserName,
+                         CreatedOn = x.CreatedOn,
+                     })
+                     .Skip(skip)
+                     .Take(take.Value),
+                };
+            }
+            else
+            {
+                viewModel = new PopularPostsViewModel
+                {
+                    PopularPosts = this.postsRepository.All()
+                     .OrderByDescending(x => x.Votes.Sum(v => (int)v.VoteType))
+                     .ThenBy(x => x.Comments.Count())
+                     .Select(x => new PostInCategoryViewModel
+                     {
+                         Id = x.Id,
+                         CategoryName = x.Category.Name,
+                         CommentsCount = x.Comments.Count(),
+                         Content = x.Content,
+                         Title = x.Title,
+                         UserUserName = x.User.UserName,
+                         CreatedOn = x.CreatedOn,
+                     }),
+                };
+            }
+
+            return viewModel;
+        }
+
         public UserPostsViewModel GetUserPosts(string userId, int? take = null, int skip = 0)
         {
             UserPostsViewModel userPosts = null;
@@ -219,7 +272,7 @@
                       CommentsCount = x.Comments.Count(),
                   })
                   .Skip(skip)
-                  .Take(take.Value),
+                  .Take(10),
                 };
             }
             else

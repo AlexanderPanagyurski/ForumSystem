@@ -17,6 +17,8 @@
 
         public string UserProfileImage { get; set; }
 
+        public string UserId { get; set; }
+
         public DateTime CreatedOn { get; set; }
 
         public string Title { get; set; }
@@ -53,7 +55,17 @@
                    {
                        ImageUrl = "/images/posts/" + x.Id + "." + x.Extension,
                    }));
-               });
+               })
+               //.ForMember(x => x.UserProfileImage, options =>
+               //   {
+               //       options.MapFrom(x => x.Images.Where(x => x.UserId == this.UserId && x.PostId == null)
+               //       .Select(x => new ImagesViewModel
+               //       {
+               //           ImageUrl = "/images/users/" + x.Id + "." + x.Extension,
+               //       })
+               //       .FirstOrDefault());
+               //   })
+               ;
         }
     }
 }

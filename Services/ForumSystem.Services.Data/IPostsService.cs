@@ -21,5 +21,9 @@
         UserPostsViewModel GetUserPosts(string userId, int? take = null, int skip = 0);
 
         int GetCountByUserPosts(string userId);
+
+        PopularPostsViewModel GetPopularPosts(int? take = null, int skip = 0);
+
+        int GetCountByPopularPosts();
     }
 }
