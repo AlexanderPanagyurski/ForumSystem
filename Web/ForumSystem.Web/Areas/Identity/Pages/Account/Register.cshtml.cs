@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.IO;
     using System.Linq;
     using System.Text;
     using System.Text.Encodings.Web;
@@ -11,6 +12,8 @@
     using ForumSystem.Data.Models;
     using Microsoft.AspNetCore.Authentication;
     using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Hosting;
+    using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Identity.UI.Services;
     using Microsoft.AspNetCore.Mvc;
@@ -22,21 +25,26 @@
 
     public class RegisterModel : PageModel
     {
+        private readonly string[] allowedExtensions = new[] { "jpg", "png", "gif", "jpeg" };
+
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
+        private readonly IWebHostEnvironment environment;
 
         public RegisterModel(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender)
+            IEmailSender emailSender,
+            IWebHostEnvironment environment)
         {
             this._userManager = userManager;
             this._signInManager = signInManager;
             this._logger = logger;
             this._emailSender = emailSender;
+            this.environment = environment;
         }
 
         [BindProperty]
@@ -75,6 +83,8 @@
 
             [Phone]
             public string PhoneNumber { get; set; }
+
+            public IEnumerable<IFormFile> Images { get; set; }
         }
 
         public async Task OnGetAsync(string returnUrl = null)
@@ -89,7 +99,37 @@
             this.ExternalLogins = (await this._signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (this.ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = this.Input.Username, Email = this.Input.Email, DateOfBirth = this.Input.DateOfBirth, PhoneNumber = this.Input.PhoneNumber };
+                var user = new ApplicationUser
+                {
+                    UserName = this.Input.Username,
+                    Email = this.Input.Email,
+                    DateOfBirth = this.Input.DateOfBirth,
+                    PhoneNumber = this.Input.PhoneNumber,
+                };
+                var imagePath = $"{this.environment.WebRootPath}/images";
+                Directory.CreateDirectory($"{imagePath}/users/");
+                if (this.Input.Images != null)
+                {
+                    foreach (var image in this.Input.Images)
+                    {
+                        var extension = Path.GetExtension(image.FileName).TrimStart('.');
+                        if (!this.allowedExtensions.Any(x => extension.EndsWith(x)))
+                        {
+                            throw new ArgumentException($"Invalid image extension {extension}");
+                        }
+
+                        var dbImage = new Image
+                        {
+                            UserId = this._userManager.GetUserId(this.User),
+                            Extension = extension,
+                        };
+                        user.Images.Add(dbImage);
+                        var physicalPath = $"{imagePath}/users/{dbImage.Id}.{extension}";
+                        using Stream fileStream = new FileStream(physicalPath, FileMode.Create);
+                        await image.CopyToAsync(fileStream);
+                    }
+                }
+
                 var result = await this._userManager.CreateAsync(user, this.Input.Password);
                 if (result.Succeeded)
                 {

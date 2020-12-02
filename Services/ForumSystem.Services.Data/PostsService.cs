@@ -33,7 +33,6 @@
                 Title = input.Title,
                 UserId = userId,
             };
-
             Directory.CreateDirectory($"{imagePath}/posts/");
             if (input.Images != null)
             {
