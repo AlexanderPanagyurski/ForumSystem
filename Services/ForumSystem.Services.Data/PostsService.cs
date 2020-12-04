@@ -134,6 +134,11 @@
             throw new NotImplementedException();
         }
 
+        public int GetCountByPostsBySearch(string title)
+        {
+            return this.postsRepository.All().Count(x => x.Title.ToUpper().Contains(title.ToUpper()));
+        }
+
         public int GetCountByUserFavoritePosts(string userId)
         {
             return this.postsRepository.All().Where(x => x.FavoritePosts.Any(x => x.UserId == userId)).Count();
@@ -245,6 +250,56 @@
                          UserUserName = x.User.UserName,
                          CreatedOn = x.CreatedOn,
                      }),
+                };
+            }
+
+            return viewModel;
+        }
+
+        public SearchPostsViewModel GetSearchedPosts(string title, int? take = null, int skip = 0)
+        {
+            SearchPostsViewModel viewModel = null;
+
+            if (take.HasValue)
+            {
+                viewModel = new SearchPostsViewModel
+                {
+                    SearchPosts = this.postsRepository.All()
+                      .Where(x => x.Title.ToUpper().Contains(title.ToUpper()))
+                      .OrderByDescending(x => x.CreatedOn)
+                      .Select(x => new PostInCategoryViewModel
+                      {
+                          Id = x.Id,
+                          CategoryName = x.Category.Name,
+                          CommentsCount = x.Comments.Count(),
+                          Content = x.Content,
+                          Title = x.Title,
+                          UserUserName = x.User.UserName,
+                          CreatedOn = x.CreatedOn,
+                      })
+                      .Skip(skip)
+                     .Take(take.Value)
+                     .ToArray(),
+                };
+            }
+            else
+            {
+                viewModel = new SearchPostsViewModel
+                {
+                    SearchPosts = this.postsRepository.All()
+                      .Where(x => x.Title.ToUpper().Contains(title.ToUpper()))
+                      .OrderByDescending(x => x.CreatedOn)
+                      .Select(x => new PostInCategoryViewModel
+                      {
+                          Id = x.Id,
+                          CategoryName = x.Category.Name,
+                          CommentsCount = x.Comments.Count(),
+                          Content = x.Content,
+                          Title = x.Title,
+                          UserUserName = x.User.UserName,
+                          CreatedOn = x.CreatedOn,
+                      })
+                      .ToArray(),
                 };
             }
 

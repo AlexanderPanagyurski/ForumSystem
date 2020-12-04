@@ -124,6 +124,10 @@
                          "popularPosts/{name:minLength(3)}",
                          new { controller = "Posts", action = "GetPopularPosts" });
                         endpoints.MapControllerRoute(
+                         "forumSearchedPosts",
+                         "searchedPosts/{name:minLength(3)}",
+                         new { controller = "Posts", action = "GetSearchedPosts" });
+                        endpoints.MapControllerRoute(
                             "areaRoute",
                             "{area:exists}/{controller=Home}/{action=Index}/{id?}");
                         endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");

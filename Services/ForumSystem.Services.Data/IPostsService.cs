@@ -25,5 +25,9 @@
         PopularPostsViewModel GetPopularPosts(int? take = null, int skip = 0);
 
         int GetCountByPopularPosts();
+
+        SearchPostsViewModel GetSearchedPosts(string title, int? take = null, int skip = 0);
+
+        int GetCountByPostsBySearch(string title);
     }
 }

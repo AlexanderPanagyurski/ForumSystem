@@ -110,5 +110,15 @@
 
             return this.View(viewModel);
         }
+
+        public async Task<IActionResult> GetSearchedPosts(string title, int page = 1)
+        {
+            var viewModel = this.postsService.GetSearchedPosts(title, ItemsPerPage, (page - 1) * ItemsPerPage);
+            var count = this.postsService.GetCountByPostsBySearch(title);
+            viewModel.PagesCount = (int)Math.Ceiling((double)count / ItemsPerPage);
+            viewModel.CurrentPage = page;
+
+            return this.View(viewModel);
+        }
     }
 }

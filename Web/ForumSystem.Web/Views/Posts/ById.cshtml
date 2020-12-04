@@ -2,7 +2,7 @@
 @{
     <link href="~/css/custom.css" rel="stylesheet" />
     this.ViewData["Title"] = Model.Title;
-    void DisplayComments(string parentId)
+    async Task DisplayComments(string parentId)
     {
         var comments = this.Model.Comments.Where(x => x.ParentId == parentId);
         if (!comments.Any())
@@ -28,6 +28,7 @@
                                     <div class="text-muted small ml-3">
                                         @if (this.User.Identity.IsAuthenticated)
                                         {
+                                            <form id="votesForm" method="post"></form>
                                             <div>
                                                 <a href="#" onclick="sendVote(null, true)">
                                                     <i class="fa fa-thumbs-up"></i>
@@ -169,7 +170,7 @@
                 <textarea name="Content" id="Content" class="form-control"></textarea>
             </div>
             <div>
-                <input type="submit" class="btn btn-primary" value="Add comment" />
+                <input type="submit" class="btn btn-primary" value="Add comment"/>
             </div>
         </form>
     </div>

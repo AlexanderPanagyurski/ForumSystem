@@ -1,10 +1,10 @@
-﻿@model ForumSystem.Web.ViewModels.Posts.PopularPostsViewModel
-@{ this.ViewData["Title"] = "Popular posts"; }
+﻿@model ForumSystem.Web.ViewModels.Posts.SearchPostsViewModel
+@{ this.ViewData["Title"] = "Searched results"; }
 
 
 <h1 class="display-2">@this.ViewData["Title"]</h1>
 <hr />
-@foreach (var post in Model.PopularPosts)
+@foreach (var post in Model.SearchPosts)
 {
 <div class="media-body">
     <a asp-controller="Posts" asp-action="ById" asp-route-id="@post.Id"><h4 class="media-heading">@post.Title</h4></a>
@@ -32,16 +32,16 @@
             else
             {
 <li class="page-item">
-    <a class="page-link" asp-route="forumPopularPosts"
-       asp-route-name="GetFavoritesPosts" asp-route-page="@(Model.CurrentPage-1)" name="page">Previous</a>
+    <a class="page-link" asp-route="forumSearchedPosts"
+       asp-route-name="GetSearchedPosts" asp-route-page="@(Model.CurrentPage-1)">Previous</a>
 </li>}
         @for (int i = Model.CurrentPage - 4; i < Model.CurrentPage; i++)
         {
             if (i > 0)
             {
 <li class="page-item">
-    <a class="page-link" asp-route="forumPopularPosts"
-       asp-route-name="GetPopularPosts" asp-route-page="@i" name="page">@i</a>
+    <a class="page-link" asp-route="forumSearchedPosts"
+       asp-route-name="GetSearchedPosts" asp-route-page="@i">@i</a>
 </li>}
             }
         <li class="page-item active" aria-current="page">
@@ -63,8 +63,8 @@
             if (i <= Model.PagesCount)
             {
 <li class="page-item">
-    <a class="page-link" asp-route="forumPopularPosts"
-       asp-route-name="GetPopularPosts" asp-route-page="@i" name="page">@i</a>
+    <a class="page-link" asp-route="forumSearchedPosts"
+       asp-route-name="GetSearchedPosts" asp-route-page="@i">@i</a>
 </li>}
             }
         @if (Model.CurrentPage == Model.PagesCount)
@@ -75,13 +75,14 @@
             else
             {
 <li class="page-item">
-    <a class="page-link" asp-route="forumPopularPosts"
-       asp-route-name="GetPopularPosts" asp-route-page="@(Model.CurrentPage+1)" name="page">Next</a>
+    <a class="page-link" asp-route="forumSearchedPosts"
+       asp-route-name="GetSearchedPosts" asp-route-page="@(Model.CurrentPage+1)">Next</a>
 </li>}
     </ul>
 </nav>
 @section Scripts{
-    <script>function myFunction() {
+    <script>
+    function myFunction() {
             var x = document.getElementById("description");
             var y = document.getElementById("show-hide");
             if (x.style.display === "none") {
@@ -89,7 +90,7 @@
                 y.textContent = "Hide Description";
             } else {
                 x.style.display = "none";
-                y.textContent="Show Description";
+                y.textContent = "Show Description";
             }
         }</script>
 }
