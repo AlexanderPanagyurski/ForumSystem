@@ -11,7 +11,7 @@
         @Model.Description
     </div>
 </div>
-<form asp-controller="Categories" asp-action="ByName" method="post">
+<form asp-controller="Categories" asp-action="ByName" method="get">
     <div class="form-row">
         <div class="form-group col-md-3">
             <label for="orderBy">Order by:</label>
@@ -62,7 +62,7 @@
         {
             <li class="page-item">
                 <a class="page-link" asp-route="forumCategory"
-                   asp-route-name="@this.Model.Title" asp-route-page="@(Model.CurrentPage-1)">Previous</a>
+                   asp-route-name="@this.Model.Title" asp-route-page="@(Model.CurrentPage-1)" asp-route-orderBy="@this.Model.OrderBy">Previous</a>
             </li>
         }
         @for (int i = Model.CurrentPage - 4; i < Model.CurrentPage; i++)
@@ -71,7 +71,7 @@
             {
                 <li class="page-item">
                     <a class="page-link" asp-route="forumCategory"
-                       asp-route-name="@this.Model.Title" asp-route-page="@i">@i</a>
+                       asp-route-name="@this.Model.Title" asp-route-page="@i" asp-route-orderBy="@this.Model.OrderBy">@i</a>
                 </li>
             }
         }
@@ -95,7 +95,7 @@
             {
                 <li class="page-item">
                     <a class="page-link" asp-route="forumCategory"
-                       asp-route-name="@this.Model.Title" asp-route-page="@i">@i</a>
+                       asp-route-name="@this.Model.Title" asp-route-page="@i" asp-route-orderBy="@this.Model.OrderBy">@i</a>
                 </li>
             }
         }
@@ -110,7 +110,7 @@
         {
             <li class="page-item">
                 <a class="page-link" asp-route="forumCategory"
-                   asp-route-name="@this.Model.Title" asp-route-page="@(Model.CurrentPage+1)">Next</a>
+                   asp-route-name="@this.Model.Title" asp-route-page="@(Model.CurrentPage+1)" asp-route-orderBy="@this.Model.OrderBy">Next</a>
             </li>
         }
     </ul>

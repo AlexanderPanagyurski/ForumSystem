@@ -21,6 +21,8 @@
 
         public int CurrentPage { get; set; }
 
+        public string OrderBy { get; set; }
+
         public IEnumerable<PostInCategoryViewModel> ForumPosts { get; set; }
     }
 }

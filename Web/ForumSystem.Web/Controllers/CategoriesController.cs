@@ -27,6 +27,7 @@
             var viewModel = this.categoriesService.GetByName<CategoryViewModel>(name);
             viewModel.ForumPosts = this.postsService.GetByCategoryId<PostInCategoryViewModel>(viewModel.Id, ItemsPerPage, (page - 1) * ItemsPerPage, orderBy);
             var count = this.postsService.GetCountByCategoryId(viewModel.Id);
+            viewModel.OrderBy = orderBy;
 
             viewModel.PagesCount = (int)Math.Ceiling((double)count / ItemsPerPage);
             viewModel.CurrentPage = page;
