@@ -33,7 +33,7 @@
             {
 <li class="page-item">
     <a class="page-link" asp-route="forumSearchedPosts"
-       asp-route-name="GetSearchedPosts" asp-route-page="@(Model.CurrentPage-1)">Previous</a>
+       asp-route-name="GetSearchedPosts" asp-route-page="@(Model.CurrentPage-1)" asp-route-title="@this.Model.Title">Previous</a>
 </li>}
         @for (int i = Model.CurrentPage - 4; i < Model.CurrentPage; i++)
         {
@@ -41,7 +41,7 @@
             {
 <li class="page-item">
     <a class="page-link" asp-route="forumSearchedPosts"
-       asp-route-name="GetSearchedPosts" asp-route-page="@i">@i</a>
+       asp-route-name="GetSearchedPosts" asp-route-page="@i" asp-route-title="@this.Model.Title">@i</a>
 </li>}
             }
         <li class="page-item active" aria-current="page">
@@ -64,7 +64,7 @@
             {
 <li class="page-item">
     <a class="page-link" asp-route="forumSearchedPosts"
-       asp-route-name="GetSearchedPosts" asp-route-page="@i">@i</a>
+       asp-route-name="GetSearchedPosts" asp-route-page="@i" asp-route-title="@this.Model.Title">@i</a>
 </li>}
             }
         @if (Model.CurrentPage == Model.PagesCount)
@@ -76,7 +76,7 @@
             {
 <li class="page-item">
     <a class="page-link" asp-route="forumSearchedPosts"
-       asp-route-name="GetSearchedPosts" asp-route-page="@(Model.CurrentPage+1)">Next</a>
+       asp-route-name="GetSearchedPosts" asp-route-page="@(Model.CurrentPage+1)" asp-route-title="@this.Model.Title">Next</a>
 </li>}
     </ul>
 </nav>

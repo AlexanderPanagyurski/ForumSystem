@@ -10,6 +10,8 @@
 
         public int CurrentPage { get; set; }
 
+        public string Title { get; set; }
+
         public IEnumerable<PostInCategoryViewModel> SearchPosts { get; set; }
     }
 }

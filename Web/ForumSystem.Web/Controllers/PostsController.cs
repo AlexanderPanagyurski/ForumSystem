@@ -117,6 +117,7 @@
             var count = this.postsService.GetCountByPostsBySearch(title);
             viewModel.PagesCount = (int)Math.Ceiling((double)count / ItemsPerPage);
             viewModel.CurrentPage = page;
+            viewModel.Title = title;
 
             return this.View(viewModel);
         }
