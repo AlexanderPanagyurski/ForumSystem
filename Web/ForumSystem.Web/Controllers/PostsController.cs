@@ -84,7 +84,7 @@
             var viewModel = this.postsService.GetFavoritesPosts(user.Id, ItemsPerPage, (page - 1) * ItemsPerPage);
             var count = this.postsService.GetCountByUserFavoritePosts(user.Id);
             viewModel.PagesCount = (int)Math.Ceiling((double)count / ItemsPerPage);
-           // viewModel.CurrentPage = page;
+            viewModel.CurrentPage = page;
 
             return this.View(viewModel);
         }
