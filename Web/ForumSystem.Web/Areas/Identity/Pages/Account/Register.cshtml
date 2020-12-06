@@ -7,7 +7,7 @@
 <h1 class="text-center">@ViewData["Title"]</h1>
 
 <form asp-route-returnUrl="@Model.ReturnUrl" method="post"
-       enctype="multipart/form-data">
+      enctype="multipart/form-data">
     <hr />
     <div class="row">
         <div class="col-sm-6">
@@ -36,9 +36,9 @@
             <span asp-validation-for="Input.Images" class="text-danger"></span>
         </div>
         @*<div class="col">
-            <label asp-for="Images">Profile picture</label>
-            <input type="file" class="form-control-file" id="exampleFormControlFile1">
-        </div>*@
+                <label asp-for="Images">Profile picture</label>
+                <input type="file" class="form-control-file" id="exampleFormControlFile1">
+            </div>*@
         <div class="col">
             <label asp-for="Input.DateOfBirth"></label>
             <input asp-for="Input.DateOfBirth" class="form-control" />

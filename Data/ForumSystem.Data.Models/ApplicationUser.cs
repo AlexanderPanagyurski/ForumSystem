@@ -45,5 +45,7 @@ namespace ForumSystem.Data.Models
         public virtual ICollection<FavoritePost> FavoritePosts { get; set; } = new HashSet<FavoritePost>();
 
         public virtual ICollection<Image> Images { get; set; } = new HashSet<Image>();
+
+        public virtual ICollection<UserImage> UserImages { get; set; } = new HashSet<UserImage>();
     }
 }

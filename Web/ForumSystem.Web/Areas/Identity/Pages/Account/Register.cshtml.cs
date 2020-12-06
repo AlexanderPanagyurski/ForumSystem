@@ -63,6 +63,7 @@
 
             [Required]
             [MaxLength(20)]
+            [MinLength(5)]
             public string Username { get; set; }
 
             [Required]
@@ -118,12 +119,12 @@
                             throw new ArgumentException($"Invalid image extension {extension}");
                         }
 
-                        var dbImage = new Image
+                        var dbImage = new UserImage
                         {
-                            UserId = this._userManager.GetUserId(this.User),
+                            User = await this._userManager.GetUserAsync(this.User),
                             Extension = extension,
                         };
-                        user.Images.Add(dbImage);
+                        user.UserImages.Add(dbImage);
                         var physicalPath = $"{imagePath}/users/{dbImage.Id}.{extension}";
                         using Stream fileStream = new FileStream(physicalPath, FileMode.Create);
                         await image.CopyToAsync(fileStream);

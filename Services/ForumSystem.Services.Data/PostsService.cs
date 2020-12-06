@@ -17,11 +17,14 @@
         private readonly string[] allowedExtensions = new[] { "jpg", "png", "gif", "jpeg" };
 
         private readonly IDeletableEntityRepository<Post> postsRepository;
+        private readonly IDeletableEntityRepository<UserImage> imagesRepository;
 
         public PostsService(
-            IDeletableEntityRepository<Post> postsRepository)
+            IDeletableEntityRepository<Post> postsRepository,
+            IDeletableEntityRepository<UserImage> imagesRepository)
         {
             this.postsRepository = postsRepository;
+            this.imagesRepository = imagesRepository;
         }
 
         public async Task<string> CreateAsync(PostCreateInputModel input, string userId, string imagePath)

@@ -5,26 +5,6 @@
 
 
 <h1 class="display-2">@this.ViewData["Title"]</h1>
-<form asp-controller="Categories" asp-action="ByName" method="post">
-    <div class="form-row">
-        <div class="form-group col-md-3">
-            <label for="orderBy">Order by:</label>
-            <select name="orderBy" id="order" class="form-control">
-                <option value="default" selected>Choose...</option>
-                <option value="tileAscending">Title Ascending</option>
-                <option value="tileDescending">Title Descending</option>
-                <option value="datetimeAscending">oldest</option>
-                <option value="datetimeDescending">newest</option>
-                <option value="commentsAscending">Comments' count Ascending</option>
-                <option value="commentsDescending">Comments' count Descending</option>
-            </select>
-        </div>
-        <div class="form-group col-md-2">
-            <label for="filter">Apply filters</label>
-            <button type="submit" class="form-control btn btn-primary">Apply Filters</button>
-        </div>
-    </div>
-</form>
 <hr />
 @foreach (var post in Model.FavoritePosts)
 {
@@ -57,7 +37,7 @@
         {
             <li class="page-item">
                 <a class="page-link" asp-route="forumUserFavoritePosts"
-                   asp-route-name="GetFavoritesPosts" asp-route-page="@(Model.CurrentPage-1)" name="page">Previous</a>
+                   asp-route-name="GetFavoritesPosts" asp-route-page="@(Model.CurrentPage-1)">Previous</a>
             </li>
         }
         @for (int i = Model.CurrentPage - 4; i < Model.CurrentPage; i++)
@@ -66,7 +46,7 @@
             {
                 <li class="page-item">
                     <a class="page-link" asp-route="forumUserFavoritePosts"
-                      asp-route-name="GetFavoritesPosts"  asp-route-page="@i" name="page">@i</a>
+                      asp-route-name="GetFavoritesPosts"  asp-route-page="@i">@i</a>
                 </li>
             }
         }
@@ -90,7 +70,7 @@
             {
                 <li class="page-item">
                     <a class="page-link" asp-route="forumUserFavoritePosts"
-                     asp-route-name="GetFavoritesPosts"   asp-route-page="@i" name="page">@i</a>
+                     asp-route-name="GetFavoritesPosts"   asp-route-page="@i">@i</a>
                 </li>
             }
         }
@@ -105,7 +85,7 @@
         {
             <li class="page-item">
                 <a class="page-link" asp-route="forumUserFavoritePosts"
-                 asp-route-name="GetFavoritesPosts"  asp-route-page="@(Model.CurrentPage+1)" name="page">Next</a>
+                 asp-route-name="GetFavoritesPosts"  asp-route-page="@(Model.CurrentPage+1)">Next</a>
             </li>
         }
     </ul>

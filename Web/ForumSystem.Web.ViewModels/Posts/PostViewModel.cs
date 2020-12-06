@@ -56,15 +56,10 @@
                        ImageUrl = "/images/posts/" + x.Id + "." + x.Extension,
                    }));
                })
-               //.ForMember(x => x.UserProfileImage, options =>
-               //   {
-               //       options.MapFrom(x => x.Images.Where(x => x.UserId == this.UserId && x.PostId == null)
-               //       .Select(x => new ImagesViewModel
-               //       {
-               //           ImageUrl = "/images/users/" + x.Id + "." + x.Extension,
-               //       })
-               //       .FirstOrDefault());
-               //   })
+               .ForMember(x => x.UserProfileImage, options =>
+               {
+                   options.MapFrom(x => (x.User.UserImages.FirstOrDefault() != null) ? "/images/users/" + x.User.UserImages.FirstOrDefault().Id + "." + x.User.UserImages.FirstOrDefault().Extension : "/images/users/default-profile-icon.jpg");
+               })
                ;
         }
     }

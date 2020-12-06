@@ -1,12 +1,13 @@
 ﻿namespace ForumSystem.Web.ViewModels.Posts
 {
     using System;
-
+    using System.Linq;
+    using AutoMapper;
     using ForumSystem.Data.Models;
     using ForumSystem.Services.Mapping;
     using Ganss.XSS;
 
-    public class PostCommentViewModel : IMapFrom<Comment>
+    public class PostCommentViewModel : IMapFrom<Comment>, IHaveCustomMappings
     {
         public string Id { get; set; }
 
@@ -20,6 +21,17 @@
 
         public string UserUserName { get; set; }
 
+        public string UserId { get; set; }
+
         public string UserProfileImage { get; set; }
+
+        public void CreateMappings(IProfileExpression configuration)
+        {
+            configuration.CreateMap<Comment, PostCommentViewModel>()
+                .ForMember(x => x.UserProfileImage, options =>
+            {
+                options.MapFrom(x => (x.User.UserImages.FirstOrDefault() != null) ? "/images/users/" + x.User.UserImages.FirstOrDefault().Id + "." + x.User.UserImages.FirstOrDefault().Extension : "/images/users/default-profile-icon.jpg");
+            });
+        }
     }
 }
