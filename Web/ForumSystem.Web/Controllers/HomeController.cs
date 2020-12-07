@@ -1,5 +1,6 @@
 ﻿namespace ForumSystem.Web.Controllers
 {
+    using System;
     using System.Diagnostics;
 
     using ForumSystem.Services.Data;
@@ -9,6 +10,8 @@
 
     public class HomeController : BaseController
     {
+        private const int ItemsPerPage = 12;
+
         private readonly ICategoriesService categoriesService;
 
         public HomeController(ICategoriesService categoriesService)
@@ -16,13 +19,17 @@
             this.categoriesService = categoriesService;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(int page = 1)
         {
             var viewModel = new IndexViewModel
             {
                 Categories =
-                    this.categoriesService.GetAll<IndexCategoryViewModel>(),
+                    this.categoriesService.GetAll<IndexCategoryViewModel>(ItemsPerPage, (page - 1) * ItemsPerPage),
             };
+            var count = this.categoriesService.GetCategoriesCount();
+            viewModel.PagesCount = (int)Math.Ceiling((double)count / ItemsPerPage);
+            viewModel.CurrentPage = page;
+
             return this.View(viewModel);
         }
 

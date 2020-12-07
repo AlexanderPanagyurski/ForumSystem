@@ -16,13 +16,13 @@
             this.categoriesRepository = categoriesRepository;
         }
 
-        public IEnumerable<T> GetAll<T>(int? count = null)
+        public IEnumerable<T> GetAll<T>(int? take = null, int skip = 0, int? count = null)
         {
             IQueryable<Category> query =
-                this.categoriesRepository.All().OrderBy(x => x.Name);
-            if (count.HasValue)
+                this.categoriesRepository.All().OrderBy(x => x.Name).Skip(skip);
+            if (take.HasValue)
             {
-                query = query.Take(count.Value);
+                query = query.Take(take.Value);
             }
 
             return query.To<T>().ToList();
@@ -46,6 +46,11 @@
                 })
                 .OrderBy(x => x.Name)
                 .ToList().Select(x => new KeyValuePair<string, string>(x.Id.ToString(), x.Name));
+        }
+
+        public int GetCategoriesCount()
+        {
+            return this.categoriesRepository.All().Count();
         }
     }
 }
