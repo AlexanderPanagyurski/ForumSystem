@@ -13,10 +13,12 @@
         private const int ItemsPerPage = 12;
 
         private readonly ICategoriesService categoriesService;
+        private readonly IPostsService postsService;
 
-        public HomeController(ICategoriesService categoriesService)
+        public HomeController(ICategoriesService categoriesService, IPostsService postsService)
         {
             this.categoriesService = categoriesService;
+            this.postsService = postsService;
         }
 
         public IActionResult Index(int page = 1)
@@ -25,6 +27,7 @@
             {
                 Categories =
                     this.categoriesService.GetAll<IndexCategoryViewModel>(ItemsPerPage, (page - 1) * ItemsPerPage),
+                TrendingPosts = this.postsService.GetTrendingPosts(),
             };
             var count = this.categoriesService.GetCategoriesCount();
             viewModel.PagesCount = (int)Math.Ceiling((double)count / ItemsPerPage);

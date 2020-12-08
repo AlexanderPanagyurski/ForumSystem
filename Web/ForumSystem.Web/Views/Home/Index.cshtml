@@ -1,13 +1,56 @@
 ﻿@using ForumSystem.Common
 @model ForumSystem.Web.ViewModels.Home.IndexViewModel
-@{
-    this.ViewData["Title"] = $"Welcome to {GlobalConstants.SystemName}!";
-}
+@{ this.ViewData["Title"] = $"Welcome to {GlobalConstants.SystemName}!"; }
 <div class="text-center">
-    <h1 class="display-3">@this.ViewData["Title"]</h1>
+    @*<h1 class="display-3">@this.ViewData["Title"]</h1>*@
     @*<cache expires-after="TimeSpan.FromDays(10)" vary-by-query="id">
             <h1 class="display-3">@DateTime.UtcNow</h1>
         </cache>*@
+    <h5>Trending today</h5>
+    <div class="row">
+        @foreach (var trendingPost in this.Model.TrendingPosts)
+        {
+    <div class="col-sm-3">
+        <div class="card text-white" style="width: 280px;">
+            <img src="@trendingPost.Thumbnail" style="width:280px; height:220px; object-fit:cover;" class="card-img rounded" alt="https://costaseafood.com.vn/uploads/no-image.jpg">
+            <div class="card-img-overlay">
+                <a asp-controller="Posts" asp-action="ById" asp-route-id="@trendingPost.Id" style="color:white;"><h5 class="card-title" style="text-shadow: 2px 2px 4px #000000;">@trendingPost.Title</h5></a>
+                <p class="card-text" style="text-shadow: 2px 2px 4px #000000; ">@trendingPost.ShortContent</p>
+            </div>
+        </div>
+    </div>}
+        @*<div class="col-sm-3">
+            <div class="card text-white" style="width: 280px;">
+                <img src="https://image.api.playstation.com/vulcan/img/rnd/202009/2913/TQKAd8U6hnIFQIIcz6qnFh8C.png" style="width:280px; height:220px; object-fit:cover;" class="card-img rounded" alt="https://costaseafood.com.vn/uploads/no-image.jpg">
+                <div class="card-img-overlay">
+                    <h5 class="card-title" style="text-shadow: 2px 2px 4px #000000;">Alice Liddel</h5>
+                    <p class="card-text" style="text-shadow: 2px 2px 4px #000000;">Alice is a freelance web designer and developer based in London. She is specialized in HTML5, CSS3, JavaScript, Bootstrap, etc.</p>
+                    <button class="btn-primary rounded">Visit post</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="card text-white" style="width: 280px;">
+                <img src="https://costaseafood.com.vn/uploads/no-image.jpg" style="width:280px; height:220px; object-fit:cover;" class="card-img rounded" alt="https://costaseafood.com.vn/uploads/no-image.jpg">
+                <div class="card-img-overlay">
+                    <h5 class="card-title" style="text-shadow: 2px 2px 4px #000000;">Alice Liddel</h5>
+                    <p class="card-text" style="text-shadow: 2px 2px 4px #000000;">Alice is a freelance web designer and developer based in London. She is specialized in HTML5, CSS3, JavaScript, Bootstrap, etc.</p>
+                    <button class="btn-primary rounded">Visit post</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="card text-white" style="width: 280px;">
+                <img src="https://images.ams.bg/images/galleries/189181/nay-moshtnata-alfa-romeo-giulia-e-po-leka-i-barza-1583262660_big.jpg" style="width:280px; height:220px; object-fit:cover;" class="card-img rounded" alt="https://costaseafood.com.vn/uploads/no-image.jpg">
+                <div class="card-img-overlay">
+                    <h5 class="card-title" style="text-shadow: 2px 2px 4px #000000;">Alfa Romeo Giulia GTA</h5>
+                    <div style="text-shadow: 2px 2px 4px #000000;">by Alfa Romeo</div>
+                    <p class="card-text" style="text-shadow: 2px 2px 4px #000000;">Alice is a freelance web designer and developer based in London. She is specialized in HTML5...</p>
+                    <button class="btn-primary rounded">Visit post</button>
+                </div>
+            </div>
+        </div>*@
+    </div>
 </div>
 <head>
     <meta charset="utf-8" />
@@ -19,44 +62,39 @@
 <div class="row">
     @foreach (var category in Model.Categories)
     {
-        <div class="col-md-3 media p-4">
-            <div class="img-image">
-                <img src="@category.ImageUrl" width="150" height="100" class="mr-3" alt="@category.Title">
-            </div>
-            <div class="media-body">
-                <h5 class="mt-0"><a href="@category.Url">@category.Title (@category.PostsCount)</a></h5>
-                <p>@category.Description</p>
-            </div>
-        </div>
-    }
+<div class="col-md-3 media p-4">
+    <div class="img-image">
+        <img src="@category.ImageUrl" width="150" height="100" class="mr-3" alt="@category.Title">
+    </div>
+    <div class="media-body">
+        <h5 class="mt-0"><a href="@category.Url">@category.Title (@category.PostsCount)</a></h5>
+        <p>@category.Description</p>
+    </div>
+</div>}
 </div>
 <hr />
 <nav>
     <ul class="pagination justify-content-center">
         @if (Model.CurrentPage == 1)
         {
-            <li class="page-item disabled">
-                <a class="page-link" href="#" tabindex="-1">Previous</a>
-            </li>
-
-        }
-        else
-        {
-            <li class="page-item">
-                <a class="page-link" asp-route="forumHomeCategories"
-                   asp-route-name="Index" asp-route-page="@(Model.CurrentPage-1)">Previous</a>
-            </li>
-        }
+<li class="page-item disabled">
+    <a class="page-link" href="#" tabindex="-1">Previous</a>
+</li> }
+            else
+            {
+<li class="page-item">
+    <a class="page-link" asp-route="forumHomeCategories"
+       asp-route-name="Index" asp-route-page="@(Model.CurrentPage-1)">Previous</a>
+</li>}
         @for (int i = Model.CurrentPage - 4; i < Model.CurrentPage; i++)
         {
             if (i > 0)
             {
-                <li class="page-item">
-                    <a class="page-link" asp-route="forumHomeCategories"
-                       asp-route-name="Index" asp-route-page="@i">@i</a>
-                </li>
+<li class="page-item">
+    <a class="page-link" asp-route="forumHomeCategories"
+       asp-route-name="Index" asp-route-page="@i">@i</a>
+</li>}
             }
-        }
         <li class="page-item active" aria-current="page">
             <span class="page-link">
                 @Model.CurrentPage
@@ -75,25 +113,21 @@
         {
             if (i <= Model.PagesCount)
             {
-                <li class="page-item">
-                    <a class="page-link" asp-route="forumHomeCategories"
-                       asp-route-name="Index" asp-route-page="@i">@i</a>
-                </li>
+<li class="page-item">
+    <a class="page-link" asp-route="forumHomeCategories"
+       asp-route-name="Index" asp-route-page="@i">@i</a>
+</li>}
             }
-        }
         @if (Model.CurrentPage == Model.PagesCount)
         {
-            <li class="page-item disabled">
-                <a class="page-link" href="#" tabindex="-1">Next</a>
-            </li>
-
-        }
-        else
-        {
-            <li class="page-item">
-                <a class="page-link" asp-route="forumHomeCategories"
-                   asp-route-name="Index" asp-route-page="@(Model.CurrentPage+1)">Next</a>
-            </li>
-        }
+<li class="page-item disabled">
+    <a class="page-link" href="#" tabindex="-1">Next</a>
+</li> }
+            else
+            {
+<li class="page-item">
+    <a class="page-link" asp-route="forumHomeCategories"
+       asp-route-name="Index" asp-route-page="@(Model.CurrentPage+1)">Next</a>
+</li>}
     </ul>
 </nav>

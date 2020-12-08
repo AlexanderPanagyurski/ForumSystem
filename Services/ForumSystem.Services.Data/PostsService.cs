@@ -309,6 +309,19 @@
             return viewModel;
         }
 
+        public IEnumerable<TrendingPostViewModel> GetTrendingPosts()
+        {
+            var trendingPosts =
+                this.postsRepository
+                .All().Where(x => x.CreatedOn.Day == DateTime.Today.Day)
+                .Take(4)
+                .To<TrendingPostViewModel>();
+
+            var count = trendingPosts.Count();
+
+            return trendingPosts;
+        }
+
         public UserPostsViewModel GetUserPosts(string userId, int? take = null, int skip = 0)
         {
             UserPostsViewModel userPosts = null;

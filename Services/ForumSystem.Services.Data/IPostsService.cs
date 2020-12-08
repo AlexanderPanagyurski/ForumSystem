@@ -29,5 +29,7 @@
         SearchPostsViewModel GetSearchedPosts(string title, int? take = null, int skip = 0);
 
         int GetCountByPostsBySearch(string title);
+
+        IEnumerable<TrendingPostViewModel> GetTrendingPosts();
     }
 }
