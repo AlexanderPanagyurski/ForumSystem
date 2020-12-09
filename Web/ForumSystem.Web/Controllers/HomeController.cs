@@ -10,7 +10,7 @@
 
     public class HomeController : BaseController
     {
-        private const int ItemsPerPage = 12;
+        private const int ItemsPerPage = 8;
 
         private readonly ICategoriesService categoriesService;
         private readonly IPostsService postsService;

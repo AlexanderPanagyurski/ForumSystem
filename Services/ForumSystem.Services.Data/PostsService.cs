@@ -313,7 +313,12 @@
         {
             var trendingPosts =
                 this.postsRepository
-                .All().Where(x => x.CreatedOn.Day == DateTime.Today.Day)
+                .All()
+                .Where(x => x.CreatedOn.Day == DateTime.Today.Day)
+                .OrderByDescending(x => x.Votes.Sum(v => (int)v.VoteType))
+                .ThenByDescending(x => x.Comments.Count())
+                .ThenByDescending(x => x.FavoritePosts.Count())
+                .ThenByDescending(x => x.CreatedOn)
                 .Take(4)
                 .To<TrendingPostViewModel>();
 
