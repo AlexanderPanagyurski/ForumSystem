@@ -40,6 +40,12 @@
             services.AddDefaultIdentity<ApplicationUser>(IdentityOptionsProvider.GetIdentityOptions)
                 .AddRoles<ApplicationRole>().AddEntityFrameworkStores<ApplicationDbContext>();
 
+            services.AddAuthentication().AddFacebook(options =>
+            {
+                 options.AppId = this.configuration.GetSection("Facebook")["AppId"];
+                 options.AppSecret = this.configuration.GetSection("Facebook")["AppSecret"];
+            });
+
             services.Configure<CookiePolicyOptions>(
                 options =>
                     {

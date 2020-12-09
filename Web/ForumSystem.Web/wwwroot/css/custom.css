@@ -72,15 +72,17 @@
 .carousel-multi-item-2 .card img {
     border-radius: 2px;
 }
+
 .post-galley {
     transition: transform .3s;
 }
-.post-galley:hover {
-    transform: scale(1.1);
-}
 
-#gallery{
-    display:none;
+    .post-galley:hover {
+        transform: scale(1.1);
+    }
+
+#gallery {
+    display: none;
 }
 
 #toTopBtn {

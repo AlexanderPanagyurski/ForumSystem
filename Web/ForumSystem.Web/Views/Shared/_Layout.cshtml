@@ -32,18 +32,20 @@
                         </li>
                         @if (this.SignInManager.IsSignedIn(this.User))
                         {
-                             <li class="nav-item">
-                                <a class="nav-link text-dark" href="">Newsfeed</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Posts" asp-action="Create">Create Post</a>
-                            </li>
-                        }
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" href="">Newsfeed</a>
+                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="" asp-controller="Posts" asp-action="Create">Create Post</a>
+                                    </li>}
                         <li>
                             <form class="form-inline my-2 my-lg-0" asp-controller="Posts" asp-action="GetSearchedPosts" method="get">
                                 <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="title">
-                                <button class="btn btn-outline-primary my-2 my-sm-0"  type="submit">Search</button>
+                                <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Search</button>
                             </form>
+                        </li>
+                        <li class="nav-item px-2">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Chat" asp-action="All">Chat</a>
                         </li>
                     </ul>
                 </div>
