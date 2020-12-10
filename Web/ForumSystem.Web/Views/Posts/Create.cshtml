@@ -1,5 +1,5 @@
 ﻿@model ForumSystem.Web.ViewModels.Posts.PostCreateInputModel
-@{ this.ViewData["Title"] = "New blog post";
+@{ this.ViewData["Title"] = "New forum post";
                 var categories = Model.Categories.Select(x => new SelectListItem(x.Name, x.Id)); }
 
 <h1 class="text-center">@this.ViewData["Title"]</h1>
