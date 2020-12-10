@@ -41,8 +41,8 @@
 
             services.AddAuthentication().AddFacebook(options =>
             {
-                 options.AppId = this.configuration.GetSection("Facebook")["AppId"];
-                 options.AppSecret = this.configuration.GetSection("Facebook")["AppSecret"];
+                options.AppId = this.configuration.GetSection("Facebook")["AppId"];
+                options.AppSecret = this.configuration.GetSection("Facebook")["AppSecret"];
             });
 
             services.Configure<CookiePolicyOptions>(
@@ -73,6 +73,7 @@
             services.AddTransient<IVotesService, VotesService>();
             services.AddTransient<ICommentsService, CommentsService>();
             services.AddTransient<IFavoritesService, FavoritesService>();
+            services.AddTransient<IUsersService, UsersService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

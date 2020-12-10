@@ -33,7 +33,7 @@
                         @if (this.SignInManager.IsSignedIn(this.User))
                         {
                     <li class="nav-item">
-                        <a class="nav-link text-dark" href="">Newsfeed</a>
+                        <a class="nav-link text-dark" asp-controller="Users" asp-action="GetTopUsers">Top Users</a>
                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link text-dark" asp-area="" asp-controller="Posts" asp-action="Create">Create Post</a>
