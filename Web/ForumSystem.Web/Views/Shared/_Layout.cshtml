@@ -32,20 +32,28 @@
                         </li>
                         @if (this.SignInManager.IsSignedIn(this.User))
                         {
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-controller="Users" asp-action="GetTopUsers">Top Users</a>
-                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link text-dark" asp-area="" asp-controller="Posts" asp-action="Create">Create Post</a>
-                                    </li>}
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="Users" asp-action="GetTopUsers">Top Users</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Posts" asp-action="Create">Create Post</a>
+                            </li>
+                            
+                        }
+                        @*@if (this.User.IsInRole(ForumSystem.Common.GlobalConstants.AdministratorRoleName))
+                        {
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link text-dark dropdown-toggle" data-toggle="dropdown">Admin</a>
+                                <div class="dropdown-menu">
+                                    <a class="nav-link text-dark" asp-area="Administration" asp-controller="Categories">Category</a>
+                                </div>
+                            </li>
+                        }*@
                         <li>
                             <form class="form-inline my-2 my-lg-0" asp-controller="Posts" asp-action="GetSearchedPosts" method="get">
                                 <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="title">
                                 <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Search</button>
                             </form>
-                        </li>
-                        <li class="nav-item px-2">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Chat" asp-action="All">Chat</a>
                         </li>
                     </ul>
                 </div>
