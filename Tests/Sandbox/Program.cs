@@ -10,7 +10,6 @@
     using ForumSystem.Data.Common.Repositories;
     using ForumSystem.Data.Models;
     using ForumSystem.Data.Repositories;
-    using ForumSystem.Data.Seeding;
     using ForumSystem.Services.Data;
     using ForumSystem.Services.Messaging;
 
@@ -35,7 +34,6 @@
             {
                 var dbContext = serviceScope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
                 dbContext.Database.Migrate();
-                new ApplicationDbContextSeeder().SeedAsync(dbContext, serviceScope.ServiceProvider).GetAwaiter().GetResult();
             }
 
             using (var serviceScope = serviceProvider.CreateScope())
@@ -51,9 +49,6 @@
         private static async Task<int> SandboxCode(SandboxOptions options, IServiceProvider serviceProvider)
         {
             var sw = Stopwatch.StartNew();
-
-            var settingsService = serviceProvider.GetService<ISettingsService>();
-            Console.WriteLine($"Count of settings: {settingsService.GetCount()}");
 
             Console.WriteLine(sw.Elapsed);
             return await Task.FromResult(0);
@@ -81,7 +76,6 @@
 
             // Application services
             services.AddTransient<IEmailSender, NullMessageSender>();
-            services.AddTransient<ISettingsService, SettingsService>();
         }
     }
 }
