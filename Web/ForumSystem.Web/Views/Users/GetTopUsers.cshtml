@@ -14,7 +14,7 @@
                     <h4>@item.UserUserName</h4>
                     <p class="text-secondary mb-1">Email: @item.Email</p>
                     <p class="text-muted font-size-sm">Posts' count: @item.PostsCount</p>
-                    <button class="btn btn-outline-primary" asp-controller="Posts" asp-action="">Posts</button>
+                    <a class="btn btn-outline-primary" asp-controller="Users" asp-action="GetUserPosts" asp-route-userId="@item.UserId">Posts</a>
                     <button class="btn btn-outline-primary">Message</button>
                 </div>
             </div>
