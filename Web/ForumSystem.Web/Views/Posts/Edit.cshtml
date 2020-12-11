@@ -1,0 +1,42 @@
+﻿@model ForumSystem.Web.ViewModels.Posts.EditPostViewModel
+@{ this.ViewData["Title"] = "Edit post";
+    var categories = Model.Categories.Select(x => new SelectListItem(x.Name, x.Id)); }
+
+<h1 class="text-center">@this.ViewData["Title"]</h1>
+
+<script src="/lib/tinymce/tinymce.min.js" type="text/javascript"></script>
+<script type="text/javascript">tinymce.init({
+        selector: "textarea",
+        plugins: [
+            "image paste table link code media"
+        ],
+        height: 500
+    });</script>
+
+<form method="post" asp-action="Edit"
+      enctype="multipart/form-data">
+    <div class="row">
+        <div class="col-sm-6">
+            <label asp-for="Title"></label>
+            <input asp-for="Title" class="form-control" />
+            <span asp-validation-for="Title" class="text-danger"></span>
+        </div>
+        <div class="col-sm-6">
+            <label asp-for="CategoryId"></label>
+            <select asp-for="CategoryId" asp-items="categories" class="form-control"></select>
+            <span asp-validation-for="CategoryId" class="text-danger"></span>
+        </div>
+        @*<div class="col-sm-6 form-group">
+            <label asp-for="Images"></label>
+            <input asp-for="Images" class="form-control" />
+            <span asp-validation-for="Images" class="text-danger"></span>
+        </div>*@
+    </div>
+    <div>
+        <label asp-for="Content"></label>
+        <textarea asp-for="Content" class="form-control"></textarea>
+        <span asp-validation-for="Content" class="text-danger"></span>
+    </div>
+    <hr />
+    <input type="submit" class="btn btn-primary" />
+</form>

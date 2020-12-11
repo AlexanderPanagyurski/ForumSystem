@@ -121,5 +121,26 @@
 
             return this.View(viewModel);
         }
+
+        [Authorize]
+        public IActionResult Edit(string id)
+        {
+            var inputModel = this.postsService.GetById<EditPostViewModel>(id);
+            inputModel.Categories = this.categoriesService.GetAll<CategoryDropDownViewModel>();
+            return this.View(inputModel);
+        }
+
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> Edit(string id, EditPostViewModel post)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                return this.View();
+            }
+
+            await this.postsService.UpdateAsync(id, post);
+            return this.RedirectToAction(nameof(this.ById), new { id });
+        }
     }
 }

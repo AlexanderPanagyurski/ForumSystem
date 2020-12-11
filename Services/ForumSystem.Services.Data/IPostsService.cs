@@ -31,5 +31,7 @@
         int GetCountByPostsBySearch(string title);
 
         IEnumerable<TrendingPostViewModel> GetTrendingPosts();
+
+        Task UpdateAsync(string id, EditPostViewModel input);
     }
 }

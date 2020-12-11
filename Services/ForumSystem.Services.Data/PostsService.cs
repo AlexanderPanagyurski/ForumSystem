@@ -377,5 +377,19 @@
 
             return userPosts;
         }
+
+        public async Task UpdateAsync(string id, EditPostViewModel input)
+        {
+            var post = this.postsRepository
+                .All()
+                .FirstOrDefault(x => x.Id == id);
+            post.Id = input.Id;
+            post.Title = input.Title;
+            post.Content = input.Content;
+            post.CategoryId = input.CategoryId;
+            post.ModifiedOn = DateTime.UtcNow;
+
+            await this.postsRepository.SaveChangesAsync();
+        }
     }
 }
