@@ -125,6 +125,13 @@
         [Authorize]
         public IActionResult Edit(string id)
         {
+            var postViewModel = this.postsService.GetById<PostViewModel>(id);
+            if (this.userManager.GetUserId(this.User) != postViewModel.UserId
+                && !this.User.IsInRole(ForumSystem.Common.GlobalConstants.AdministratorRoleName))
+            {
+                return this.Redirect("/Home/Index");
+            }
+
             var inputModel = this.postsService.GetById<EditPostViewModel>(id);
             inputModel.Categories = this.categoriesService.GetAll<CategoryDropDownViewModel>();
             return this.View(inputModel);
@@ -134,6 +141,13 @@
         [Authorize]
         public async Task<IActionResult> Edit(string id, EditPostViewModel post)
         {
+            var postViewModel = this.postsService.GetById<PostViewModel>(id);
+            if (this.userManager.GetUserId(this.User) != postViewModel.UserId
+                && !this.User.IsInRole(ForumSystem.Common.GlobalConstants.AdministratorRoleName))
+            {
+                return this.Redirect("/Home/Index");
+            }
+
             if (!this.ModelState.IsValid)
             {
                 return this.View();
@@ -147,6 +161,13 @@
         [Authorize]
         public async Task<IActionResult> Delete(string id)
         {
+            var post = this.postsService.GetById<PostViewModel>(id);
+            if (this.userManager.GetUserId(this.User) != post.UserId
+                && !this.User.IsInRole(ForumSystem.Common.GlobalConstants.AdministratorRoleName))
+            {
+                return this.Redirect("/Home/Index");
+            }
+
             await this.postsService.DeleteAsync(id);
             return this.Redirect("/Home/Index");
         }
