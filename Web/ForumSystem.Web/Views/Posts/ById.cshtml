@@ -73,8 +73,8 @@
 }
 <a href="#" id="toTopBtn" class="cd-top text-replace js-cd-top cd-top--is-visible cd-top--fade-out" data-abc="true"></a>
 <form method="post" asp-action="Delete" id="deleteForm" asp-route-id="@Model.Id">
-    <button class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">Delete</button>
 </form>
+<button class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">Delete</button>
 <div class="row">
     <h1 class="col-md-9">
         @Model.Title
@@ -270,3 +270,16 @@
             });
         </script>
     }
+    <div class="modal" tabindex="-1" role="dialog" id="deleteModal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <p>Do you want to delete "@Model.Title"?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" onclick="deleteForm.submit()">Yes</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                </div>
+            </div>
+        </div>
+    </div>
