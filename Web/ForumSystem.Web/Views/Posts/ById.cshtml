@@ -73,7 +73,15 @@
 }
 <a href="#" id="toTopBtn" class="cd-top text-replace js-cd-top cd-top--is-visible cd-top--fade-out" data-abc="true"></a>
 <div class="row">
-    <h1 class="col-md-9">@Model.Title <a asp-controller="Posts" asp-action="Edit" asp-route-id="@Model.Id"><i class="fa fa-edit" style="font-size:60%; color:darkgrey;"></i></a></h1>
+    <h1 class="col-md-9">
+        @Model.Title
+        <a asp-controller="Posts" asp-action="Edit" asp-route-id="@Model.Id" class="no-uderline">
+            <i class="fa fa-edit" style="font-size:60%;"></i>
+        </a>
+        <a href="#" class="no-uderline">
+            <i class="fa fa-trash" style="font-size:70%; margin-left:15px;"></i>
+        </a>
+    </h1>
     @if (this.Model.Images.Count() == 0)
     {
             <div class="col-md-3 float-right px-5 mb-0">
@@ -104,14 +112,19 @@
                     <div class="media flex-wrap w-100 align-items-center">
                         <img src="@this.Model.UserProfileImage" style="width:80px; height:80px;" class="d-block ui-w-40 rounded-circle" alt="">
                         <div class="media-body ml-3">
-                            <div class="row">
-                                <div class="col-md-4">@Model.UserUserName
+                                @Model.UserUserName
+                                @if (this.Model.ModifiedOn == null)
+                                {
                                     <div class="datetime text-muted small">
                                         <time datetime="@Model.CreatedOn.ToString("o")"></time>
                                     </div>
-                                </div>
-                            </div>
-                            
+                                }
+                                else
+                                {
+                                    <div class="datetime text-muted small">
+                                        <time datetime="@Model.CreatedOn.ToString("o")"></time><span> (edited)</span>
+                                    </div>
+                                }
                         </div>
                         <div class="text-muted small ml-3">
                             @{

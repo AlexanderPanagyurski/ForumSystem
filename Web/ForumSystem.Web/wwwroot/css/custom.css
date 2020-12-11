@@ -137,3 +137,17 @@
     background-color: white;
     margin-top: 20px;
 }
+
+.fa-trash{
+    color:darkgray;
+}
+.fa-edit {
+    color: darkgray;
+}
+.fa-trash:hover {
+    color: red;
+}
+
+.fa-edit:hover {
+    color: darkorange;
+}
