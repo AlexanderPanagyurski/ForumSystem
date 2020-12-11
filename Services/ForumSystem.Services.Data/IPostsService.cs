@@ -33,5 +33,7 @@
         IEnumerable<TrendingPostViewModel> GetTrendingPosts();
 
         Task UpdateAsync(string id, EditPostViewModel input);
+
+        public Task DeleteAsync(string id);
     }
 }

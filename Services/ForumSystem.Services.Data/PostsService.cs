@@ -65,6 +65,13 @@
             return post.Id;
         }
 
+        public async Task DeleteAsync(string id)
+        {
+            var post = this.postsRepository.All().FirstOrDefault(x => x.Id == id);
+            this.postsRepository.Delete(post);
+            await this.postsRepository.SaveChangesAsync();
+        }
+
         public IEnumerable<T> GetByCategoryId<T>(string categoryId, int? take = null, int skip = 0, string orderBy = "default")
         {
             IQueryable<Post> query = null;

@@ -142,5 +142,13 @@
             await this.postsService.UpdateAsync(id, post);
             return this.RedirectToAction(nameof(this.ById), new { id });
         }
+
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> Delete(string id)
+        {
+            await this.postsService.DeleteAsync(id);
+            return this.Redirect("/Home/Index");
+        }
     }
 }
