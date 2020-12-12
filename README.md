@@ -18,6 +18,7 @@ To work with ForumSystem and be able to publish posts you need to have registrat
 - HtmlSanitizer
 - AutoMapper
 - Facebook for developers
+- Google for developers
 
 # Need to know
 - the website ForumSystem is still in development
