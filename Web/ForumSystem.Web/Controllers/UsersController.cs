@@ -1,8 +1,9 @@
 ﻿namespace ForumSystem.Web.Controllers
 {
+    using System;
+
     using ForumSystem.Services.Data;
     using Microsoft.AspNetCore.Mvc;
-    using System;
 
     public class UsersController : Controller
     {

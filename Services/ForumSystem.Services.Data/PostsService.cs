@@ -14,7 +14,7 @@
 
     public class PostsService : IPostsService
     {
-        private readonly string[] allowedExtensions = new[] { "jpg", "png", "gif", "jpeg" };
+        private readonly string[] allowedExtensions = new[] { "jpg", "png", "gif", "jpeg", "PNG" };
 
         private readonly IDeletableEntityRepository<Post> postsRepository;
         private readonly IDeletableEntityRepository<UserImage> imagesRepository;

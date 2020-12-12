@@ -1,6 +1,11 @@
 ﻿@using ForumSystem.Common
 @model ForumSystem.Web.ViewModels.Home.IndexViewModel
 @{ this.ViewData["Title"] = $"Welcome to {GlobalConstants.SystemName}!"; }
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="~/css/custom.css" rel="stylesheet" asp-append-version="true" />
+</head>
 <div class="text-center">
     @*<h1 class="display-3">@this.ViewData["Title"]</h1>*@
     @*<cache expires-after="TimeSpan.FromDays(10)" vary-by-query="id">
@@ -10,54 +15,48 @@
     <div class="row">
         @foreach (var trendingPost in this.Model.TrendingPosts)
         {
-    <div class="col-sm-3">
-        <div class="card text-white" style="width: 280px;">
-            <img src="@trendingPost.Thumbnail" style="width:280px; height:220px; object-fit:cover;" class="card-img rounded" alt="https://costaseafood.com.vn/uploads/no-image.jpg">
-            <div class="card-img-overlay">
-                <a asp-controller="Posts" asp-action="ById" asp-route-id="@trendingPost.Id" style="color:white;"><h5 class="card-title" style="text-shadow: 2px 2px 4px #000000;">@trendingPost.Title</h5></a>
-                <p class="card-text" style="text-shadow: 2px 2px 4px #000000; ">@trendingPost.ShortContent</p>
-            </div>
+<div class="col-sm-3">
+    <div class="card text-white" style="width: 280px;">
+        <img src="@trendingPost.Thumbnail" style="width:280px; height:220px; object-fit:cover;" class="card-img rounded" alt="https://costaseafood.com.vn/uploads/no-image.jpg">
+        <div class="card-img-overlay">
+            <a asp-controller="Posts" asp-action="ById" asp-route-id="@trendingPost.Id" style="color:white;"><h5 class="card-title" style="text-shadow: 2px 2px 4px #000000;">@trendingPost.Title</h5></a>
+            <p class="card-text" style="text-shadow: 2px 2px 4px #000000; ">@trendingPost.ShortContent</p>
         </div>
-    </div>}
+    </div>
+</div>}
         @*<div class="col-sm-3">
-            <div class="card text-white" style="width: 280px;">
-                <img src="https://image.api.playstation.com/vulcan/img/rnd/202009/2913/TQKAd8U6hnIFQIIcz6qnFh8C.png" style="width:280px; height:220px; object-fit:cover;" class="card-img rounded" alt="https://costaseafood.com.vn/uploads/no-image.jpg">
-                <div class="card-img-overlay">
-                    <h5 class="card-title" style="text-shadow: 2px 2px 4px #000000;">Alice Liddel</h5>
-                    <p class="card-text" style="text-shadow: 2px 2px 4px #000000;">Alice is a freelance web designer and developer based in London. She is specialized in HTML5, CSS3, JavaScript, Bootstrap, etc.</p>
-                    <button class="btn-primary rounded">Visit post</button>
+                <div class="card text-white" style="width: 280px;">
+                    <img src="https://image.api.playstation.com/vulcan/img/rnd/202009/2913/TQKAd8U6hnIFQIIcz6qnFh8C.png" style="width:280px; height:220px; object-fit:cover;" class="card-img rounded" alt="https://costaseafood.com.vn/uploads/no-image.jpg">
+                    <div class="card-img-overlay">
+                        <h5 class="card-title" style="text-shadow: 2px 2px 4px #000000;">Alice Liddel</h5>
+                        <p class="card-text" style="text-shadow: 2px 2px 4px #000000;">Alice is a freelance web designer and developer based in London. She is specialized in HTML5, CSS3, JavaScript, Bootstrap, etc.</p>
+                        <button class="btn-primary rounded">Visit post</button>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col-sm-3">
-            <div class="card text-white" style="width: 280px;">
-                <img src="https://costaseafood.com.vn/uploads/no-image.jpg" style="width:280px; height:220px; object-fit:cover;" class="card-img rounded" alt="https://costaseafood.com.vn/uploads/no-image.jpg">
-                <div class="card-img-overlay">
-                    <h5 class="card-title" style="text-shadow: 2px 2px 4px #000000;">Alice Liddel</h5>
-                    <p class="card-text" style="text-shadow: 2px 2px 4px #000000;">Alice is a freelance web designer and developer based in London. She is specialized in HTML5, CSS3, JavaScript, Bootstrap, etc.</p>
-                    <button class="btn-primary rounded">Visit post</button>
+            <div class="col-sm-3">
+                <div class="card text-white" style="width: 280px;">
+                    <img src="https://costaseafood.com.vn/uploads/no-image.jpg" style="width:280px; height:220px; object-fit:cover;" class="card-img rounded" alt="https://costaseafood.com.vn/uploads/no-image.jpg">
+                    <div class="card-img-overlay">
+                        <h5 class="card-title" style="text-shadow: 2px 2px 4px #000000;">Alice Liddel</h5>
+                        <p class="card-text" style="text-shadow: 2px 2px 4px #000000;">Alice is a freelance web designer and developer based in London. She is specialized in HTML5, CSS3, JavaScript, Bootstrap, etc.</p>
+                        <button class="btn-primary rounded">Visit post</button>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col-sm-3">
-            <div class="card text-white" style="width: 280px;">
-                <img src="https://images.ams.bg/images/galleries/189181/nay-moshtnata-alfa-romeo-giulia-e-po-leka-i-barza-1583262660_big.jpg" style="width:280px; height:220px; object-fit:cover;" class="card-img rounded" alt="https://costaseafood.com.vn/uploads/no-image.jpg">
-                <div class="card-img-overlay">
-                    <h5 class="card-title" style="text-shadow: 2px 2px 4px #000000;">Alfa Romeo Giulia GTA</h5>
-                    <div style="text-shadow: 2px 2px 4px #000000;">by Alfa Romeo</div>
-                    <p class="card-text" style="text-shadow: 2px 2px 4px #000000;">Alice is a freelance web designer and developer based in London. She is specialized in HTML5...</p>
-                    <button class="btn-primary rounded">Visit post</button>
+            <div class="col-sm-3">
+                <div class="card text-white" style="width: 280px;">
+                    <img src="https://images.ams.bg/images/galleries/189181/nay-moshtnata-alfa-romeo-giulia-e-po-leka-i-barza-1583262660_big.jpg" style="width:280px; height:220px; object-fit:cover;" class="card-img rounded" alt="https://costaseafood.com.vn/uploads/no-image.jpg">
+                    <div class="card-img-overlay">
+                        <h5 class="card-title" style="text-shadow: 2px 2px 4px #000000;">Alfa Romeo Giulia GTA</h5>
+                        <div style="text-shadow: 2px 2px 4px #000000;">by Alfa Romeo</div>
+                        <p class="card-text" style="text-shadow: 2px 2px 4px #000000;">Alice is a freelance web designer and developer based in London. She is specialized in HTML5...</p>
+                        <button class="btn-primary rounded">Visit post</button>
+                    </div>
                 </div>
-            </div>
-        </div>*@
+            </div>*@
     </div>
 </div>
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link href="~/css//custom.css" rel="stylesheet" asp-append-version="true" />
-</head>
-
 <hr />
 <div class="row">
     @foreach (var category in Model.Categories)
