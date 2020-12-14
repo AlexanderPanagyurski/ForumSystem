@@ -34,5 +34,20 @@
             viewModel.CurrentPage = page;
             return this.View(viewModel);
         }
+
+        public IActionResult GetAllUsers(int page = 1)
+        {
+            var viewModel = this.usersService.GetAllUsers(6, (page - 1) * 6);
+            var count = this.usersService.GetUsersCount();
+            viewModel.PagesCount = (int)Math.Ceiling((double)count / 6);
+            viewModel.CurrentPage = page;
+            return this.View(viewModel);
+        }
+
+        public IActionResult UserProfile(string userId)
+        {
+            var viewModel = this.usersService.GetUserProfile(userId);
+            return this.View(viewModel);
+        }
     }
 }

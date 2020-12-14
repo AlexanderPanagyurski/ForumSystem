@@ -22,6 +22,8 @@ namespace ForumSystem.Data.Models
 
         public DateTime DateOfBirth { get; set; }
 
+        public string Address { get; set; }
+
         // Audit info
         public DateTime CreatedOn { get; set; }
 

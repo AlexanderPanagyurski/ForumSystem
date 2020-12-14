@@ -30,21 +30,26 @@
             <input asp-for="Input.ConfirmPassword" class="form-control" />
             <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
         </div>
-        <div class="col-sm-6">
+        <div class="col-sm-4">
             <label asp-for="Input.Images">Profile picture</label>
             <input asp-for="Input.Images" class="form-control" />
             <span asp-validation-for="Input.Images" class="text-danger"></span>
         </div>
         @*<div class="col">
-                <label asp-for="Images">Profile picture</label>
-                <input type="file" class="form-control-file" id="exampleFormControlFile1">
-            </div>*@
+            <label asp-for="Images">Profile picture</label>
+            <input type="file" class="form-control-file" id="exampleFormControlFile1">
+        </div>*@
         <div class="col">
             <label asp-for="Input.DateOfBirth"></label>
             <input asp-for="Input.DateOfBirth" class="form-control" />
             <span asp-validation-for="Input.DateOfBirth" class="text-danger"></span>
         </div>
-        <div class="col ">
+        <div class="col">
+            <label asp-for="Input.Address">Address</label>
+            <input asp-for="Input.Address" class="form-control" />
+            <span asp-validation-for="Input.Address" class="text-danger"></span>
+        </div>
+        <div class="col-sm-2">
             <label asp-for="Input.PhoneNumber"></label>
             <input asp-for="Input.PhoneNumber" class="form-control" />
             <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>

@@ -27,9 +27,9 @@
                 <img src="@profileImage" width="40" height="40" class="rounded-circle">
             </a>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                <a class="dropdown-item" asp-controller="Users" asp-action="UserProfile" asp-route-userId="@user.Id">My profile</a>
                 <a class="dropdown-item" asp-controller="Posts" asp-action="GetMyPosts">My posts</a>
                 <a class="dropdown-item" asp-controller="Posts" asp-action="GetFavoritesPosts">Favourite posts</a>
-                <a class="dropdown-item" href="#">Edit Profile</a>
                 <form class="dropdown-item" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@(this.Url.Action("Index", "Home", new { area = string.Empty }))">
                     <button type="submit" class="nav-link btn btn-link text-dark">Logout</button>
                 </form>

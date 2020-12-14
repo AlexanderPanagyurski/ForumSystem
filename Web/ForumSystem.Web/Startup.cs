@@ -152,6 +152,10 @@
                             "forumTopUsersPosts",
                             "topUserPosts/{name:minLength(3)}/{userId}",
                             new { controller = "Users", action = "GetUserPosts" });
+                        endpoints.MapControllerRoute(
+                           "forumAllUsers",
+                           "allUsers/{name:minLength(3)}",
+                           new { controller = "Users", action = "GetAllUsers" });
                         endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
                         endpoints.MapRazorPages();
                     });

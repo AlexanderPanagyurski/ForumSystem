@@ -85,6 +85,9 @@
             [Phone]
             public string PhoneNumber { get; set; }
 
+            [MaxLength(30)]
+            public string Address { get; set; }
+
             public IEnumerable<IFormFile> Images { get; set; }
         }
 
@@ -106,6 +109,7 @@
                     Email = this.Input.Email,
                     DateOfBirth = this.Input.DateOfBirth,
                     PhoneNumber = this.Input.PhoneNumber,
+                    Address = this.Input.Address,
                 };
                 var imagePath = $"{this.environment.WebRootPath}/images";
                 Directory.CreateDirectory($"{imagePath}/users/");
