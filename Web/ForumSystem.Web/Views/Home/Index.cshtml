@@ -11,7 +11,7 @@
     @*<cache expires-after="TimeSpan.FromDays(10)" vary-by-query="id">
             <h1 class="display-3">@DateTime.UtcNow</h1>
         </cache>*@
-    <h5>Trending today</h5>
+    <h5>Trending posts (last 24 hours)</h5>
     <div class="row">
         @foreach (var trendingPost in this.Model.TrendingPosts)
         {

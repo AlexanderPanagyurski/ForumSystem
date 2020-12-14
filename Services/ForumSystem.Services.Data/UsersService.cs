@@ -1,7 +1,8 @@
 ﻿namespace ForumSystem.Services.Data
 {
+    using System;
     using System.Linq;
-
+    using System.Threading.Tasks;
     using ForumSystem.Data.Common.Repositories;
     using ForumSystem.Data.Models;
     using ForumSystem.Services.Mapping;
@@ -146,9 +147,28 @@
             return viewModel;
         }
 
+        public EditUserViewModel GetEditUserProfile(string userId)
+        {
+            var viewModel = this.usersRepository.All().Where(x => x.Id == userId).To<EditUserViewModel>().FirstOrDefault();
+
+            return viewModel;
+        }
+
         public int GetUsersCount()
         {
             return this.usersRepository.All().Count();
+        }
+
+        public async Task UpdateAsync(string userId, EditUserViewModel input)
+        {
+            var user = this.usersRepository.All().FirstOrDefault(x => x.Id == userId);
+            user.UserName = input.UserName;
+            user.Email = input.Email;
+            user.PhoneNumber = input.PhoneNumber;
+            user.Address = input.Address;
+            user.ModifiedOn = DateTime.UtcNow;
+
+            await this.usersRepository.SaveChangesAsync();
         }
     }
 }

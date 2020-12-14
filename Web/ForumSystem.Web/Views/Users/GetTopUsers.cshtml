@@ -9,9 +9,9 @@
     {
         <div class="card-body col-md-4">
             <div class="d-flex flex-column align-items-center text-center">
-                <img src="@item.ProfileImage" alt="@item.UserUserName" class="rounded-circle" width="150" height="145">
+                <a></a><img src="@item.ProfileImage" alt="@item.UserUserName" class="rounded-circle" width="150" height="145">
                 <div class="mt-3">
-                    <h4>@item.UserUserName</h4>
+                    <a asp-controller="Users" asp-action="UserProfile" asp-route-userId="@item.UserId"><h4>@item.UserUserName</h4></a>
                     <p class="text-secondary mb-1">Email: @item.Email</p>
                     <p class="text-muted font-size-sm">Posts' count: @item.PostsCount</p>
                     <a class="btn btn-outline-primary" asp-controller="Users" asp-action="GetUserPosts" asp-route-userId="@item.UserId">Posts</a>

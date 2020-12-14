@@ -1,0 +1,44 @@
+﻿@model ForumSystem.Web.ViewModels.Users.EditUserViewModel
+@{
+    ViewData["Title"] = "Edit profile";
+}
+
+<h1 class="text-center">@ViewData["Title"]</h1>
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="EditUser" asp-route-userId="@this.Model.Id">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="@this.Model.UserName" class="control-label"></label>
+                <input asp-for="@this.Model.UserName" class="form-control" />
+                <span asp-validation-for="@this.Model.UserName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@this.Model.Email" class="control-label"></label>
+                <input asp-for="@this.Model.Email" class="form-control" />
+                <span asp-validation-for="@this.Model.Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@this.Model.PhoneNumber" class="control-label"></label>
+                <input asp-for="@this.Model.PhoneNumber" class="form-control" />
+                <span asp-validation-for="@this.Model.PhoneNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@this.Model.Address" class="control-label"></label>
+                <input asp-for="@this.Model.Address" class="form-control" />
+                <span asp-validation-for="@this.Model.Address" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
