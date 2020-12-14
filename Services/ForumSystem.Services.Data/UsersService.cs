@@ -163,7 +163,9 @@
         {
             var user = this.usersRepository.All().FirstOrDefault(x => x.Id == userId);
             user.UserName = input.UserName;
+            user.NormalizedUserName = input.UserName.Normalize().ToUpper();
             user.Email = input.Email;
+            user.NormalizedEmail = input.Email.Normalize().ToUpper();
             user.PhoneNumber = input.PhoneNumber;
             user.Address = input.Address;
             user.ModifiedOn = DateTime.UtcNow;
