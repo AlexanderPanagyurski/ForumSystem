@@ -1,5 +1,7 @@
 ﻿namespace ForumSystem.Web.ViewModels.Users
 {
+    using System.Collections;
+    using System.Collections.Generic;
     using System.Linq;
 
     using AutoMapper;
@@ -20,12 +22,21 @@
 
         public string ProfileImage { get; set; }
 
+        public IEnumerable<UserTopPostsViewModel> TopPosts { get; set; }
+
         public void CreateMappings(IProfileExpression configuration)
         {
             configuration.CreateMap<ApplicationUser, UserProfileViewModel>()
                 .ForMember(x => x.ProfileImage, options =>
                    {
                        options.MapFrom(x => (x.UserImages.FirstOrDefault() != null) ? "/images/users/" + x.UserImages.FirstOrDefault().Id + "." + x.UserImages.FirstOrDefault().Extension : "/images/users/default-profile-icon.jpg");
+                   })
+                .ForMember(x => x.TopPosts, options =>
+                   {
+                       options.MapFrom(x => x.Posts
+                       .OrderByDescending(x => x.Comments.Count())
+                       .Take(12)
+                       .ToArray());
                    });
         }
     }
