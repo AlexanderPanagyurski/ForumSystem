@@ -34,7 +34,9 @@
                 .ForMember(x => x.TopPosts, options =>
                    {
                        options.MapFrom(x => x.Posts
-                       .OrderByDescending(x => x.Comments.Count())
+                       .OrderByDescending(x => x.Votes.Sum(v => (int)v.VoteType))
+                       .ThenByDescending(x => x.Comments.Count())
+                       .ThenByDescending(x => x.CreatedOn)
                        .Take(12)
                        .ToArray());
                    });

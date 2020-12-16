@@ -89,10 +89,17 @@
                     <div class="col-sm-12 mb-3">
                         <div class="card h-100">
                             <div class="card-body">
-                                <h6 class="d-flex align-items-center mb-3">Top @this.Model.TopPosts.Count() Popular posts</h6>
-                                @foreach (var item in this.Model.TopPosts)
+                                @if (this.Model.TopPosts.Count() > 0)
                                 {
-                                    <div><a asp-controller="Posts" asp-action="ById" asp-route-id="@item.Id">@item.Title</a></div>
+                                    <h6 class="d-flex align-items-center mb-3">Top @this.Model.TopPosts.Count() Popular posts</h6>
+                                    @foreach (var item in this.Model.TopPosts)
+                                    {
+                                        <div><a asp-controller="Posts" asp-action="ById" asp-route-id="@item.Id">@item.Title</a></div>
+                                    }
+                                }
+                                else
+                                {
+                                    <h6 class="d-flex align-items-center mb-3">No posts.</h6>
                                 }
                             </div>
                         </div>

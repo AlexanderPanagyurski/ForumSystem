@@ -23,7 +23,7 @@
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly ILogger<LoginModel> _logger;
 
-        public LoginModel(SignInManager<ApplicationUser> signInManager, 
+        public LoginModel(SignInManager<ApplicationUser> signInManager,
             ILogger<LoginModel> logger,
             UserManager<ApplicationUser> userManager)
         {
@@ -78,13 +78,22 @@
             returnUrl ??= Url.Content("~/");
 
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
-        
+
             if (ModelState.IsValid)
             {
                 // This doesn't count login failures towards account lockout
-                // To enable password failures to trigger account lockout, set lockoutOnFailure: true
+                // To enable password failures to trigger Saccount lockout, set lockoutOnFailure: true
                 var user = await this._userManager.FindByEmailAsync(Input.Email);
-                var result = await _signInManager.PasswordSignInAsync(user.NormalizedUserName, Input.Password, Input.RememberMe, lockoutOnFailure: false);
+                Microsoft.AspNetCore.Identity.SignInResult result = null;
+                if (user == null)
+                {
+                    result = await _signInManager.PasswordSignInAsync(string.Empty, Input.Password, Input.RememberMe, lockoutOnFailure: false);
+                }
+                else
+                {
+                    result = await _signInManager.PasswordSignInAsync(user.NormalizedUserName, Input.Password, Input.RememberMe, lockoutOnFailure: false);
+                }
+                // var result = await _signInManager.PasswordSignInAsync(user.NormalizedUserName, Input.Password, Input.RememberMe, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");

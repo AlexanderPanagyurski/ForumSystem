@@ -5,6 +5,7 @@
 
     using ForumSystem.Data.Models;
     using ForumSystem.Services.Data;
+    using ForumSystem.Web.ViewModels;
     using ForumSystem.Web.ViewModels.Posts;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Hosting;

@@ -2,8 +2,10 @@
 {
     using System;
     using System.Diagnostics;
-
+    using System.Text;
+    using System.Threading.Tasks;
     using ForumSystem.Services.Data;
+    using ForumSystem.Services.Messaging;
     using ForumSystem.Web.ViewModels;
     using ForumSystem.Web.ViewModels.Home;
     using Microsoft.AspNetCore.Mvc;
@@ -14,11 +16,16 @@
 
         private readonly ICategoriesService categoriesService;
         private readonly IPostsService postsService;
+        private readonly IEmailSender emailSender;
 
-        public HomeController(ICategoriesService categoriesService, IPostsService postsService)
+        public HomeController(
+            ICategoriesService categoriesService,
+            IPostsService postsService,
+            IEmailSender emailSender)
         {
             this.categoriesService = categoriesService;
             this.postsService = postsService;
+            this.emailSender = emailSender;
         }
 
         public IActionResult Index(int page = 1)
@@ -39,6 +46,13 @@
         public IActionResult Contacts()
         {
             return this.View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Contacts(ContactsViewModel viewModel)
+        {
+            await this.emailSender.SendEmailAsync(viewModel.Email, viewModel.Name, "alexander.panagyurski@gmail.com", viewModel.Subject, viewModel.Message);
+            return this.Redirect("/Home/Index");
         }
 
         public IActionResult About()
