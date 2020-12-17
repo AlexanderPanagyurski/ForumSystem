@@ -24,5 +24,12 @@ To work with ForumSystem and be able to publish posts you need to have registrat
 - jQuery
 - Font Awesome
 
+# Backend
+
+- 2 different areas:Administration, Identity
+- 7 service methods
+- 8 controllers
+- 19 views
+
 # Need to know
 - the website ForumSystem is still in development
