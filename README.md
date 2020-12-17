@@ -19,6 +19,8 @@ To work with ForumSystem and be able to publish posts you need to have registrat
 - AutoMapper
 - Facebook for developers
 - Google for developers
+- SendGrid
+- jQuery
 
 # Need to know
 - the website ForumSystem is still in development
