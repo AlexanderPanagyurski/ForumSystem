@@ -3,10 +3,12 @@
     using System;
     using System.Linq;
     using System.Threading.Tasks;
+
     using ForumSystem.Data.Common.Repositories;
     using ForumSystem.Data.Models;
     using ForumSystem.Services.Mapping;
     using ForumSystem.Web.ViewModels.Categories;
+    using ForumSystem.Web.ViewModels.Home;
     using ForumSystem.Web.ViewModels.Users;
 
     public class UsersService : IUsersService
@@ -176,6 +178,21 @@
             user.FacebookUrl = input.FacebookUrl;
 
             await this.usersRepository.SaveChangesAsync();
+        }
+
+        public ContactsViewModel GetUserInfo(string userId)
+        {
+            var user = this.usersRepository.All().FirstOrDefault(x => x.Id == userId);
+
+            ContactsViewModel viewModel = new ContactsViewModel
+            {
+                Id = user.Id,
+                Email = user.Email,
+                PhoneNumber = user.PhoneNumber,
+                Address = user.Address,
+            };
+
+            return viewModel;
         }
     }
 }

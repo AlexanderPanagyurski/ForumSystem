@@ -1,7 +1,7 @@
 ﻿namespace ForumSystem.Services.Data
 {
     using System.Threading.Tasks;
-
+    using ForumSystem.Web.ViewModels.Home;
     using ForumSystem.Web.ViewModels.Users;
 
     public interface IUsersService
@@ -19,5 +19,7 @@
         Task UpdateAsync(string userId, EditUserViewModel input);
 
         EditUserViewModel GetEditUserProfile(string userId);
+
+        ContactsViewModel GetUserInfo(string userId);
     }
 }

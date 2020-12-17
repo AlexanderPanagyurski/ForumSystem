@@ -4,6 +4,8 @@
     using System.Threading.Tasks;
     using ForumSystem.Data.Models;
     using ForumSystem.Services.Data;
+    using ForumSystem.Services.Messaging;
+    using ForumSystem.Web.ViewModels.Home;
     using ForumSystem.Web.ViewModels.Users;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
@@ -16,15 +18,18 @@
         private readonly IUsersService usersService;
         private readonly IPostsService postsService;
         private readonly UserManager<ApplicationUser> userManager;
+        private readonly IEmailSender emailSender;
 
         public UsersController(
             IUsersService usersService,
             IPostsService postsService,
-            UserManager<ApplicationUser> userManager)
+            UserManager<ApplicationUser> userManager,
+            IEmailSender emailSender)
         {
             this.usersService = usersService;
             this.postsService = postsService;
             this.userManager = userManager;
+            this.emailSender = emailSender;
         }
 
         public IActionResult GetTopUsers()
@@ -84,6 +89,21 @@
 
             await this.usersService.UpdateAsync(userId, user);
             return this.RedirectToAction(nameof(this.UserProfile), new { userId });
+        }
+
+        public IActionResult SendEmail(string id)
+        {
+            var viewModel = this.usersService.GetUserInfo(id);
+            return this.View(viewModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> SendEmail(string id, ContactsViewModel viewModel)
+        {
+            var user = this.usersService.GetUserInfo(id);
+            await this.emailSender.SendEmailAsync("alexander.panagyurski@gmail.com", viewModel.Name, user.Email, viewModel.Subject, viewModel.Message);
+
+            return this.Redirect("/Home/Index");
         }
     }
 }
