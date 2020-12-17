@@ -22,6 +22,16 @@
 
         public string ProfileImage { get; set; }
 
+        public string WebsiteUrl { get; set; }
+
+        public string GithubUrl { get; set; }
+
+        public string TwitterUrl { get; set; }
+
+        public string InstagramUrl { get; set; }
+
+        public string FacebookUrl { get; set; }
+
         public IEnumerable<UserTopPostsViewModel> TopPosts { get; set; }
 
         public void CreateMappings(IProfileExpression configuration)

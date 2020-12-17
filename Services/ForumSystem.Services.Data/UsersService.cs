@@ -169,6 +169,11 @@
             user.PhoneNumber = input.PhoneNumber;
             user.Address = input.Address;
             user.ModifiedOn = DateTime.UtcNow;
+            user.WebsiteUrl = input.WebsiteUrl;
+            user.GithubUrl = input.GithubUrl;
+            user.TwitterUrl = input.TwitterUrl;
+            user.InstagramUrl = input.InstagramUrl;
+            user.FacebookUrl = input.FacebookUrl;
 
             await this.usersRepository.SaveChangesAsync();
         }
