@@ -8,6 +8,7 @@ To work with ForumSystem and be able to publish posts you need to have registrat
 
 - .NET 5.0
 - ASP.NET Core 5.0
+- ASP.NET WebAPI 5.0
 - ASP.NET CORE view components
 - ASP.NET Core areas
 - Entity Framework Core 5.0
@@ -21,6 +22,7 @@ To work with ForumSystem and be able to publish posts you need to have registrat
 - Google for developers
 - SendGrid
 - jQuery
+- Font Awesome
 
 # Need to know
 - the website ForumSystem is still in development
