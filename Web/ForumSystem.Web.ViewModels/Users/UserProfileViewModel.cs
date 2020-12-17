@@ -49,7 +49,15 @@
                        .ThenByDescending(x => x.CreatedOn)
                        .Take(12)
                        .ToArray());
-                   });
+                   })
+                .ForMember(x => x.Address, options =>
+                   {
+                       options.MapFrom(x => (x.Address != null) ? x.Address : "no information");
+                   })
+                .ForMember(x => x.PhoneNumber, options =>
+                {
+                    options.MapFrom(x => (x.PhoneNumber != null) ? x.PhoneNumber : "no information");
+                });
         }
     }
 }
