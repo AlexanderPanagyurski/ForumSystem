@@ -69,10 +69,6 @@
         {
             var userViewModel = this.usersService.GetUserProfile(userId);
             var user = await this.userManager.GetUserAsync(this.User);
-            //if (user.Id != userViewModel.Id)
-            //{
-            //    return this.Redirect("/Home/Index");
-            //}
 
             EditUserViewModel inputModel = this.usersService.GetEditUserProfile(userId);
             return this.View(inputModel);
@@ -82,10 +78,10 @@
         [Authorize]
         public async Task<IActionResult> EditUser(string userId, EditUserViewModel user)
         {
-            //if (!this.ModelState.IsValid)
-            //{
-            //    return this.View();
-            //}
+            if (!this.ModelState.IsValid)
+            {
+                return this.RedirectToAction(nameof(this.EditUser), new { userId });
+            }
 
             await this.usersService.UpdateAsync(userId, user);
             return this.RedirectToAction(nameof(this.UserProfile), new { userId });
@@ -100,6 +96,11 @@
         [HttpPost]
         public async Task<IActionResult> SendEmail(string id, ContactsViewModel viewModel)
         {
+            if (!this.ModelState.IsValid)
+            {
+                return this.RedirectToAction(nameof(this.SendEmail), new { id });
+            }
+
             var user = this.usersService.GetUserInfo(id);
             await this.emailSender.SendEmailAsync("alexander.panagyurski@gmail.com", viewModel.Name, user.Email, viewModel.Subject, viewModel.Message);
 

@@ -62,8 +62,7 @@
             public string Email { get; set; }
 
             [Required]
-            [MaxLength(20)]
-            [MinLength(5)]
+            [StringLength(40, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 5)]
             public string Username { get; set; }
 
             [Required]
@@ -85,7 +84,7 @@
             [Phone]
             public string PhoneNumber { get; set; }
 
-            [MaxLength(30)]
+            [StringLength(50, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 10)]
             public string Address { get; set; }
 
             public IEnumerable<IFormFile> Images { get; set; }

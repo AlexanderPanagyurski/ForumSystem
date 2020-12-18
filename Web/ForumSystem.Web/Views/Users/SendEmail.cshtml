@@ -18,12 +18,14 @@
                         <div class="md-form mb-0">
                             <label asp-for="Name">Your name</label>
                             <input asp-for="Name" class="form-control">
+                            <span asp-validation-for="@this.Model.Name" class="text-danger"></span>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="md-form mb-0">
                             <label asp-for="Email">Your email</label>
                             <input asp-for="Email" class="form-control" disabled>
+                            <span asp-validation-for="@this.Model.Email" class="text-danger"></span>
                         </div>
                     </div>
                 </div>
@@ -32,6 +34,7 @@
                         <div class="md-form mb-0">
                             <label asp-for="Subject">Subject</label>
                             <input asp-for="Subject" class="form-control">
+                            <span asp-validation-for="@this.Model.Subject" class="text-danger"></span>
                         </div>
                     </div>
                 </div>
