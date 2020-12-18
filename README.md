@@ -11,6 +11,7 @@ To work with ForumSystem and be able to publish posts you need to have registrat
 - ASP.NET WebAPI 5.0
 - ASP.NET CORE view components
 - ASP.NET Core areas
+- Azure deployment
 - Entity Framework Core 5.0
 - AJAX real-time Requests
 - JavaScript and JS animations
