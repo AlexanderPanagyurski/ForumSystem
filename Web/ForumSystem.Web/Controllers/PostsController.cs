@@ -59,6 +59,8 @@
         [Authorize]
         public async Task<IActionResult> Create(PostCreateInputModel input)
         {
+            var id = string.Empty;
+
             var user = await this.userManager.GetUserAsync(this.User);
             if (!this.ModelState.IsValid)
             {
@@ -67,7 +69,7 @@
 
             try
             {
-                var postId = await this.postsService.CreateAsync(input, user.Id, $"{this.environment.WebRootPath}/images");
+                id = await this.postsService.CreateAsync(input, user.Id, $"{this.environment.WebRootPath}/images");
             }
             catch (Exception ex)
             {
@@ -76,7 +78,7 @@
             }
 
             this.TempData["InfoMessage"] = "Forum post created!";
-            return this.Redirect("/");
+            return this.RedirectToAction(nameof(this.ById), new { id });
         }
 
         public async Task<IActionResult> GetFavoritesPosts(string orderBy, int page = 1)
