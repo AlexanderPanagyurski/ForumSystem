@@ -67,6 +67,12 @@
         [Authorize]
         public async Task<IActionResult> EditUser(string userId)
         {
+            if (this.userManager.GetUserId(this.User) != userId
+                && !this.User.IsInRole(ForumSystem.Common.GlobalConstants.AdministratorRoleName))
+            {
+                return this.Redirect("/Home/Index");
+            }
+
             var userViewModel = this.usersService.GetUserProfile(userId);
             var user = await this.userManager.GetUserAsync(this.User);
 
@@ -78,6 +84,12 @@
         [Authorize]
         public async Task<IActionResult> EditUser(string userId, EditUserViewModel user)
         {
+            if (this.userManager.GetUserId(this.User) != userId
+                && !this.User.IsInRole(ForumSystem.Common.GlobalConstants.AdministratorRoleName))
+            {
+                return this.Redirect("/Home/Index");
+            }
+
             if (!this.ModelState.IsValid)
             {
                 return this.RedirectToAction(nameof(this.EditUser), new { userId });

@@ -2,6 +2,8 @@
 {
     using System;
     using System.Linq;
+    using System.Security.Cryptography;
+    using System.Text;
     using System.Threading.Tasks;
 
     using ForumSystem.Data.Common.Repositories;
@@ -10,16 +12,22 @@
     using ForumSystem.Web.ViewModels.Categories;
     using ForumSystem.Web.ViewModels.Home;
     using ForumSystem.Web.ViewModels.Users;
+    using Microsoft.AspNetCore.Identity;
 
     public class UsersService : IUsersService
     {
         private readonly IDeletableEntityRepository<ApplicationUser> usersRepository;
         private readonly IDeletableEntityRepository<Post> postsRepository;
+        private readonly UserManager<ApplicationUser> userManager;
 
-        public UsersService(IDeletableEntityRepository<ApplicationUser> usersRepository, IDeletableEntityRepository<Post> postsRepository)
+        public UsersService(
+            IDeletableEntityRepository<ApplicationUser> usersRepository,
+            IDeletableEntityRepository<Post> postsRepository,
+            UserManager<ApplicationUser> _userManager)
         {
             this.usersRepository = usersRepository;
             this.postsRepository = postsRepository;
+            userManager = _userManager;
         }
 
         public AllUsersViewModel GetAllUsers(int? take = null, int skip = 0)
@@ -176,6 +184,11 @@
             user.TwitterUrl = input.TwitterUrl;
             user.InstagramUrl = input.InstagramUrl;
             user.FacebookUrl = input.FacebookUrl;
+            if (input.Password != null)
+            {
+                await this.userManager.RemovePasswordAsync(user);
+                await this.userManager.AddPasswordAsync(user, input.Password);
+            }
 
             await this.usersRepository.SaveChangesAsync();
         }
