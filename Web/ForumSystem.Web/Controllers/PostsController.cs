@@ -62,9 +62,9 @@
             var id = string.Empty;
 
             var user = await this.userManager.GetUserAsync(this.User);
-            if (!this.ModelState.IsValid)
+            if (!this.ModelState.IsValid || input.Content == null)
             {
-                return this.View(input);
+                return this.RedirectToAction(nameof(this.Create));
             }
 
             try
@@ -74,7 +74,7 @@
             catch (Exception ex)
             {
                 this.ModelState.AddModelError(string.Empty, ex.Message);
-                return this.View(input);
+                return this.RedirectToAction(nameof(this.Create));
             }
 
             this.TempData["InfoMessage"] = "Forum post created!";
