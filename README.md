@@ -11,6 +11,7 @@ To work with ForumSystem and be able to publish posts you need to have registrat
 - ASP.NET WebAPI 5.0
 - ASP.NET CORE view components
 - ASP.NET Core areas
+- Azure deployment
 - Entity Framework Core 5.0
 - AJAX real-time Requests
 - JavaScript and JS animations
@@ -27,9 +28,9 @@ To work with ForumSystem and be able to publish posts you need to have registrat
 # Backend
 
 - 2 different areas:Administration, Identity
-- 7 service methods
+- 7 services
 - 8 controllers
 - 19 views
 
-# Need to know
-- the website ForumSystem is still in development
+# Link to Azure
+- https://forumsystem.azurewebsites.net
