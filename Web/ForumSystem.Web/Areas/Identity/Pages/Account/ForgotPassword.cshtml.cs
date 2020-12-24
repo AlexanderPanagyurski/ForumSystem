@@ -6,7 +6,7 @@
     using System.Text;
     using System.Text.Encodings.Web;
     using System.Threading.Tasks;
-
+    using ForumSystem.Common;
     using ForumSystem.Data.Models;
     using ForumSystem.Services.Messaging;
     using Microsoft.AspNetCore.Authorization;
@@ -61,8 +61,8 @@
                     protocol: Request.Scheme);
 
                 await _emailSender.SendEmailAsync(
-                    "alexander.panagyurski@gmail.com",
-                    "ForumSystem",
+                    GlobalConstants.AdminEmail,
+                    GlobalConstants.SystemName,
                     this.Input.Email,
                     "Reset Password",
                     $"Please reset your password by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");

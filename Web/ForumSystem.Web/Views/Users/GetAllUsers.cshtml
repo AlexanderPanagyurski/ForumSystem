@@ -14,15 +14,19 @@
                     <a asp-controller="Users" asp-action="UserProfile" asp-route-userId="@item.UserId"><h4>@item.UserUserName</h4></a>
                     <p class="text-secondary mb-1">Email: @item.Email</p>
                     <p class="text-muted font-size-sm">Posts' count: @item.PostsCount</p>
-                    <a class="btn btn-outline-primary" asp-controller="Users" asp-action="GetUserPosts" asp-route-userId="@item.UserId">Posts</a>
-                    @if (this.User.IsInRole(ForumSystem.Common.GlobalConstants.AdministratorRoleName))
-                    {
-                        <a class="btn btn-outline-primary" asp-controller="Users" asp-action="SendEmail" asp-route-id="@item.UserId">Message</a>
-                    }
-                    @if (this.User.IsInRole(ForumSystem.Common.GlobalConstants.AdministratorRoleName))
-                    {
-                        <button class="btn btn-outline-danger">Ban</button>
-                    }
+                    <div class="row">
+                        <a class="btn btn-outline-primary col-3 m-1" asp-controller="Users" asp-action="GetUserPosts" asp-route-userId="@item.UserId">Posts</a>
+                        @if (this.User.IsInRole(ForumSystem.Common.GlobalConstants.AdministratorRoleName))
+                        {
+                            <a class="btn btn-outline-primary col-4 m-1" asp-controller="Users" asp-action="SendEmail" asp-route-id="@item.UserId">Message</a>
+                        }
+                        @if (this.User.IsInRole(ForumSystem.Common.GlobalConstants.AdministratorRoleName))
+                        {
+                            <form method="post" class="col-3 m-1">
+                                <button class="btn btn-outline-danger" asp-controller="Users" asp-action="BanUser" asp-route-id="@item.UserId">Ban</button>
+                            </form>
+                        }
+                    </div>
                 </div>
             </div>
         </div>

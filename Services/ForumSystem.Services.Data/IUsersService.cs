@@ -21,5 +21,7 @@
         EditUserViewModel GetEditUserProfile(string userId);
 
         ContactsViewModel GetUserInfo(string userId);
+
+        Task BanUserAsync(string id);
     }
 }

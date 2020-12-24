@@ -207,5 +207,12 @@
 
             return viewModel;
         }
+
+        public async Task BanUserAsync(string id)
+        {
+            var user = this.usersRepository.All().FirstOrDefault(x => x.Id == id);
+            this.usersRepository.Delete(user);
+            await this.usersRepository.SaveChangesAsync();
+        }
     }
 }

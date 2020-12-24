@@ -2,6 +2,7 @@
 {
     using System;
     using System.Threading.Tasks;
+    using ForumSystem.Common;
     using ForumSystem.Data.Models;
     using ForumSystem.Services.Data;
     using ForumSystem.Services.Messaging;
@@ -115,6 +116,20 @@
 
             var user = this.usersService.GetUserInfo(id);
             await this.emailSender.SendEmailAsync("alexander.panagyurski@gmail.com", viewModel.Name, user.Email, viewModel.Subject, viewModel.Message);
+
+            return this.Redirect("/Home/Index");
+        }
+
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> BanUser(string id)
+        {
+            if (!this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+            {
+                return this.Redirect("Home/Index");
+            }
+
+            await this.usersService.BanUserAsync(id);
 
             return this.Redirect("/Home/Index");
         }
