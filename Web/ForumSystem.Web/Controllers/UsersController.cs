@@ -121,7 +121,7 @@
         }
 
         [HttpPost]
-        [Authorize]
+        [Authorize(Roles =GlobalConstants.AdministratorRoleName)]
         public async Task<IActionResult> BanUser(string id)
         {
             if (!this.User.IsInRole(GlobalConstants.AdministratorRoleName))

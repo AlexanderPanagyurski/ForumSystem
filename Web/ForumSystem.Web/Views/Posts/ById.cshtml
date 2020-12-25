@@ -88,7 +88,7 @@
     @if (this.Model.Images.Count() == 0)
     {
         <div class="col-md-3 float-right px-5 mb-0">
-            <button type="button" disabled class="btn btn-primary float-right" onclick="myFunction()"><div id="show-hide">Show Gallery</div></button>
+            <button type="button" disabled class="btn btn-primary float-right" onclick="galleryInteract()"><div id="show-hide">Show Gallery</div></button>
         </div>
     }
     else
@@ -204,7 +204,8 @@
                     scrollTop: $("#AddCommentForm").offset().top
                 }, 1000);
             }
-
+            </script>
+        <script>
             function sendVote(postId, isUpVote) {
                 var token = $("#votesForm input[name=__RequestVerificationToken]").val();
                 var json = { postId: postId, isUpVote: isUpVote };
@@ -239,7 +240,7 @@
             }
         </script>
         <script>
-            function myFunction() {
+            function galleryInteract() {
                 var x = document.getElementById("gallery");
                 var y = document.getElementById("show-hide");
                 if (x.style.display === "block") {
