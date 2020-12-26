@@ -85,7 +85,7 @@
                 // To enable password failures to trigger Saccount lockout, set lockoutOnFailure: true
                 var user = await this._userManager.FindByEmailAsync(Input.Email);
                 Microsoft.AspNetCore.Identity.SignInResult result = null;
-                if (user == null)
+                if (user == null || !user.EmailConfirmed)
                 {
                     result = await _signInManager.PasswordSignInAsync(string.Empty, Input.Password, Input.RememberMe, lockoutOnFailure: false);
                 }

@@ -8,14 +8,14 @@
     using System.Text;
     using System.Text.Encodings.Web;
     using System.Threading.Tasks;
-
+    using ForumSystem.Common;
     using ForumSystem.Data.Models;
+    using ForumSystem.Services.Messaging;
     using Microsoft.AspNetCore.Authentication;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Identity;
-    using Microsoft.AspNetCore.Identity.UI.Services;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.RazorPages;
     using Microsoft.AspNetCore.WebUtilities;
@@ -147,10 +147,16 @@
                         values: new { area = "Identity", userId = user.Id, code = code, returnUrl = returnUrl },
                         protocol: this.Request.Scheme);
 
-                    await this._emailSender.SendEmailAsync(this.Input.Email, "Confirm your email",
+
+
+                    await this._emailSender.SendEmailAsync(
+                        GlobalConstants.AdminEmail,
+                        "ForumSystem",
+                        this.Input.Email,
+                        "Confirm your email",
                         $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
 
-                    if (this._userManager.Options.SignIn.RequireConfirmedAccount)
+                    if (!this._userManager.Options.SignIn.RequireConfirmedAccount)
                     {
                         return this.RedirectToPage("RegisterConfirmation", new { email = Input.Email, returnUrl = returnUrl });
                     }
