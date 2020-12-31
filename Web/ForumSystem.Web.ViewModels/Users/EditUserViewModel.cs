@@ -1,9 +1,11 @@
 ﻿namespace ForumSystem.Web.ViewModels.Users
 {
+    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
     using ForumSystem.Data.Models;
     using ForumSystem.Services.Mapping;
+    using Microsoft.AspNetCore.Http;
 
     public class EditUserViewModel : IMapFrom<ApplicationUser>
     {
@@ -28,6 +30,8 @@
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match. (You must either change your password and write your current password to confirm changes on other fields.)")]
         public string ConfirmPassword { get; set; }
+
+        public IEnumerable<IFormFile> UserUserImages { get; set; }
 
         public string WebsiteUrl { get; set; }
 

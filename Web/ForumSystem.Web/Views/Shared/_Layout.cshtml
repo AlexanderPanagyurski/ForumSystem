@@ -39,7 +39,7 @@
                                 <a class="nav-link text-dark" asp-controller="Users" asp-action="GetAllUsers">All Users</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Posts" asp-action="Create">Create Post</a>
+                                <a class="nav-link text-dark" asp-controller="Posts" asp-action="Create">Create Post</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Contacts">Contacts</a>
@@ -47,7 +47,7 @@
                         }
                         <li>
                             <form class="form-inline my-2 my-lg-0" asp-controller="Posts" asp-action="GetSearchedPosts" method="get">
-                                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="title">
+                                <input class="form-control mr-sm-2" type="search" placeholder="Search posts" aria-label="Search" name="title">
                                 <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Search</button>
                             </form>
                         </li>

@@ -9,6 +9,7 @@
     using ForumSystem.Web.ViewModels.Home;
     using ForumSystem.Web.ViewModels.Users;
     using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
 
@@ -20,17 +21,20 @@
         private readonly IPostsService postsService;
         private readonly UserManager<ApplicationUser> userManager;
         private readonly IEmailSender emailSender;
+        private readonly IWebHostEnvironment environment;
 
         public UsersController(
             IUsersService usersService,
             IPostsService postsService,
             UserManager<ApplicationUser> userManager,
-            IEmailSender emailSender)
+            IEmailSender emailSender,
+            IWebHostEnvironment environment)
         {
             this.usersService = usersService;
             this.postsService = postsService;
             this.userManager = userManager;
             this.emailSender = emailSender;
+            this.environment = environment;
         }
 
         public IActionResult GetTopUsers()
@@ -96,7 +100,17 @@
                 return this.RedirectToAction(nameof(this.EditUser), new { userId });
             }
 
-            await this.usersService.UpdateAsync(userId, user);
+            try
+            {
+                await this.usersService.UpdateAsync(userId, user, $"{this.environment.WebRootPath}/images");
+            }
+            catch (Exception ex)
+            {
+                this.ModelState.AddModelError(string.Empty, ex.Message);
+                return this.RedirectToAction(nameof(this.EditUser));
+            }
+
+            this.TempData["InfoMessage"] = "Successfully changed profile image!";
             return this.RedirectToAction(nameof(this.UserProfile), new { userId });
         }
 

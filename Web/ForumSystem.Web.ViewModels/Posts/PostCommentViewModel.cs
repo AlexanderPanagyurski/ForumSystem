@@ -30,7 +30,8 @@
             configuration.CreateMap<Comment, PostCommentViewModel>()
                 .ForMember(x => x.UserProfileImage, options =>
             {
-                options.MapFrom(x => (x.User.UserImages.FirstOrDefault() != null) ? "/images/users/" + x.User.UserImages.FirstOrDefault().Id + "." + x.User.UserImages.FirstOrDefault().Extension : "/images/users/default-profile-icon.jpg");
+                options.MapFrom(x => (x.User.UserImages.OrderByDescending(x => x.CreatedOn).FirstOrDefault() != null) ?
+                  "/images/users/" + x.User.UserImages.OrderByDescending(x => x.CreatedOn).FirstOrDefault().Id + "." + x.User.UserImages.OrderByDescending(x => x.CreatedOn).FirstOrDefault().Extension : "/images/users/default-profile-icon.jpg");
             });
         }
     }

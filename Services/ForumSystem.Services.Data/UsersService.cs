@@ -1,6 +1,7 @@
 ﻿namespace ForumSystem.Services.Data
 {
     using System;
+    using System.IO;
     using System.Linq;
     using System.Security.Cryptography;
     using System.Text;
@@ -16,6 +17,7 @@
 
     public class UsersService : IUsersService
     {
+        private readonly string[] allowedExtensions = new[] { "jpg", "png", "gif", "jpeg", "PNG" };
         private readonly IDeletableEntityRepository<ApplicationUser> usersRepository;
         private readonly IDeletableEntityRepository<Post> postsRepository;
         private readonly UserManager<ApplicationUser> userManager;
@@ -27,7 +29,7 @@
         {
             this.usersRepository = usersRepository;
             this.postsRepository = postsRepository;
-            userManager = _userManager;
+            this.userManager = _userManager;
         }
 
         public AllUsersViewModel GetAllUsers(int? take = null, int skip = 0)
@@ -45,7 +47,7 @@
                         {
                             Email = x.Email,
                             PostsCount = x.Posts.Count(),
-                            ProfileImage = (x.UserImages.FirstOrDefault() != null) ? "/images/users/" + x.UserImages.FirstOrDefault().Id + "." + x.UserImages.FirstOrDefault().Extension : "/images/users/default-profile-icon.jpg",
+                            ProfileImage = (x.UserImages.OrderByDescending(x => x.CreatedOn).FirstOrDefault() != null) ? "/images/users/" + x.UserImages.OrderByDescending(x => x.CreatedOn).FirstOrDefault().Id + "." + x.UserImages.OrderByDescending(x => x.CreatedOn).FirstOrDefault().Extension : "/images/users/default-profile-icon.jpg",
                             UserId = x.Id,
                             UserUserName = x.UserName,
                         })
@@ -64,7 +66,7 @@
                         {
                             Email = x.Email,
                             PostsCount = x.Posts.Count(),
-                            ProfileImage = (x.UserImages.FirstOrDefault() != null) ? "/images/users/" + x.UserImages.FirstOrDefault().Id + "." + x.UserImages.FirstOrDefault().Extension : "/images/users/default-profile-icon.jpg",
+                            ProfileImage = (x.UserImages.OrderByDescending(x => x.CreatedOn).FirstOrDefault() != null) ? "/images/users/" + x.UserImages.OrderByDescending(x => x.CreatedOn).FirstOrDefault().Id + "." + x.UserImages.OrderByDescending(x => x.CreatedOn).FirstOrDefault().Extension : "/images/users/default-profile-icon.jpg",
                             UserId = x.Id,
                             UserUserName = x.UserName,
                         })
@@ -90,7 +92,7 @@
                     UserUserName = x.UserName,
                     Email = x.Email,
                     PostsCount = x.Posts.Count(),
-                    ProfileImage = (x.UserImages.FirstOrDefault() != null) ? "/images/users/" + x.UserImages.FirstOrDefault().Id + "." + x.UserImages.FirstOrDefault().Extension : "/images/users/default-profile-icon.jpg",
+                    ProfileImage = (x.UserImages.OrderByDescending(x => x.CreatedOn).FirstOrDefault() != null) ? "/images/users/" + x.UserImages.OrderByDescending(x => x.CreatedOn).FirstOrDefault().Id + "." + x.UserImages.OrderByDescending(x => x.CreatedOn).FirstOrDefault().Extension : "/images/users/default-profile-icon.jpg",
                 })
                 .ToArray(),
             };
@@ -169,7 +171,7 @@
             return this.usersRepository.All().Count();
         }
 
-        public async Task UpdateAsync(string userId, EditUserViewModel input)
+        public async Task UpdateAsync(string userId, EditUserViewModel input, string imagePath)
         {
             var user = this.usersRepository.All().FirstOrDefault(x => x.Id == userId);
             user.UserName = input.UserName;
@@ -190,7 +192,30 @@
                 await this.userManager.AddPasswordAsync(user, input.Password);
             }
 
-            await this.usersRepository.SaveChangesAsync();
+            Directory.CreateDirectory($"{imagePath}/posts/");
+            if (input.UserUserImages != null)
+            {
+                foreach (var image in input.UserUserImages)
+                {
+                    var extension = Path.GetExtension(image.FileName).TrimStart('.');
+                    if (!this.allowedExtensions.Any(x => extension.EndsWith(x)))
+                    {
+                        throw new ArgumentException($"Invalid image extension {extension}");
+                    }
+
+                    var dbImage = new UserImage
+                    {
+                        UserId = userId,
+                        Extension = extension,
+                    };
+                    user.UserImages.Add(dbImage);
+                    var physicalPath = $"{imagePath}/users/{dbImage.Id}.{extension}";
+                    using Stream fileStream = new FileStream(physicalPath, FileMode.Create);
+                    await image.CopyToAsync(fileStream);
+                }
+
+                await this.usersRepository.SaveChangesAsync();
+            }
         }
 
         public ContactsViewModel GetUserInfo(string userId)

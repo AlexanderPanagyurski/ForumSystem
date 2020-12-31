@@ -16,7 +16,7 @@
 
         UserProfileViewModel GetUserProfile(string userId);
 
-        Task UpdateAsync(string userId, EditUserViewModel input);
+        Task UpdateAsync(string userId, EditUserViewModel input, string imagePath);
 
         EditUserViewModel GetEditUserProfile(string userId);
 

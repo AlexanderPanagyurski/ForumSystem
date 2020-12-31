@@ -147,8 +147,6 @@
                         values: new { area = "Identity", userId = user.Id, code = code, returnUrl = returnUrl },
                         protocol: this.Request.Scheme);
 
-
-
                     await this._emailSender.SendEmailAsync(
                         GlobalConstants.AdminEmail,
                         "ForumSystem",
