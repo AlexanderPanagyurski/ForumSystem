@@ -6,6 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="~/css/custom.css" rel="stylesheet" asp-append-version="true" />
 </head>
+@if (this.TempData["InfoMessage"] != null)
+{
+    <div class="alert alert-success">
+        @this.TempData["InfoMessage"]
+    </div>
+}
 <div class="text-center">
     @*<h1 class="display-3">@this.ViewData["Title"]</h1>*@
     @*<cache expires-after="TimeSpan.FromDays(10)" vary-by-query="id">
@@ -47,13 +53,15 @@
         {
 <li class="page-item disabled">
     <a class="page-link" href="#" tabindex="-1">Previous</a>
-</li> }
-            else
-            {
+</li>
+ }
+else
+{
 <li class="page-item">
     <a class="page-link" asp-route="forumHomeCategories"
        asp-route-name="Index" asp-route-page="@(Model.CurrentPage-1)">Previous</a>
-</li>}
+</li>
+}
         @for (int i = Model.CurrentPage - 4; i < Model.CurrentPage; i++)
         {
             if (i > 0)
@@ -61,8 +69,9 @@
 <li class="page-item">
     <a class="page-link" asp-route="forumHomeCategories"
        asp-route-name="Index" asp-route-page="@i">@i</a>
-</li>}
-            }
+</li>
+}
+}
         <li class="page-item active" aria-current="page">
             <span class="page-link">
                 @Model.CurrentPage
@@ -84,18 +93,21 @@
 <li class="page-item">
     <a class="page-link" asp-route="forumHomeCategories"
        asp-route-name="Index" asp-route-page="@i">@i</a>
-</li>}
-            }
+</li>
+}
+}
         @if (Model.CurrentPage == Model.PagesCount)
         {
 <li class="page-item disabled">
     <a class="page-link" href="#" tabindex="-1">Next</a>
-</li> }
-            else
-            {
+</li>
+ }
+else
+{
 <li class="page-item">
     <a class="page-link" asp-route="forumHomeCategories"
        asp-route-name="Index" asp-route-page="@(Model.CurrentPage+1)">Next</a>
-</li>}
+</li>
+}
     </ul>
 </nav>

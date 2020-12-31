@@ -145,6 +145,7 @@
 
             await this.usersService.BanUserAsync(id);
 
+            this.TempData["InfoMessage"] = "Successfully banned user";
             return this.Redirect("/Home/Index");
         }
     }
