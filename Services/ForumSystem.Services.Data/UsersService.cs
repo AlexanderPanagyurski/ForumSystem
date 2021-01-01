@@ -213,9 +213,9 @@
                     using Stream fileStream = new FileStream(physicalPath, FileMode.Create);
                     await image.CopyToAsync(fileStream);
                 }
-
-                await this.usersRepository.SaveChangesAsync();
             }
+
+            await this.usersRepository.SaveChangesAsync();
         }
 
         public ContactsViewModel GetUserInfo(string userId)

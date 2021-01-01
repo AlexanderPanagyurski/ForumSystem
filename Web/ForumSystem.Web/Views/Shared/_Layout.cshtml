@@ -14,7 +14,7 @@
     <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" asp-append-version="true" />
     <link href="~/css/site.min.css" rel="stylesheet" asp-append-version="true" />
     <link href="~/css/custom.css" rel="stylesheet" asp-append-version="true" />
-    <link href="~/css/notFound.css" rel="stylesheet" asp-append-version="true"/>
+    <link href="~/css/notFound.css" rel="stylesheet" asp-append-version="true" />
 </head>
 <body>
     <header>
@@ -78,6 +78,8 @@
         <script src="~/lib/moment/min/moment-with-locales.min.js" asp-append-version="true"></script>
         <script src="~/js/site.js" asp-append-version="true"></script>
         <script src="~/js/notFound.js" type="text/javascript" asp-append-version="true"></script>
+        <script src="~/js/viewImage.js"></script>
+
     </environment>
     <environment names="Staging,Production">
         <script src="~/lib/jquery/dist/jquery.min.js" asp-append-version="true"></script>
@@ -87,6 +89,7 @@
         <script src="~/lib/moment/min/moment-with-locales.min.js" asp-append-version="true"></script>
         <script src="~/js/site.min.js" asp-append-version="true"></script>
         <script src="~/js/notFound.js" type="text/javascript" asp-append-version="true"></script>
+
     </environment>
     @await this.RenderSectionAsync("Scripts", required: false)
 </body>

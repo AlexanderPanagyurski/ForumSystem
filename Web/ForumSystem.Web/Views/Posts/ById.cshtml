@@ -1,7 +1,6 @@
 ﻿@model ForumSystem.Web.ViewModels.Posts.PostViewModel
 @{
     <link href="~/css/custom.css" rel="stylesheet" />
-    <link href="~/css/viewImage.css" rel="stylesheet" />
     
     this.ViewData["Title"] = Model.Title;
     async Task DisplayComments(string parentId)
@@ -207,7 +206,6 @@
             </div>
         </form>
     </div>
-    <script src="~/js/viewImage.js"></script>
     @section Scripts {
         <script>
             function showAddCommentForm(parentId) {

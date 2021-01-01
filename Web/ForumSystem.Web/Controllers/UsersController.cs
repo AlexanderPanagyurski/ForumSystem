@@ -66,6 +66,11 @@
         public IActionResult UserProfile(string userId)
         {
             var viewModel = this.usersService.GetUserProfile(userId);
+            if (viewModel == null)
+            {
+                return this.NotFound();
+            }
+
             return this.View(viewModel);
         }
 
@@ -110,7 +115,7 @@
                 return this.RedirectToAction(nameof(this.EditUser));
             }
 
-            this.TempData["InfoMessage"] = "Successfully changed profile image!";
+            this.TempData["InfoMessage"] = "Successfully updated your profile!";
             return this.RedirectToAction(nameof(this.UserProfile), new { userId });
         }
 
@@ -135,7 +140,7 @@
         }
 
         [HttpPost]
-        [Authorize(Roles =GlobalConstants.AdministratorRoleName)]
+        [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
         public async Task<IActionResult> BanUser(string id)
         {
             if (!this.User.IsInRole(GlobalConstants.AdministratorRoleName))
