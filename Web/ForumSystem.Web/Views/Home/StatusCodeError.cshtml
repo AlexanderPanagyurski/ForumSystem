@@ -1,11 +1,40 @@
-﻿<div class="page-wrap d-flex flex-row align-items-center">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-12 text-center">
-                <span class="display-1 d-block">404</span>
-                <div class="mb-4 lead">The page you are looking for was not found.</div>
-                <a asp-controller="Home" asp-action="Index" class="btn btn-primary">Back to Home</a>
+﻿@*<div class="page-wrap d-flex flex-row align-items-center">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-12 text-center">
+                    <span class="display-1 d-block">404</span>
+                    <div class="mb-4 lead">The page you are looking for was not found.</div>
+                    <a asp-controller="Home" asp-action="Index" class="btn btn-primary">Back to Home</a>
+                </div>
             </div>
         </div>
-    </div>
-</div>
+    </div>*@
+<body>
+  
+    <div class="page-wrap d-flex flex-row align-items-center">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-md-12 text-center">
+                        <span class="display-4 d-block">404</span>
+                        <div class="mb-4 lead">The page you are looking for was not found.</div>
+                        <a asp-controller="Home" asp-action="Index" class="btn btn-primary">Back to Home</a>
+                        <div class="ag-page-404">
+                            <div class="ag-toaster-wrap">
+                                <div class="ag-toaster">
+                                    <div class="ag-toaster_back"></div>
+                                    <div class="ag-toaster_front">
+                                        <div class="js-toaster_lever ag-toaster_lever"></div>
+                                    </div>
+                                    <div class="ag-toaster_toast-handler">
+                                        <div class="js-toaster_toast ag-toaster_toast js-ag-hide"></div>
+                                    </div>
+                                </div>
+                                <canvas id="canvas-404" class="ag-canvas-404"></canvas>
+                                <img class="ag-canvas-404_img" src="https://raw.githubusercontent.com/SochavaAG/example-mycode/master/pens/404-error-smoke-from-toaster/images/smoke.png">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</body>

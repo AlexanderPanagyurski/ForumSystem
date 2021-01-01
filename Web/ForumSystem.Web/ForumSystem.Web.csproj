@@ -49,4 +49,13 @@
     <ProjectReference Include="..\ForumSystem.Web.Infrastructure\ForumSystem.Web.Infrastructure.csproj" />
     <ProjectReference Include="..\ForumSystem.Web.ViewModels\ForumSystem.Web.ViewModels.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="wwwroot\css\notFound.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\js\notFound.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
 </Project>
