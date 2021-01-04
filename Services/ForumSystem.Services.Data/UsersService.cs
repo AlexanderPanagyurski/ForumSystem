@@ -17,7 +17,7 @@
 
     public class UsersService : IUsersService
     {
-        private readonly string[] allowedExtensions = new[] { "jpg", "png", "gif", "jpeg", "PNG" };
+        private readonly string[] allowedExtensions = new[] { "jpg", "png", "gif", "jpeg", "PNG", "JPG", "JPEG", "GIF" };
         private readonly IDeletableEntityRepository<ApplicationUser> usersRepository;
         private readonly IDeletableEntityRepository<Post> postsRepository;
         private readonly UserManager<ApplicationUser> userManager;

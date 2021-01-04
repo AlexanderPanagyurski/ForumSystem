@@ -35,6 +35,7 @@
                 Categories =
                     this.categoriesService.GetAll<IndexCategoryViewModel>(ItemsPerPage, (page - 1) * ItemsPerPage),
                 TrendingPosts = this.postsService.GetTrendingPosts(),
+                RandomPosts=this.postsService.GetRandomPosts(),
             };
             var count = this.categoriesService.GetCategoriesCount();
             viewModel.PagesCount = (int)Math.Ceiling((double)count / ItemsPerPage);

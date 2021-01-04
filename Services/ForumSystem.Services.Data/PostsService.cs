@@ -335,6 +335,19 @@
             return trendingPosts;
         }
 
+        public IEnumerable<RandomPostsViewModel> GetRandomPosts()
+        {
+            var randomPosts =
+                this.postsRepository
+                .All()
+                .OrderBy(x => Guid.NewGuid())
+                .Take(4)
+                .To<RandomPostsViewModel>()
+                .ToList();
+
+            return randomPosts;
+        }
+
         public UserPostsViewModel GetUserPosts(string userId, int? take = null, int skip = 0)
         {
             UserPostsViewModel userPosts = null;

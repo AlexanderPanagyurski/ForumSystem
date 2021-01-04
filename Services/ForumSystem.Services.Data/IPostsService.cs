@@ -35,5 +35,7 @@
         Task UpdateAsync(string id, EditPostViewModel input);
 
         public Task DeleteAsync(string id);
+
+        IEnumerable<RandomPostsViewModel> GetRandomPosts();
     }
 }

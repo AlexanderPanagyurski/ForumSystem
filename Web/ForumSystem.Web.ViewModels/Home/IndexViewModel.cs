@@ -13,5 +13,7 @@
         public IEnumerable<IndexCategoryViewModel> Categories { get; set; }
 
         public IEnumerable<TrendingPostViewModel> TrendingPosts { get; set; }
+
+        public IEnumerable<RandomPostsViewModel> RandomPosts { get; set; }
     }
 }

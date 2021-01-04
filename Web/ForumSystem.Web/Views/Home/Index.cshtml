@@ -17,20 +17,42 @@
     @*<cache expires-after="TimeSpan.FromDays(10)" vary-by-query="id">
             <h1 class="display-3">@DateTime.UtcNow</h1>
         </cache>*@
-    <h5>Top 4 trending posts (last 24 hours)</h5>
-    <div class="row">
-        @foreach (var trendingPost in this.Model.TrendingPosts)
-        {
-<div class="col-sm-3">
-    <div class="card text-white" style="width: 280px;">
-        <img src="@trendingPost.Thumbnail" style="width:280px; height:220px; object-fit:cover;" class="card-img rounded" alt="https://costaseafood.com.vn/uploads/no-image.jpg">
-        <div class="card-img-overlay">
-            <a asp-controller="Posts" asp-action="ById" asp-route-id="@trendingPost.Id" style="color:white;"><h5 class="card-title" style="text-shadow: 2px 2px 4px #000000;">@trendingPost.Title</h5></a>
-            <p class="card-text" style="text-shadow: 2px 2px 4px #000000; ">@trendingPost.ShortContent</p>
+    @if (this.Model.TrendingPosts.Count() > 0)
+    {
+        <h5>Top 4 trending posts (last 24 hours)</h5>
+        <div class="row">
+       @foreach (var trendingPost in this.Model.TrendingPosts)
+       {
+            <div class="col-sm-3">
+                <div class="card text-white" style="width: 280px;">
+                    <img src="@trendingPost.Thumbnail" style="width:280px; height:220px; object-fit:cover;" class="card-img rounded" alt="https://costaseafood.com.vn/uploads/no-image.jpg">
+                    <div class="card-img-overlay">
+                        <a asp-controller="Posts" asp-action="ById" asp-route-id="@trendingPost.Id" style="color:white;"><h5 class="card-title" style="text-shadow: 2px 2px 4px #000000;">@trendingPost.Title</h5></a>
+                        <p class="card-text" style="text-shadow: 2px 2px 4px #000000; ">@trendingPost.ShortContent</p>
+                    </div>
+                </div>
+            </div>
+        }
         </div>
-    </div>
-</div>}
-    </div>
+    }
+    else
+    {
+        <h5>Random Posts</h5>
+        <div class="row">
+       @foreach (var randomPost in this.Model.RandomPosts)
+       {
+            <div class="col-sm-3">
+                <div class="card text-white" style="width: 280px;">
+                    <img src="@randomPost.Thumbnail" style="width:280px; height:220px; object-fit:cover;" class="card-img rounded" alt="https://costaseafood.com.vn/uploads/no-image.jpg">
+                    <div class="card-img-overlay">
+                        <a asp-controller="Posts" asp-action="ById" asp-route-id="@randomPost.Id" style="color:white;"><h5 class="card-title" style="text-shadow: 2px 2px 4px #000000;">@randomPost.Title</h5></a>
+                        <p class="card-text" style="text-shadow: 2px 2px 4px #000000; ">@randomPost.ShortContent</p>
+                    </div>
+                </div>
+            </div>
+        }
+        </div>
+    }
 </div>
 <hr />
 <div class="row">
