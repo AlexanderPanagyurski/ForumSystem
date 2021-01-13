@@ -17,7 +17,11 @@
                     <div class="col-md-12 text-center">
                        @*<span class="display-4 d-block">404</span>*@
                         <div class="mb-4 lead">The page you are looking for was not found.</div>
-                        <a asp-controller="Home" asp-action="Index" class="btn btn-primary">Back to Home</a>
+                        <div class="row">
+                            <div class="col-sm-3"></div>
+                            <a asp-controller="Home" asp-action="Index" class="col-sm-3 m-2 pl-2 btn btn-primary">Back to Home</a>
+                            <a asp-controller="Home" asp-action="Tetris" class="col-sm-3 m-2 btn btn-success">Play Tetris</a>
+                        </div>
                         <div class="ag-page-404">
                             <div class="ag-toaster-wrap">
                                 <div class="ag-toaster">
