@@ -1,9 +1,8 @@
 # 👓 Project Introduction
 
-ForumSystem is project with ASP.NET Core for Cloud Technologies in UTP(University of Telecomunications and Posts). It's a website for publishing posts in specific topics(categories) is made by Alexander Panagyurski.
+ForumSystem  is my defense project for ASP.NET Core MVC course at SoftUni (October-December 2020). It's a website for publishing posts in specific topics(categories).
 The website also has comments and comments' replies, implemented Votes system, implemented Favourite posts, implemented Trending posts,post edit and delete, implemented gallery for the posts.
 To work with ForumSystem and be able to publish posts you need to have registration first.
-The steps for uploading in Azure Cloud are followed by Alexander Panagyurski and Iva Aleksieva. The steps are explained in the documentation which will be attached to this repository.
 
 # 🛠 Build with:
 
