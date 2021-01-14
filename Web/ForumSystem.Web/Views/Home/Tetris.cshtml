@@ -6,16 +6,16 @@
             background: #202028;
             color: #fff;
             font-family: sans-serif;
-            font-size: 2em;
             text-align: center;
         }
         canvas {
             border: solid .2em #fff;
-            height: 90vh;
+            height: 68vh;
         }
     </style>
 </head>
 <body>
+    <a asp-controller="Home" asp-action="Index" class="btn btn-primary" role="button">Back to Home</a>
     <div id="score"></div>
     <canvas id="tetris" width="240" height="400" />
     <script src="~/js/tetris.js"></script>
