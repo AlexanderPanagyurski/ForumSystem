@@ -2,7 +2,7 @@
 
 ForumSystem  is my defense project for ASP.NET Core MVC course at SoftUni (October-December 2020). It's a website for publishing posts in specific topics(categories).
 The website also has comments and comments' replies, implemented Votes system, implemented Favourite posts, implemented Trending posts,post edit and delete, implemented gallery for the posts.
-To work with ForumSystem and be able to publish posts you need to have registration first.
+To work with ForumSystem and be able to publish posts you need to have registration first, once you you register you must confirm your email, only then you'll be able to login in your account. You can also log in using Facebook or Google account.
 
 # 🛠 Build with:
 
