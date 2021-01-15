@@ -39,6 +39,8 @@
 
         public int FavoritesCount { get; set; }
 
+        public bool IsOwner { get; set; }
+
         public IEnumerable<PostCommentViewModel> Comments { get; set; }
 
         public IEnumerable<ImagesViewModel> Images { get; set; }

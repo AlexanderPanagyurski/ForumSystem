@@ -44,9 +44,11 @@
             return this.View(viewModel);
         }
 
-        public IActionResult ById(string id)
+        public async Task<IActionResult> ById(string id)
         {
             var postViewModel = this.postsService.GetById<PostViewModel>(id);
+            var user = await this.userManager.GetUserAsync(this.User);
+            postViewModel.IsOwner = postViewModel.UserId == user.Id;
             if (postViewModel == null)
             {
                 return this.NotFound();
@@ -78,7 +80,6 @@
             }
 
             this.TempData["InfoMessage"] = "Forum post created!";
-            //Http Response
             return this.RedirectToAction(nameof(this.ById), new { id });
         }
 
@@ -133,6 +134,7 @@
             if (this.userManager.GetUserId(this.User) != postViewModel.UserId
                 && !this.User.IsInRole(ForumSystem.Common.GlobalConstants.AdministratorRoleName))
             {
+                this.TempData["InfoMessage"] = "You are not authorized to edit this post.";
                 return this.Redirect("/Home/Index");
             }
 
@@ -149,6 +151,7 @@
             if (this.userManager.GetUserId(this.User) != postViewModel.UserId
                 && !this.User.IsInRole(ForumSystem.Common.GlobalConstants.AdministratorRoleName))
             {
+                this.TempData["InfoMessage"] = "You are not authorized to edit this post.";
                 return this.Redirect("/Home/Index");
             }
 
@@ -158,6 +161,7 @@
             }
 
             await this.postsService.UpdateAsync(id, post);
+            this.TempData["InfoMessage"] = "Successfully edited post.";
             return this.RedirectToAction(nameof(this.ById), new { id });
         }
 
@@ -169,10 +173,12 @@
             if (this.userManager.GetUserId(this.User) != post.UserId
                 && !this.User.IsInRole(ForumSystem.Common.GlobalConstants.AdministratorRoleName))
             {
+                this.TempData["InfoMessage"] = "You are not authorized to delete this post.";
                 return this.Redirect("/Home/Index");
             }
 
             await this.postsService.DeleteAsync(id);
+            this.TempData["InfoMessage"] = "Successfully deleted post.";
             return this.Redirect("/Home/Index");
         }
     }
