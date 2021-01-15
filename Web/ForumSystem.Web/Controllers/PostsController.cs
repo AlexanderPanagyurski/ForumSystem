@@ -47,11 +47,20 @@
         public async Task<IActionResult> ById(string id)
         {
             var postViewModel = this.postsService.GetById<PostViewModel>(id);
-            var user = await this.userManager.GetUserAsync(this.User);
-            postViewModel.IsOwner = postViewModel.UserId == user.Id;
+
             if (postViewModel == null)
             {
-                return this.NotFound();
+                return this.Redirect("Home/StatusCodeError");
+            }
+
+            var user = await this.userManager.GetUserAsync(this.User);
+            if (user == null)
+            {
+                postViewModel.IsOwner = false;
+            }
+            else
+            {
+                postViewModel.IsOwner = postViewModel.UserId == user.Id;
             }
 
             return this.View(postViewModel);
