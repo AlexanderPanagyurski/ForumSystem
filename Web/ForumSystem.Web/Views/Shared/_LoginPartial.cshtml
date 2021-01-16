@@ -9,7 +9,7 @@
     @if (this.SignInManager.IsSignedIn(this.User))
     {
         var user = await this.UserManager.GetUserAsync(this.User);
-        var profileImage = (userImages.All().OrderByDescending(x=>x.CreatedOn).FirstOrDefault(x=>x.UserId==user.Id) != null) ? "/images/users/" + userImages.All().OrderByDescending(x => x.CreatedOn).FirstOrDefault(x => x.UserId == user.Id).Id + "." + userImages.All().OrderByDescending(x=>x.CreatedOn).FirstOrDefault(x => x.UserId == user.Id).Extension : "/images/users/default-profile-icon.jpg";
+        var profileImage = (userImages.All().FirstOrDefault(x=>x.UserId==user.Id && x.IsProfileImage==true) != null) ? "/images/users/" + userImages.All().FirstOrDefault(x => x.UserId == user.Id && x.IsProfileImage == true).Id + "." + userImages.All().FirstOrDefault(x => x.UserId == user.Id && x.IsProfileImage == true).Extension : "/images/users/default-profile-icon.jpg";
         <li class="nav-item" style="margin-top:8px;">
             <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @(this.User.Identity.Name)!</a>
         </li> 

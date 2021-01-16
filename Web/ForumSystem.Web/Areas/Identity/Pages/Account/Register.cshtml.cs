@@ -126,6 +126,7 @@
                         {
                             User = await this._userManager.GetUserAsync(this.User),
                             Extension = extension,
+                            IsProfileImage = true,
                         };
                         user.UserImages.Add(dbImage);
                         var physicalPath = $"{imagePath}/users/{dbImage.Id}.{extension}";
