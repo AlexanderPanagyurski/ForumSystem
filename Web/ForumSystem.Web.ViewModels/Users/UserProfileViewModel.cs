@@ -39,7 +39,8 @@
             configuration.CreateMap<ApplicationUser, UserProfileViewModel>()
                 .ForMember(x => x.ProfileImage, options =>
                    {
-                       options.MapFrom(x => (x.UserImages.OrderByDescending(x => x.CreatedOn).FirstOrDefault() != null) ? "/images/users/" + x.UserImages.OrderByDescending(x => x.CreatedOn).FirstOrDefault().Id + "." + x.UserImages.OrderByDescending(x => x.CreatedOn).FirstOrDefault().Extension : "/images/users/default-profile-icon.jpg");
+                       options.MapFrom(x => (x.UserImages.FirstOrDefault(x => x.IsProfileImage == true) != null) ?
+                   "/images/users/" + x.UserImages.FirstOrDefault(x => x.IsProfileImage == true).Id + "." + x.UserImages.FirstOrDefault(x => x.IsProfileImage == true).Extension : "/images/users/default-profile-icon.jpg");
                    })
                 .ForMember(x => x.TopPosts, options =>
                    {

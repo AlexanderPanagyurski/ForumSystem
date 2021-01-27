@@ -1,7 +1,8 @@
 ﻿namespace ForumSystem.Data.Models
 {
-    using ForumSystem.Data.Common.Models;
     using System;
+
+    using ForumSystem.Data.Common.Models;
 
     public class UserImage : BaseDeletableModel<string>
     {
@@ -15,5 +16,7 @@
         public virtual ApplicationUser User { get; set; }
 
         public string Extension { get; set; }
+
+        public bool IsProfileImage { get; set; }
     }
 }

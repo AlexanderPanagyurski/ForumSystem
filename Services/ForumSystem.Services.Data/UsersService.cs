@@ -47,7 +47,7 @@
                         {
                             Email = x.Email,
                             PostsCount = x.Posts.Count(),
-                            ProfileImage = (x.UserImages.OrderByDescending(x => x.CreatedOn).FirstOrDefault() != null) ? "/images/users/" + x.UserImages.OrderByDescending(x => x.CreatedOn).FirstOrDefault().Id + "." + x.UserImages.OrderByDescending(x => x.CreatedOn).FirstOrDefault().Extension : "/images/users/default-profile-icon.jpg",
+                            ProfileImage = (x.UserImages.FirstOrDefault(x => x.IsProfileImage == true) != null) ? "/images/users/" + x.UserImages.FirstOrDefault(x => x.IsProfileImage == true).Id + "." + x.UserImages.FirstOrDefault(x => x.IsProfileImage == true).Extension : "/images/users/default-profile-icon.jpg",
                             UserId = x.Id,
                             UserUserName = x.UserName,
                         })
@@ -66,7 +66,7 @@
                         {
                             Email = x.Email,
                             PostsCount = x.Posts.Count(),
-                            ProfileImage = (x.UserImages.OrderByDescending(x => x.CreatedOn).FirstOrDefault() != null) ? "/images/users/" + x.UserImages.OrderByDescending(x => x.CreatedOn).FirstOrDefault().Id + "." + x.UserImages.OrderByDescending(x => x.CreatedOn).FirstOrDefault().Extension : "/images/users/default-profile-icon.jpg",
+                            ProfileImage = (x.UserImages.FirstOrDefault(x => x.IsProfileImage == true) != null) ? "/images/users/" + x.UserImages.FirstOrDefault(x => x.IsProfileImage == true).Id + "." + x.UserImages.FirstOrDefault(x => x.IsProfileImage == true).Extension : "/images/users/default-profile-icon.jpg",
                             UserId = x.Id,
                             UserUserName = x.UserName,
                         })
@@ -92,7 +92,7 @@
                     UserUserName = x.UserName,
                     Email = x.Email,
                     PostsCount = x.Posts.Count(),
-                    ProfileImage = (x.UserImages.OrderByDescending(x => x.CreatedOn).FirstOrDefault() != null) ? "/images/users/" + x.UserImages.OrderByDescending(x => x.CreatedOn).FirstOrDefault().Id + "." + x.UserImages.OrderByDescending(x => x.CreatedOn).FirstOrDefault().Extension : "/images/users/default-profile-icon.jpg",
+                    ProfileImage = (x.UserImages.FirstOrDefault(x => x.IsProfileImage == true) != null) ? "/images/users/" + x.UserImages.FirstOrDefault(x => x.IsProfileImage == true).Id + "." + x.UserImages.FirstOrDefault(x => x.IsProfileImage == true).Extension : "/images/users/default-profile-icon.jpg",
                 })
                 .ToArray(),
             };
@@ -203,10 +203,17 @@
                         throw new ArgumentException($"Invalid image extension {extension}");
                     }
 
+                    var oldProfileImage = user.UserImages.FirstOrDefault(x => x.IsProfileImage);
+                    if (oldProfileImage != null)
+                    {
+                        oldProfileImage.IsProfileImage = false;
+                    }
+
                     var dbImage = new UserImage
                     {
                         UserId = userId,
                         Extension = extension,
+                        IsProfileImage = true,
                     };
                     user.UserImages.Add(dbImage);
                     var physicalPath = $"{imagePath}/users/{dbImage.Id}.{extension}";
