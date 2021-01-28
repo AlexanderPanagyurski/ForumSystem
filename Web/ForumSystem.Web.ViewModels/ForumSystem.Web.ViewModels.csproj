@@ -25,4 +25,8 @@
     <ProjectReference Include="..\..\Services\ForumSystem.Services.Mapping\ForumSystem.Services.Mapping.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Searches\" />
+  </ItemGroup>
+
 </Project>
