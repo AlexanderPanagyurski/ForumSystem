@@ -15,7 +15,11 @@
     <link href="~/css/site.min.css" rel="stylesheet" asp-append-version="true" />
     <link href="~/css/custom.css" rel="stylesheet" asp-append-version="true" />
     <link href="~/css/notFound.css" rel="stylesheet" asp-append-version="true" />
-    <link href="~/css/gallery.css" rel="stylesheet" asp-append-version="true"/>
+    <link href="~/css/gallery.css" rel="stylesheet" asp-append-version="true" />
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/demos/style.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js" type="text/javascript" asp-append-version="true"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js" type="text/javascript" asp-append-version="true"></script>
 </head>
 <body>
     <header>
@@ -49,7 +53,7 @@
                         }
                         <li>
                             <form class="form-inline my-2 my-lg-0" asp-controller="Posts" asp-action="GetSearchedPosts" method="get">
-                                <input class="form-control mr-sm-2" type="search" placeholder="Search posts" aria-label="Search" name="title">
+                                <input class="form-control mr-sm-2" id="tags" type="search" placeholder="Search posts" aria-label="Search" name="title">
                                 <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Search</button>
                             </form>
                         </li>
@@ -71,6 +75,24 @@
             &copy; @DateTime.Now.Year - @GlobalConstants.SystemName - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
+    <script>
+        $(function () {
+            var availableTags = {};
+            $.ajax({
+                url: "/api/searches",
+                type: "GET",
+                data: JSON.stringify(availableTags),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (data) {
+                    $("#tags").autocomplete({
+                        source: data
+                    });
+                }
+            });
+          
+        });
+    </script>
     <environment names="Development">
         <script src="~/lib/jquery/dist/jquery.js" asp-append-version="true"></script>
         <script src="~/lib/jquery-validation/dist/jquery.validate.js" asp-append-version="true"></script>
@@ -80,6 +102,8 @@
         <script src="~/js/site.js" asp-append-version="true"></script>
         <script src="~/js/notFound.js" type="text/javascript" asp-append-version="true"></script>
         <script src="~/js/galleryModal.js" type="text/javascript" asp-append-version="true"></script>
+        <script src="https://code.jquery.com/jquery-1.12.4.js" type="text/javascript" asp-append-version="true"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js" type="text/javascript" asp-append-version="true"></script>
     </environment>
     <environment names="Staging,Production">
         <script src="~/lib/jquery/dist/jquery.min.js" asp-append-version="true"></script>
