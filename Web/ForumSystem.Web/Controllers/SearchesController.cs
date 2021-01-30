@@ -6,25 +6,23 @@
     using System.Threading.Tasks;
 
     using ForumSystem.Data;
+    using ForumSystem.Services.Data;
     using Microsoft.AspNetCore.Mvc;
 
     [ApiController]
     [Route("api/[controller]")]
     public class SearchesController : BaseController
     {
-        private readonly ApplicationDbContext db;
+        private readonly ISearchesService searchesService;
 
-        public SearchesController(ApplicationDbContext db)
+        public SearchesController(ISearchesService searchesService)
         {
-            this.db = db;
+            this.searchesService = searchesService;
         }
 
         public ActionResult<string[]> Searches()
         {
-            var responseModel = this.db
-                .Posts
-                .Select(x => x.Title)
-                .ToArray();
+            var responseModel = this.searchesService.Searches();
 
             return responseModel;
         }

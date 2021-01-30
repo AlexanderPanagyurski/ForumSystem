@@ -80,6 +80,7 @@
             services.AddTransient<ICommentsService, CommentsService>();
             services.AddTransient<IFavoritesService, FavoritesService>();
             services.AddTransient<IUsersService, UsersService>();
+            services.AddTransient<ISearchesService, SearchesService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
