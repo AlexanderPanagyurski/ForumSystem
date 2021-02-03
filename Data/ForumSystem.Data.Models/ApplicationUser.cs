@@ -59,5 +59,9 @@ namespace ForumSystem.Data.Models
         public virtual ICollection<Image> Images { get; set; } = new HashSet<Image>();
 
         public virtual ICollection<UserImage> UserImages { get; set; } = new HashSet<UserImage>();
+
+        public virtual ICollection<Message> SentMessages { get; set; } = new HashSet<Message>();
+
+        public virtual ICollection<Message> ReceivedMessages { get; set; } = new HashSet<Message>();
     }
 }
