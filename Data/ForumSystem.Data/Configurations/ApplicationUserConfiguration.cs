@@ -28,6 +28,18 @@
                 .HasForeignKey(e => e.UserId)
                 .IsRequired()
                 .OnDelete(DeleteBehavior.Restrict);
+
+            appUser
+                .HasMany(e => e.SentMessages)
+                .WithOne(m => m.Sender)
+                .HasForeignKey(m => m.SenderId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            appUser
+                .HasMany(e => e.ReceivedMessages)
+                .WithOne(m => m.Receiver)
+                .HasForeignKey(m => m.ReceiverId)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

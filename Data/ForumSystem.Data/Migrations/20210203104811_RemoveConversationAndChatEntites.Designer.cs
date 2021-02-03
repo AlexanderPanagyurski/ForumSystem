@@ -4,14 +4,16 @@ using ForumSystem.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ForumSystem.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210203104811_RemoveConversationAndChatEntites")]
+    partial class RemoveConversationAndChatEntites
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -312,43 +314,6 @@ namespace ForumSystem.Data.Migrations
                     b.ToTable("Images");
                 });
 
-            modelBuilder.Entity("ForumSystem.Data.Models.Message", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("Content")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("DeletedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime?>("ModifiedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("ReceiverId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("SenderId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("IsDeleted");
-
-                    b.HasIndex("ReceiverId");
-
-                    b.HasIndex("SenderId");
-
-                    b.ToTable("Message");
-                });
-
             modelBuilder.Entity("ForumSystem.Data.Models.Post", b =>
                 {
                     b.Property<string>("Id")
@@ -613,23 +578,6 @@ namespace ForumSystem.Data.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("ForumSystem.Data.Models.Message", b =>
-                {
-                    b.HasOne("ForumSystem.Data.Models.ApplicationUser", "Receiver")
-                        .WithMany("ReceivedMessages")
-                        .HasForeignKey("ReceiverId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("ForumSystem.Data.Models.ApplicationUser", "Sender")
-                        .WithMany("SentMessages")
-                        .HasForeignKey("SenderId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.Navigation("Receiver");
-
-                    b.Navigation("Sender");
-                });
-
             modelBuilder.Entity("ForumSystem.Data.Models.Post", b =>
                 {
                     b.HasOne("ForumSystem.Data.Models.Category", "Category")
@@ -740,11 +688,7 @@ namespace ForumSystem.Data.Migrations
 
                     b.Navigation("Posts");
 
-                    b.Navigation("ReceivedMessages");
-
                     b.Navigation("Roles");
-
-                    b.Navigation("SentMessages");
 
                     b.Navigation("UserImages");
                 });
