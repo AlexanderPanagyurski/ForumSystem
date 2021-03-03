@@ -24,6 +24,7 @@ To work with ForumSystem and be able to publish posts you need to have registrat
 - SendGrid
 - jQuery
 - Font Awesome
+- Google reCAPTCHA v3
 
 # Backend
 
