@@ -20,6 +20,7 @@
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
+    using reCAPTCHA.AspNetCore;
 
     public class Startup
     {
@@ -38,7 +39,6 @@
 
             services.AddDefaultIdentity<ApplicationUser>(IdentityOptionsProvider.GetIdentityOptions)
                 .AddRoles<ApplicationRole>().AddEntityFrameworkStores<ApplicationDbContext>();
-
             services.AddAuthentication()
                 .AddFacebook(options =>
             {
@@ -50,6 +50,8 @@
                     options.ClientId = this.configuration.GetSection("Google")["ClientId"];
                     options.ClientSecret = this.configuration.GetSection("Google")["ClientSecret"];
                 });
+
+            services.AddRecaptcha(this.configuration.GetSection("RecaptchaSettings"));
 
             services.Configure<CookiePolicyOptions>(
                 options =>
