@@ -87,8 +87,8 @@
 
 #toTopBtn {
     position: fixed;
-    bottom: 26px;
-    right: 39px;
+    bottom: 90px;
+    right: 29px;
     z-index: 98;
     padding: 21px;
     background-color: rgb(105, 231, 255);
