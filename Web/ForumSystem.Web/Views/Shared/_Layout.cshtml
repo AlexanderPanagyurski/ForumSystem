@@ -3,6 +3,7 @@
 @using Microsoft.AspNetCore.Identity
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
+@inject Microsoft.Extensions.Configuration.IConfiguration Configuration
 
 <!DOCTYPE html>
 <html>
@@ -90,7 +91,15 @@
                     });
                 }
             });
-          
+
+        });
+    </script>
+    <script src="https://www.google.com/recaptcha/api.js?render=@Configuration["RecaptchaSettings:SiteKey"]"></script>
+    <script>
+        grecaptcha.ready(function() {
+            window.grecaptcha.execute('@Configuration["RecaptchaSettings:SiteKey"]', { action: 'home' }).then(function (token) {
+                $("#captchaInput").val(token);
+            });
         });
     </script>
     <environment names="Development">
@@ -104,6 +113,7 @@
         <script src="~/js/galleryModal.js" type="text/javascript" asp-append-version="true"></script>
         <script src="https://code.jquery.com/jquery-1.12.4.js" type="text/javascript" asp-append-version="true"></script>
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js" type="text/javascript" asp-append-version="true"></script>
+        <script src="https://www.google.com/recaptcha/api.js" asp-append-version="true"></script>
     </environment>
     <environment names="Staging,Production">
         <script src="~/lib/jquery/dist/jquery.min.js" asp-append-version="true"></script>
@@ -114,6 +124,9 @@
         <script src="~/js/site.min.js" asp-append-version="true"></script>
         <script src="~/js/notFound.js" type="text/javascript" asp-append-version="true"></script>
         <script src="~/js/galleryModal.js" type="text/javascript" asp-append-version="true"></script>
+        <script src="https://code.jquery.com/jquery-1.12.4.js" type="text/javascript" asp-append-version="true"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js" type="text/javascript" asp-append-version="true"></script>
+        <script src="https://www.google.com/recaptcha/api.js" asp-append-version="true"></script>
     </environment>
     @await this.RenderSectionAsync("Scripts", required: false)
 </body>
