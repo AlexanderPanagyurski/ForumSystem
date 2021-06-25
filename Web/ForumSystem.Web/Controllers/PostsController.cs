@@ -127,6 +127,10 @@
 
         public async Task<IActionResult> GetSearchedPosts(string title, int page = 1)
         {
+            if (title == null)
+            {
+                title = string.Empty;
+            }
             var viewModel = this.postsService.GetSearchedPosts(title, ItemsPerPage, (page - 1) * ItemsPerPage);
             var count = this.postsService.GetCountByPostsBySearch(title);
             viewModel.PagesCount = (int)Math.Ceiling((double)count / ItemsPerPage);
