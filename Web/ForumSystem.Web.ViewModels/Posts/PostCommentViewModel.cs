@@ -2,6 +2,8 @@
 {
     using System;
     using System.Linq;
+    using System.Net;
+    using System.Text.RegularExpressions;
     using AutoMapper;
     using ForumSystem.Data.Models;
     using ForumSystem.Services.Mapping;
@@ -12,6 +14,19 @@
         public string Id { get; set; }
 
         public string ParentId { get; set; }
+
+        public string ShortContent
+        {
+            get
+            {
+                var content = WebUtility.HtmlDecode(Regex.Replace(this.Content, @"<[^>]+>", string.Empty));
+                return content.Length > 300
+                        ? content.Substring(0, 300) + "..."
+                        : content;
+            }
+        }
+
+        public string SanitizedShortContent => new HtmlSanitizer().Sanitize(this.ShortContent);
 
         public string SanitizedContent => new HtmlSanitizer().Sanitize(this.Content);
 

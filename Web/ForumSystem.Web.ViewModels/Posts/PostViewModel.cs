@@ -4,7 +4,8 @@
     using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
-
+    using System.Net;
+    using System.Text.RegularExpressions;
     using AutoMapper;
 
     using ForumSystem.Data.Models;
@@ -31,6 +32,7 @@
 
         public string Content { get; set; }
 
+       
         public string SanitizedContent => new HtmlSanitizer().Sanitize(this.Content);
 
         public string UserUserName { get; set; }

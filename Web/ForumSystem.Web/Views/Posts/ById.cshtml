@@ -44,18 +44,28 @@
                                         }*@
                                     </div>
                                     <div class="text-muted small ml-3">
+                                        @{
+                                            var commentId = $"\"{comment.Id}\"";
+                                        }
                                         @if (this.User.Identity.IsAuthenticated)
                                         {
-                                            var commentId = $"\"{comment.Id}\"";
                                             <div class="px-4 pt-3"> <button type="button" class="btn btn-secondary" onclick="showAddCommentForm(@commentId)"><i class="fa fa-reply"></i>&nbsp; Reply</button> </div>
                                         }
                                     </div>
                                 </div>
                             </div>
                             <div class="card-body">
-                                <article>
+                                <article id="short-content @comment.Id">
+                                    @Html.Raw(comment.SanitizedShortContent)
+                                </article>
+                                <article id="whole-content @comment.Id" style="display:none">
                                     @Html.Raw(comment.SanitizedContent)
                                 </article>
+                               
+                                @if (comment.SanitizedContent.Length > 300)
+                                {
+                                    <a href="#" id="read-more @comment.Id" onclick="readMore(@commentId); return false">Read More</a>
+                                }
                                 @{ DisplayComments(comment.Id); }
                             </div>
                         </div>
