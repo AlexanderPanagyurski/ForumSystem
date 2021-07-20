@@ -58,7 +58,7 @@ namespace ForumSystem.Services.Tests
         }
 
         [Fact]
-        public async Task TwoUpVotesAndOneDownVoteFromTwoUsersShouldBeOne()
+        public async Task TwoUpVotesAndOneDownVoteFromTwoUsersShouldBeZero()
         {
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
                 .UseInMemoryDatabase(Guid.NewGuid().ToString());
@@ -68,6 +68,22 @@ namespace ForumSystem.Services.Tests
             await service.VoteAsync("d3946347-0005-45e0-8a02-ad8179d2ece6", "0a9ec75c-0560-4e5b-94d4-c44429bb7379", true);
             await service.VoteAsync("d3946347-0005-45e0-8a02-ad8179d2ece6", "175a2793-b1c8-4489-829e-549925137c57", true);
             await service.VoteAsync("d3946347-0005-45e0-8a02-ad8179d2ece6", "0a9ec75c-0560-4e5b-94d4-c44429bb7379", false);
+            var votes = service.GetVotes("d3946347-0005-45e0-8a02-ad8179d2ece6");
+
+            Assert.Equal(0, votes);
+        }
+
+        [Fact]
+        public async Task TwoDownVoteAndOneUpVoteFromTwoUsersShouldBeZero()
+        {
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>()
+                .UseInMemoryDatabase(Guid.NewGuid().ToString());
+            var mockRepository = new EfRepository<Vote>(new ApplicationDbContext(options.Options));
+            var service = new VotesService(mockRepository);
+
+            await service.VoteAsync("d3946347-0005-45e0-8a02-ad8179d2ece6", "0a9ec75c-0560-4e5b-94d4-c44429bb7379", false);
+            await service.VoteAsync("d3946347-0005-45e0-8a02-ad8179d2ece6", "175a2793-b1c8-4489-829e-549925137c57", false);
+            await service.VoteAsync("d3946347-0005-45e0-8a02-ad8179d2ece6", "0a9ec75c-0560-4e5b-94d4-c44429bb7379", true);
             var votes = service.GetVotes("d3946347-0005-45e0-8a02-ad8179d2ece6");
 
             Assert.Equal(0, votes);
