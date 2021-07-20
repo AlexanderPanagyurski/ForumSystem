@@ -27,7 +27,6 @@ To work with ForumSystem and be able to publish posts you need to have registrat
 - Google reCAPTCHA v3
 - xUnit.net
 - Moq
-- Selenium
 - Moment.js
 
 # Backend
