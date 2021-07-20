@@ -25,6 +25,9 @@ To work with ForumSystem and be able to publish posts you need to have registrat
 - jQuery
 - Font Awesome
 - Google reCAPTCHA v3
+- xUnit.net
+- Moq
+- Moment.js
 
 # Backend
 
