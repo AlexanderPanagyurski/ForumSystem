@@ -5,7 +5,7 @@
 
     using ForumSystem.Data;
     using ForumSystem.Data.Common.Repositories;
-    
+
 
     public class FavoritesService : IFavoritesService
     {
@@ -28,9 +28,13 @@
                     PostId = postId,
                     UserId = userId,
                 };
+                await this.favoritePostsRepository.AddAsync(query);
+            }
+            else
+            {
+                query.IsDeleted = true;
             }
 
-            await this.favoritePostsRepository.AddAsync(query);
             await this.favoritePostsRepository.SaveChangesAsync();
         }
 
