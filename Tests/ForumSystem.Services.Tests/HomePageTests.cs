@@ -31,7 +31,7 @@ namespace ForumSystem.Services.Tests
             var responseMessage=await client.GetAsync("/Home/Index");
             var responseAsString = await responseMessage.Content.ReadAsStringAsync();
             outputHelper.WriteLine(sw.Elapsed.ToString());
-            if (sw.Elapsed > new TimeSpan(0, 0, 1))
+            if (sw.Elapsed > new TimeSpan(0, 0, 2))
             {
                 throw new Exception("Too long");
             }
