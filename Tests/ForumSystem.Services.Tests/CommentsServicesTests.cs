@@ -16,7 +16,7 @@ namespace ForumSystem.Services.Tests
     public class CommentsServicesTests
     {
         [Fact]
-        public async Task CreateMethodShouldAddCorrectNewCommentToDbAndToArticle()
+        public async Task CreateMethodShouldAddCorrectNewCommentToDbAndToPost()
         {
             var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>()
                 .UseInMemoryDatabase(Guid.NewGuid().ToString());
@@ -62,6 +62,46 @@ namespace ForumSystem.Services.Tests
             Assert.NotNull(dbContext.Comments.FirstOrDefaultAsync());
             Assert.Equal("testContent", dbContext.Comments.FirstAsync().Result.Content);
             Assert.Equal("AlexPanagyurski99", dbContext.Comments.FirstAsync().Result.UserId);
+        }
+
+        [Fact]
+        public async Task IsInPostMethodShouldReturnTrueIfCommentIsInPost()
+        {
+            var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>()
+                 .UseInMemoryDatabase(Guid.NewGuid().ToString());
+            var dbContext = new ApplicationDbContext(optionsBuilder.Options);
+
+            var commentsService = new EfDeletableEntityRepository<Comment>(dbContext);
+
+            var user = new ApplicationUser
+            {
+                Id = Guid.NewGuid().ToString(),
+                UserName = "Icaka99",
+            };
+
+            var post = new Post
+            {
+                Id = Guid.NewGuid().ToString(),
+                UserId=user.Id,
+            };
+
+            var comment = new Comment
+            {
+                Content = "testContent",
+                UserId = user.Id,
+                PostId = post.Id,
+            };
+            await dbContext.Users.AddAsync(user);
+            await dbContext.Posts.AddAsync(post);
+            await dbContext.Comments.AddAsync(comment);
+
+
+            await dbContext.SaveChangesAsync();
+
+
+            var result = commentsService.All().Count(x => x.PostId == comment.PostId);
+
+            Assert.Equal(1, result);
         }
     }
 }
