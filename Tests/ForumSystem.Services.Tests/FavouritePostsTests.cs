@@ -1,8 +1,10 @@
 ﻿using ForumSystem.Data;
+using ForumSystem.Data.Models;
 using ForumSystem.Data.Repositories;
 using ForumSystem.Services.Data;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Xunit;
 
