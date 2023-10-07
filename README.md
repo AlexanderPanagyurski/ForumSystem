@@ -35,6 +35,3 @@ To work with ForumSystem and be able to publish posts you need to have registrat
 - 7 services
 - 8 controllers
 - 19 views
-
-# Link to Azure
-- https://forumsystem.azurewebsites.net
